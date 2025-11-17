@@ -22,11 +22,11 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     flowType: 'pkce'
   },
   db: {
-    schema: "redpresu"
+    schema: "reserrega"
   },
   global: {
     headers: {
-      'X-Client-Info': 'redpresu-client'
+      'X-Client-Info': 'reserrega-client'
     }
   }
 })

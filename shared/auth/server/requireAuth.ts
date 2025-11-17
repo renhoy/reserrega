@@ -13,7 +13,7 @@ import type { AuthUser } from '../types/auth.types'
 
 /**
  * Require authentication (server-side)
- * Redirects to /auth/login if not authenticated
+ * Redirects to /login if not authenticated
  *
  * @param redirectTo - Optional redirect destination after login
  * @returns Authenticated user
@@ -40,15 +40,15 @@ export async function requireAuth(
   if (!user) {
     // Build redirect URL with return path
     const loginUrl = redirectTo
-      ? `/auth/login?redirect=${encodeURIComponent(redirectTo)}`
-      : '/auth/login'
+      ? `/login?redirect=${encodeURIComponent(redirectTo)}`
+      : '/login'
 
     redirect(loginUrl)
   }
 
   // Check if user is active
   if (user.status !== 'active') {
-    redirect('/auth/inactive')
+    redirect('/login?reason=inactive')
   }
 
   return user
@@ -64,7 +64,7 @@ export async function requireAuth(
  * @example
  * ```ts
  * const user = await requireAuthWithRedirect({
- *   redirectTo: '/auth/login',
+ *   redirectTo: '/login',
  *   returnTo: '/dashboard/settings'
  * })
  * ```
@@ -77,7 +77,7 @@ export async function requireAuthWithRedirect(options: {
   const user = await getUser()
 
   if (!user) {
-    const { redirectTo = '/auth/login', returnTo } = options
+    const { redirectTo = '/login', returnTo } = options
     const redirectUrl = returnTo
       ? `${redirectTo}?redirect=${encodeURIComponent(returnTo)}`
       : redirectTo
@@ -87,7 +87,7 @@ export async function requireAuthWithRedirect(options: {
 
   // Check status if required
   if (options.checkStatus !== false && user.status !== 'active') {
-    redirect('/auth/inactive')
+    redirect('/login?reason=inactive')
   }
 
   return user

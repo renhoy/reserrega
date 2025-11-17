@@ -61,7 +61,7 @@ export function ReservationForm({
 
   const handleConfirmReservation = async () => {
     if (!user) {
-      router.push('/auth/login')
+      router.push('/login')
       return
     }
 

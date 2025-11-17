@@ -32,7 +32,7 @@ export default async function FriendRequestsPage() {
   // Verify authentication
   const user = await getUser()
   if (!user) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   // Load friend requests

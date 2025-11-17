@@ -31,7 +31,7 @@ export default async function InviteFriendsPage() {
   // Verify authentication
   const user = await getUser()
   if (!user) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   return (

@@ -13,7 +13,7 @@ import type { AuthUser, UserRole } from '../types/auth.types'
 
 /**
  * Require specific role(s) (server-side)
- * Redirects to /auth/login if not authenticated
+ * Redirects to /login if not authenticated
  * Redirects to /unauthorized if lacks required role
  *
  * @param allowedRoles - Array of allowed roles
@@ -43,15 +43,15 @@ export async function requireRole(
   // Not authenticated
   if (!user) {
     const loginUrl = redirectTo
-      ? `/auth/login?redirect=${encodeURIComponent(redirectTo)}`
-      : '/auth/login'
+      ? `/login?redirect=${encodeURIComponent(redirectTo)}`
+      : '/login'
 
     redirect(loginUrl)
   }
 
   // Check status
   if (user.status !== 'active') {
-    redirect('/auth/inactive')
+    redirect('/login?reason=inactive')
   }
 
   // Normalize allowedRoles to array
@@ -177,11 +177,11 @@ export async function requireCompany(companyId: number): Promise<AuthUser> {
   const user = await getUser()
 
   if (!user) {
-    redirect('/auth/login')
+    redirect('/login')
   }
 
   if (user.status !== 'active') {
-    redirect('/auth/inactive')
+    redirect('/login?reason=inactive')
   }
 
   // Superadmin bypasses company check

@@ -1,6 +1,6 @@
-# Tareas - MÓDULO: Friends-Network
+# Tareas - MÓDULO: Gift-Flow
 
-## MÓDULO ACTIVO: Friends-Network 🔴
+## MÓDULO ACTIVO: Gift-Flow 🔴
 
 **Tareas Activas:** 0/7
 **Progreso:** 0%
@@ -27,169 +27,166 @@
 
 ### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-#### FN-001: Types y Utilidades Base
+#### GF-001: Types y Utilidades Base
 **Prioridad:** Crítica
-**Tiempo:** 1 hora
+**Tiempo:** 1-2 horas
 **Descripción:**
-- Definir types para FriendRequest, Invitation, FriendshipStatus
-- Crear utilidades para tokens de invitación
-- Helpers para formatear estados de solicitud
-- Utils para validar emails
+- Definir types para Gift, GiftLock, GiftTransaction
+- Utilidades para bloqueo temporal de productos
+- Helpers para calcular tiempos de bloqueo
+- Utils para validar estados de regalo
 
 **Archivos a crear:**
-- `features/friends-network/types/friends.types.ts`
-- `features/friends-network/lib/friends-utils.ts`
+- `features/gift-flow/types/gift.types.ts`
+- `features/gift-flow/lib/gift-utils.ts`
 
 **Criterio de aceptación:**
 - [ ] Types completos con JSDoc
-- [ ] FriendRequest, Invitation, SearchResult types
-- [ ] Función generateInvitationToken()
-- [ ] Función validateInvitationToken()
-- [ ] Función formatFriendRequestStatus()
+- [ ] Gift, GiftLock, GiftTransaction types
+- [ ] Función lockGiftItem() con timeout
+- [ ] Función releaseLock()
+- [ ] Función calculateLockExpiration()
+- [ ] Helpers para formatear estados de regalo
 
 ---
 
-#### FN-002: Componentes de Solicitudes
+#### GF-002: Componentes de Selección
 **Prioridad:** Crítica
 **Tiempo:** 2-3 horas
 **Descripción:**
-- FriendRequestCard (recibida y enviada)
-- Botones aprobar/rechazar/cancelar
-- Estados visuales (pending/accepted/rejected)
-- Información del usuario (avatar, nombre, email)
+- GiftSelectionCard para mostrar productos del wishlist
+- Indicador de producto bloqueado por otro usuario
+- Botón de seleccionar/desbloquear
+- Badge con tiempo restante de bloqueo
 
 **Archivos a crear:**
-- `features/friends-network/components/FriendRequestCard.tsx`
-- `features/friends-network/components/FriendRequestsList.tsx`
+- `features/gift-flow/components/GiftSelectionCard.tsx`
+- `features/gift-flow/components/FriendWishlistView.tsx`
 
 **Criterio de aceptación:**
-- [ ] FriendRequestCard muestra info de usuario
-- [ ] Botones aprobar/rechazar funcionales
-- [ ] Estados visuales claros
-- [ ] Lista de solicitudes con separación recibidas/enviadas
+- [ ] GiftSelectionCard muestra info del producto
+- [ ] Indicador visual de productos bloqueados
+- [ ] Badge con countdown de bloqueo
+- [ ] Botón seleccionar funcional
+- [ ] Solo mostrar productos disponibles del wishlist
 - [ ] Responsive design
 
 ---
 
-#### FN-003: Componentes de Lista y Búsqueda
-**Prioridad:** Crítica
-**Tiempo:** 2-3 horas
-**Descripción:**
-- FriendsList component (grid/list view)
-- UserSearchBar con debounce
-- Resultados de búsqueda
-- InviteFriendForm (email)
-
-**Archivos a crear:**
-- `features/friends-network/components/FriendsList.tsx`
-- `features/friends-network/components/FriendCard.tsx`
-- `features/friends-network/components/UserSearchBar.tsx`
-- `features/friends-network/components/InviteFriendForm.tsx`
-
-**Criterio de aceptación:**
-- [ ] FriendsList muestra todos los amigos
-- [ ] FriendCard con avatar, nombre, y acciones
-- [ ] Búsqueda con debounce (300ms)
-- [ ] Formulario de invitación por email
-- [ ] Empty states
-
----
-
-#### FN-004: Server Actions
+#### GF-003: Componentes de Checkout
 **Prioridad:** Crítica
 **Tiempo:** 3-4 horas
 **Descripción:**
-- getFriends - obtener lista de amigos
-- sendFriendRequest - enviar solicitud
-- acceptFriendRequest - aceptar solicitud
-- rejectFriendRequest - rechazar solicitud
-- searchUsers - buscar por username/email
-- sendInvitationEmail - invitar por email
-- validateInvitationToken - validar token de invitación
+- GiftCheckoutForm con datos de pago simulado
+- Resumen del producto seleccionado
+- Confirmación antes de completar
+- GiftConfirmation con detalles de la orden
 
 **Archivos a crear:**
-- `features/friends-network/actions/getFriends.ts`
-- `features/friends-network/actions/sendFriendRequest.ts`
-- `features/friends-network/actions/manageFriendRequest.ts`
-- `features/friends-network/actions/searchUsers.ts`
-- `features/friends-network/actions/generateInvitation.ts`
+- `features/gift-flow/components/GiftCheckoutForm.tsx`
+- `features/gift-flow/components/GiftConfirmation.tsx`
+- `features/gift-flow/components/GiftSummary.tsx`
 
 **Criterio de aceptación:**
-- [ ] getFriends con paginación
-- [ ] sendFriendRequest valida no duplicados
-- [ ] acceptFriendRequest crea relación bidireccional
-- [ ] searchUsers busca por nombre y email
-- [ ] sendInvitationEmail genera token único
-- [ ] validateInvitationToken verifica expiración
+- [ ] Formulario de pago simulado
+- [ ] Resumen del producto y precio
+- [ ] Confirmación de orden
+- [ ] GiftConfirmation muestra número de orden
+- [ ] Info de tracking
+- [ ] Email de confirmación (simul ado)
+
+---
+
+#### GF-004: Server Actions
+**Prioridad:** Crítica
+**Tiempo:** 4-5 horas
+**Descripción:**
+- viewFriendWishlist - ver wishlist de un amigo
+- lockGiftItem - bloquear producto temporalmente
+- processGiftPayment - procesar pago simulado
+- confirmGiftDelivery - marcar como entregado
+- getGiftHistory - historial de regalos enviados
+- releaseExpiredLocks - liberar bloqueos expirados
+
+**Archivos a crear:**
+- `features/gift-flow/actions/gift-flow.actions.ts`
+
+**Criterio de aceptación:**
+- [ ] viewFriendWishlist verifica que sean amigos
+- [ ] lockGiftItem bloquea por 15 minutos
+- [ ] processGiftPayment actualiza estados (available → in_process)
+- [ ] confirmGiftDelivery marca como gifted
+- [ ] getGiftHistory muestra regalos enviados
+- [ ] releaseExpiredLocks limpia bloqueos antiguos
 - [ ] Validación de permisos en todas las acciones
 
 ---
 
-#### FN-005: Hooks de Gestión
+#### GF-005: Hooks de Gestión
 **Prioridad:** Crítica
-**Tiempo:** 2 horas
+**Tiempo:** 2-3 horas
 **Descripción:**
-- useFriends hook para gestionar amigos
-- useFriendRequests hook para solicitudes
-- useUserSearch hook para búsqueda
-- useInvitation hook para invitaciones
+- useGiftFlow hook para gestionar flujo completo
+- useGiftLock para manejar bloqueos
+- useDeliveryTracking para seguimiento
+- useGiftHistory para historial
 - Optimistic updates
 
 **Archivos a crear:**
-- `features/friends-network/hooks/useFriends.ts`
-- `features/friends-network/hooks/useFriendRequests.ts`
-- `features/friends-network/hooks/useUserSearch.ts`
-- `features/friends-network/hooks/useInvitation.ts`
+- `features/gift-flow/hooks/use-gift-flow.ts`
 
 **Criterio de aceptación:**
-- [ ] useFriends con loading states
-- [ ] useFriendRequests separado por recibidas/enviadas
-- [ ] useUserSearch con debounce
-- [ ] useInvitation para enviar invitaciones
-- [ ] Optimistic updates en aprobar/rechazar
+- [ ] useGiftFlow con estados (viewing, selecting, checkout, confirmed)
+- [ ] useGiftLock con countdown timer
+- [ ] useDeliveryTracking con polling
+- [ ] useGiftHistory con paginación
+- [ ] Optimistic updates en todas las acciones
+- [ ] Auto-release de bloqueos al salir
 
 ---
 
-#### FN-006: Páginas y Rutas
+#### GF-006: Páginas y Rutas
 **Prioridad:** Crítica
-**Tiempo:** 3 horas
+**Tiempo:** 3-4 horas
 **Descripción:**
-- Página de amigos (/friends)
-- Página de solicitudes (/friends/requests)
-- Página de invitar (/friends/invite)
+- Página de wishlist de amigo (/gift/[friendId])
+- Página de checkout (/gift/[friendId]/checkout)
+- Página de historial de regalos (/gift/history)
 - Protección de rutas
 
 **Archivos a crear:**
-- `src/app/(user)/friends/page.tsx`
-- `src/app/(user)/friends/requests/page.tsx`
-- `src/app/(user)/friends/invite/page.tsx`
+- `src/app/(app)/gift/[friendId]/page.tsx`
+- `src/app/(app)/gift/[friendId]/checkout/page.tsx`
+- `src/app/(app)/gift/history/page.tsx`
 
 **Criterio de aceptación:**
-- [ ] /friends muestra lista de amigos + búsqueda
-- [ ] /friends/requests muestra solicitudes recibidas y enviadas
-- [ ] /friends/invite permite invitar por email
-- [ ] Tabs para navegación entre secciones
+- [ ] /gift/[friendId] muestra wishlist del amigo
+- [ ] Solo productos available/in_process visibles
+- [ ] /gift/[friendId]/checkout muestra formulario de pago
+- [ ] /gift/history muestra regalos enviados
 - [ ] Protección con requireAuth()
+- [ ] Verificar que sean amigos antes de mostrar wishlist
 - [ ] Loading states y empty states
 
 ---
 
-#### FN-007: README y Documentación
+#### GF-007: README y Documentación
 **Prioridad:** Crítica
 **Tiempo:** 1 hora
 **Descripción:**
 - README del módulo
-- Documentar componentes
-- Documentar flujo completo
+- Documentar flujo completo de regalo
+- Documentar sistema de bloqueo
 - Ejemplos de uso
 
 **Archivos a crear:**
-- `features/friends-network/README.md`
-- `features/friends-network/index.ts`
+- `features/gift-flow/README.md`
+- `features/gift-flow/index.ts`
 
 **Criterio de aceptación:**
 - [ ] README completo
-- [ ] Flujo documentado paso a paso
+- [ ] Flujo de regalo documentado paso a paso
+- [ ] Sistema de bloqueo explicado
 - [ ] Ejemplos de uso
 - [ ] Exports organizados
 
@@ -197,113 +194,100 @@
 
 ### 🟡 ALTA PRIORIDAD (Mejoran calidad pero no bloquean)
 
-#### FN-008: QR Friend Add (Opcional)
+#### GF-008: Notificaciones de Regalo
 **Prioridad:** Alta
-**Tiempo:** 2-3 horas
+**Tiempo:** 2 horas
 **Descripción:**
-- Generar QR con userId
-- Escanear QR de otro usuario
-- Enviar solicitud automáticamente
-
-**Archivos a crear:**
-- `features/friends-network/components/FriendQRGenerator.tsx`
-- `features/friends-network/components/FriendQRScanner.tsx`
-- `features/friends-network/actions/addFriendByQR.ts`
+- Notificar al receptor cuando alguien regala
+- Notificar al remitente cuando se entrega
+- Badge con productos en proceso
 
 ---
 
-#### FN-009: Notificaciones de Solicitudes
+#### GF-009: Vaquitas (Crowdfunding)
 **Prioridad:** Alta
-**Tiempo:** 1 hora
+**Tiempo:** 4-5 horas
 **Descripción:**
-- Notificar cuando recibes solicitud
-- Notificar cuando aceptan/rechazan
-- Badge con contador de pendientes
+- Permitir contribuciones parciales
+- Pool de contribuyentes
+- Liberar pago cuando se completa objetivo
+- Refund si no se completa en tiempo
 
 ---
 
 ## ARCHIVOS DE ESTE MÓDULO
 
 ```
-features/friends-network/
+features/gift-flow/
 ├── components/
-│   ├── FriendsList.tsx              # FN-003
-│   ├── FriendCard.tsx               # FN-003
-│   ├── FriendRequestCard.tsx        # FN-002
-│   ├── FriendRequestsList.tsx       # FN-002
-│   ├── UserSearchBar.tsx            # FN-003
-│   ├── InviteFriendForm.tsx         # FN-003
-│   ├── FriendQRGenerator.tsx        # FN-008 (opcional)
-│   └── FriendQRScanner.tsx          # FN-008 (opcional)
+│   ├── GiftSelectionCard.tsx        # GF-002
+│   ├── FriendWishlistView.tsx       # GF-002
+│   ├── GiftCheckoutForm.tsx         # GF-003
+│   ├── GiftConfirmation.tsx         # GF-003
+│   ├── GiftSummary.tsx              # GF-003
+│   ├── DeliveryTracking.tsx         # GF-005
+│   └── GiftHistory.tsx              # GF-005
 ├── actions/
-│   ├── getFriends.ts                # FN-004
-│   ├── sendFriendRequest.ts         # FN-004
-│   ├── manageFriendRequest.ts       # FN-004
-│   ├── searchUsers.ts               # FN-004
-│   └── generateInvitation.ts        # FN-004
+│   └── gift-flow.actions.ts         # GF-004
 ├── hooks/
-│   ├── useFriends.ts                # FN-005
-│   ├── useFriendRequests.ts         # FN-005
-│   ├── useUserSearch.ts             # FN-005
-│   └── useInvitation.ts             # FN-005
+│   └── use-gift-flow.ts             # GF-005
 ├── lib/
-│   └── friends-utils.ts             # FN-001
+│   └── gift-utils.ts                # GF-001
 ├── types/
-│   └── friends.types.ts             # FN-001
-├── README.md                         # FN-007
-└── index.ts                          # FN-007
+│   └── gift.types.ts                # GF-001
+├── README.md                         # GF-007
+└── index.ts                          # GF-007
 
 src/app/
-└── (user)/
-    └── friends/
-        ├── page.tsx                 # FN-006
-        ├── requests/
-        │   └── page.tsx             # FN-006
-        └── invite/
-            └── page.tsx             # FN-006
+└── (app)/
+    └── gift/
+        ├── [friendId]/
+        │   ├── page.tsx             # GF-006
+        │   └── checkout/
+        │       └── page.tsx         # GF-006
+        └── history/
+            └── page.tsx             # GF-006
 ```
 
 ---
 
 ## NOTAS IMPORTANTES
 
-- **Orden sugerido:** FN-001 → FN-002 → FN-003 → FN-004 → FN-005 → FN-006 → FN-007
-- **Bloqueos:** FN-002 necesita FN-001, FN-003 necesita FN-001, etc.
-- **Estados solicitud:** pending, accepted, rejected
-- **Tokens invitación:** UUID v4 con expiración 7 días
-- **Búsqueda:** Por username (campo `name` en users) y email
-- **Relación bidireccional:** Al aceptar solicitud, se crea 1 registro con status=accepted
-- **Tabla:** friend_requests (sender_id, recipient_id, status, invitation_token, invitation_email)
+- **Orden sugerido:** GF-001 → GF-002 → GF-003 → GF-004 → GF-005 → GF-006 → GF-007
+- **Bloqueos:** GF-002 necesita GF-001, GF-003 necesita GF-001, etc.
+- **Estados de producto:** available, in_process, gifted, expired
+- **Bloqueo temporal:** 15 minutos para completar compra
+- **Tabla gift_locks:** Registra bloqueos temporales con expiración
+- **Tabla gifts:** Registra regalos completados (giver_id, receiver_id, product_id, status)
+- **Verificación:** Solo amigos pueden ver wishlists con visibilidad "friends"
 
 ---
 
 ## FLUJO COMPLETO
 
-### Flujo 1: Buscar y Añadir Amigo (usuario registrado)
-1. Usuario va a /friends
-2. Usa UserSearchBar para buscar por nombre o email
-3. Ve resultados y hace click en "Añadir amigo"
-4. Se crea friend_request con status=pending
-5. Destinatario recibe notificación
-6. Destinatario va a /friends/requests
-7. Aprueba o rechaza solicitud
-8. Si aprueba → ambos son amigos (status=accepted)
+### Flujo Principal: Regalar un Producto
 
-### Flujo 2: Invitar por Email (usuario no registrado)
-1. Usuario va a /friends/invite
-2. Ingresa email del amigo
-3. Sistema genera invitation_token único
-4. Envía email con link: /register?token={token}
-5. Amigo hace click y se registra
-6. Al completar registro, friend_request se actualiza con recipient_id
-7. Amistad se crea automáticamente (status=accepted)
+1. Usuario va a /friends y selecciona un amigo
+2. Click en "Ver wishlist" → redirige a /gift/[friendId]
+3. Ve productos available e in_process del amigo
+4. Selecciona un producto → se bloquea temporalmente (15 min)
+5. Sistema verifica que producto está available
+6. Redirige a /gift/[friendId]/checkout
+7. Formulario de pago simulado con countdown de bloqueo
+8. Confirma pago → estado cambia a in_process
+9. Registro en tabla gifts (giver_id, receiver_id, product_id)
+10. Página de confirmación con número de orden
+11. Amigo ve producto como "in_process" en su wishlist
+12. Comercial marca como entregado
+13. Estado cambia a gifted
+14. Notificación al remitente y receptor
 
-### Flujo 3: QR Add Friend (opcional - FN-008)
-1. Usuario A genera QR en /friends/invite
-2. Usuario B escanea QR (contiene userId de A)
-3. Se crea friend_request automáticamente
-4. Usuario A aprueba en /friends/requests
-5. Amistad creada
+### Bloqueo Temporal
+
+- Duración: 15 minutos
+- Propósito: Evitar que varios amigos compren el mismo regalo
+- Liberación automática: Si no completa checkout en 15 min
+- Visible para otros: Badge "Alguien está regalando esto" en el producto
 
 ---
 
@@ -311,17 +295,17 @@ src/app/
 
 **Cuando todas las CRÍTICAS estén hechas:**
 
-1. [ ] Flujo completo funcionando (búsqueda, envío, aprobación)
-2. [ ] Invitaciones por email funcionales
-3. [ ] Lista de amigos visible
-4. [ ] Solicitudes recibidas y enviadas funcionan
-5. [ ] Aprobar/rechazar funcional
-6. [ ] Búsqueda por nombre/email funciona
-7. [ ] README.md escrito (FN-007)
-8. [ ] Actualizar PRD.md → estado Friends-Network = READ-ONLY
-9. [ ] Mover a claude.md → features/friends-network/* a PROHIBIDOS
-10. [ ] Cambiar MÓDULO ACTUAL en claude.md → Gift-Flow
-11. [ ] Crear nuevo backlog en este archivo para Gift-Flow
+1. [ ] Flujo completo funcionando (ver wishlist, seleccionar, pagar)
+2. [ ] Bloqueo temporal funcional con countdown
+3. [ ] Solo amigos pueden ver wishlists
+4. [ ] Checkout con pago simulado
+5. [ ] Confirmación de regalo funcional
+6. [ ] Historial de regalos enviados
+7. [ ] README.md escrito (GF-007)
+8. [ ] Actualizar PRD.md → estado Gift-Flow = READ-ONLY
+9. [ ] Mover a claude.md → features/gift-flow/* a PROHIBIDOS
+10. [ ] Cambiar MÓDULO ACTUAL en claude.md → Store-Panel
+11. [ ] Crear nuevo backlog en este archivo para Store-Panel
 
 ---
 
@@ -332,27 +316,29 @@ src/app/
 ✅ **Common** - UI components, layouts, hooks, utilidades
 ✅ **Product-Reservation** - QR generator, scanners, reservas, pago simulado
 ✅ **Wishlist** - Grid, filtros, visibilidad, badges, páginas usuario
+✅ **Friends-Network** - Solicitudes amistad, búsqueda usuarios, invitaciones email
 
 ---
 
-## MÓDULO ANTERIOR: Wishlist ✅ COMPLETADO
+## MÓDULO ANTERIOR: Friends-Network ✅ COMPLETADO
 
-**Fecha completado:** 2025-11-17
+**Fecha completado:** 2025-01-17
 
 **Tareas completadas:**
-- ✅ WL-001: Types y Utilidades Base
-- ✅ WL-002: Componentes Base UI (ProductStatusBadge, WishlistItem)
-- ✅ WL-003: Grid y Controles de Visibilidad
-- ✅ WL-004: Server Actions (getWishlist, updateStatus, updateVisibility)
-- ✅ WL-005: Hook useWishlist con optimistic updates
-- ✅ WL-006: Páginas /wishlist y /wishlist/[id]
-- ✅ WL-007: README y Documentación
+- ✅ FN-001: Types y Utilidades Base
+- ✅ FN-002: Componentes de Solicitudes
+- ✅ FN-003: Componentes de Lista y Búsqueda
+- ✅ FN-004: Server Actions
+- ✅ FN-005: Hooks de Gestión
+- ✅ FN-006: Páginas y Rutas
+- ✅ FN-007: README y Documentación
 
 **Funcionalidad entregada:**
-- Grid responsivo con filtros por estado
-- Control de visibilidad (privado/amigos/público)
-- ProductStatusBadge con colores según estado
-- Warnings de expiración para productos
-- Optimistic UI updates con rollback automático
-- Estadísticas en tiempo real
-- Páginas de lista y detalle completas
+- Solicitudes de amistad (enviar, aceptar, rechazar, cancelar)
+- Búsqueda de usuarios con estado de amistad
+- Invitaciones por email con tokens seguros (7 días expiración)
+- Gestión de red de amigos bidireccional
+- Páginas /friends, /friends/requests, /friends/invite
+- Hooks personalizados (useFriends, useFriendRequests, useUserSearch, useInvitation)
+- Validación de permisos y prevención de duplicados
+- Debounce personalizado sin dependencias externas

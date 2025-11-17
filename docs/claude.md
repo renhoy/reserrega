@@ -1,45 +1,44 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Friends-Network 🔴
+## MÓDULO ACTUAL: Gift-Flow 🔴
 
-**Objetivo:** Sistema de amigos - invitar por email/QR, búsqueda de usuarios, solicitudes de amistad, gestionar red de regaladores
+**Objetivo:** Flujo completo de regalo - ver wishlist de amigo, seleccionar producto, bloqueo temporal, pago simulado, confirmación de entrega
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/friends-network/
+features/gift-flow/
 ├── components/
-│   ├── FriendsList.tsx
-│   ├── FriendRequestCard.tsx
-│   ├── InviteFriendForm.tsx
-│   ├── FriendQRGenerator.tsx
-│   ├── FriendQRScanner.tsx
-│   └── UserSearchBar.tsx
+│   ├── GiftSelectionCard.tsx
+│   ├── GiftCheckoutForm.tsx
+│   ├── GiftConfirmation.tsx
+│   ├── DeliveryTracking.tsx
+│   └── GiftHistory.tsx
 ├── actions/
-│   ├── getFriends.ts
-│   ├── sendFriendRequest.ts
-│   ├── manageFriendRequest.ts
-│   ├── searchUsers.ts
-│   └── generateInvitation.ts
+│   ├── lockGiftItem.ts
+│   ├── processGiftPayment.ts
+│   ├── confirmDelivery.ts
+│   └── getGiftHistory.ts
 ├── hooks/
-│   ├── useFriends.ts
-│   └── useInvitation.ts
+│   ├── useGiftFlow.ts
+│   └── useDeliveryTracking.ts
 ├── lib/
-│   └── friends-utils.ts
+│   └── gift-utils.ts
 ├── types/
-│   └── friends.types.ts
+│   └── gift.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
-├── (user)/
-│   ├── friends/
-│   │   ├── page.tsx
-│   │   ├── requests/
-│   │   │   └── page.tsx
-│   │   └── invite/
+├── (app)/
+│   ├── gift/
+│   │   ├── [friendId]/
+│   │   │   ├── page.tsx
+│   │   │   └── checkout/
+│   │   │       └── page.tsx
+│   │   └── history/
 │   │       └── page.tsx
 ```
 
@@ -78,10 +77,19 @@ src/app/
   - Control de visibilidad (privado/amigos/público)
   - Badges de estado con warnings de expiración
   - Optimistic UI updates
-  - Páginas /wishlist y /wishlist/[id]
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados - excepto Friends-Network)
+✅ features/friends-network/* (READ-ONLY - Módulo completado)
+  - Solicitudes de amistad (enviar, aceptar, rechazar, cancelar)
+  - Búsqueda de usuarios con estado de amistad
+  - Invitaciones por email con tokens seguros
+  - Gestión de red de amigos
+  - Páginas de amigos, solicitudes e invitaciones
+  - Hooks personalizados (useFriends, useFriendRequests, useUserSearch, useInvitation)
+  - Páginas /friends, /friends/requests, /friends/invite
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Gift-Flow)
 ❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 

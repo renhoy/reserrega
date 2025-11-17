@@ -53,10 +53,10 @@
 **Completado:** Grid responsivo, filtros por estado, control visibilidad, badges de estado, warnings expiración, páginas usuario
 
 #### 6. Friends-Network
-**Estado:** Pendiente  
-**Propósito:** Invitar amigos (email/QR/búsqueda), solicitudes amistad, red de regaladores  
-**Archivos:** `features/friends-network/`  
-**Depende de:** Database, Auth, Wishlist
+**Estado:** ✅ READ-ONLY (Completado)
+**Propósito:** Invitar amigos (email/QR/búsqueda), solicitudes amistad, red de regaladores
+**Archivos:** `features/friends-network/`
+**Completado:** Solicitudes de amistad, búsqueda de usuarios, invitaciones por email con tokens, gestión de amigos, páginas de amigos/solicitudes/invitar, hooks personalizados, validación de permisos
 
 #### 7. Gift-Flow
 **Estado:** Pendiente  

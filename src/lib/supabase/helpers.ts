@@ -2,7 +2,7 @@
  * Helpers para crear clientes Supabase con configuración correcta de schema
  *
  * IMPORTANTE: Usar estos helpers en lugar de crear clientes directamente
- * para asegurar que todos usen el schema 'redpresu'
+ * para asegurar que todos usen el schema 'reserrega'
  *
  * NOTA: Estos helpers usan createClient directamente en lugar de los wrappers
  * de auth-helpers porque esos wrappers NO respetan la configuración de schema
@@ -25,7 +25,7 @@ if (!supabaseAnonKey) {
 
 // Configuración compartida
 const supabaseConfig = {
-  db: { schema: 'redpresu' },
+  db: { schema: 'reserrega' },
   auth: {
     autoRefreshToken: true,
     persistSession: true,
@@ -34,7 +34,7 @@ const supabaseConfig = {
   },
   global: {
     headers: {
-      'x-client-info': 'redpresu-client'
+      'x-client-info': 'reserrega-client'
     }
   }
 }

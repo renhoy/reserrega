@@ -2,8 +2,8 @@
 
 ## MÓDULO ACTIVO: Gift-Flow 🔴
 
-**Tareas Activas:** 0/7
-**Progreso:** 0%
+**Tareas Activas:** 1/7
+**Progreso:** 14%
 
 ---
 
@@ -41,12 +41,14 @@
 - `features/gift-flow/lib/gift-utils.ts`
 
 **Criterio de aceptación:**
-- [ ] Types completos con JSDoc
-- [ ] Gift, GiftLock, GiftTransaction types
-- [ ] Función lockGiftItem() con timeout
-- [ ] Función releaseLock()
-- [ ] Función calculateLockExpiration()
-- [ ] Helpers para formatear estados de regalo
+- [x] Types completos con JSDoc
+- [x] Gift, GiftLock, GiftTransaction types
+- [x] Función lockGiftItem() con timeout
+- [x] Función releaseLock()
+- [x] Función calculateLockExpiration()
+- [x] Helpers para formatear estados de regalo
+
+**Estado:** ✅ COMPLETADA (2025-01-17)
 
 ---
 

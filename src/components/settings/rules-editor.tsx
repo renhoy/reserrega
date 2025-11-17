@@ -1,7 +1,7 @@
 'use client';
 
 // ============================================================
-// RulesEditor Component - Redpresu
+// RulesEditor Component - Reserrega
 // Editor de reglas de negocio para superadmin
 // ============================================================
 
@@ -63,20 +63,20 @@ export function RulesEditor({ selectedCompanyId, onCompanyChange }: RulesEditorP
       updated_by: 'admin@example.com',
       rules: [
         {
-          id: 'limit-tariffs-pro-plan',
-          name: 'Limitar tarifas en plan PRO',
-          description: 'Plan PRO: máximo 50 tarifas',
+          id: 'limit-products-pro-plan',
+          name: 'Limitar productos en wishlist para plan PRO',
+          description: 'Plan PRO: máximo 100 productos en wishlist',
           active: true,
           priority: 10,
           condition: {
             and: [
               { '==': [{ var: 'plan' }, 'PRO'] },
-              { '>=': [{ var: 'tariffs_count' }, 50] }
+              { '>=': [{ var: 'products_count' }, 100] }
             ]
           },
           action: {
             allow: false,
-            message: 'Has alcanzado el límite de 50 tarifas para tu plan PRO. Contacta con soporte para ampliar tu plan.'
+            message: 'Has alcanzado el límite de 100 productos en tu wishlist para el plan PRO. Contacta con soporte para ampliar tu plan.'
           }
         }
       ]

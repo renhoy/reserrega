@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getServerUser } from "@/lib/auth/server";
+import { getUser } from "@/shared/auth/server";
 import {
   isPublicRegistrationEnabled,
   getSubscriptionsEnabled,
@@ -13,7 +13,7 @@ import { RegisterClosedDialog } from "@/components/auth/RegisterClosedDialog";
 
 export default async function RegisterPage() {
   // Verificar si el usuario ya está autenticado
-  const user = await getServerUser();
+  const user = await getUser();
 
   if (user) {
     // Redirigir según rol
@@ -22,9 +22,9 @@ export default async function RegisterPage() {
       case "admin":
         redirect("/dashboard");
       case "comercial":
-        redirect("/budgets");
+        redirect("/scan");
       default:
-        redirect("/dashboard");
+        redirect("/wishlist");
     }
   }
 
@@ -38,8 +38,7 @@ export default async function RegisterPage() {
       <>
         <Header isAuthenticated={false} />
         <div
-          className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-          style={{ background: "#f7fee7" }}
+          className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 to-purple-50"
         >
           <div className="w-full max-w-2xl space-y-8">
             {/* Formulario de registro (deshabilitado visualmente) */}
@@ -68,12 +67,11 @@ export default async function RegisterPage() {
       <>
         <Header isAuthenticated={false} />
         <div
-          className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-          style={{ background: "#f7fee7" }}
+          className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 to-purple-50"
         >
           <div className="w-full max-w-md space-y-8">
             {/* Mensaje de registro deshabilitado */}
-            <Alert className="border-amber-500 bg-lime-50">
+            <Alert className="border-amber-500 bg-amber-50">
               <Lock className="h-4 w-4 text-amber-600" />
               <AlertDescription className="text-amber-800">
                 <p className="font-semibold mb-2">
@@ -90,7 +88,7 @@ export default async function RegisterPage() {
             <div className="text-center">
               <Link
                 href="/login"
-                className="text-sm text-lime-600 hover:text-lime-700 font-medium"
+                className="text-sm text-pink-600 hover:text-pink-700 font-medium"
               >
                 Volver al inicio de sesión
               </Link>
@@ -105,8 +103,7 @@ export default async function RegisterPage() {
     <>
       <Header isAuthenticated={false} />
       <div
-        className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-        style={{ background: "#f7fee7" }}
+        className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 to-purple-50"
       >
         <div className="w-full max-w-2xl space-y-8">
           {/* Formulario de registro */}

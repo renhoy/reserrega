@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { getServerUser } from "@/lib/auth/server";
+import { getUser } from "@/shared/auth/server";
 import { isDevelopmentMode, getAppName } from "@/lib/helpers/config-helpers";
 import LoginForm from "@/components/auth/LoginForm";
 import { InactiveUserDialog } from "@/components/auth/InactiveUserDialog";
-import { FileText } from "lucide-react";
+import { Gift } from "lucide-react";
 
 interface LoginPageProps {
   searchParams: Promise<{ reason?: string }>;
@@ -14,7 +14,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const { reason } = await searchParams;
 
   // Verificar si el usuario ya está autenticado
-  const user = await getServerUser();
+  const user = await getUser();
 
   if (user) {
     // Redirigir según rol
@@ -23,9 +23,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
       case "admin":
         redirect("/dashboard");
       case "comercial":
-        redirect("/budgets");
+        redirect("/scan");
       default:
-        redirect("/dashboard");
+        redirect("/wishlist");
     }
   }
 
@@ -35,8 +35,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-      style={{ background: "#f7fee7" }}
+      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 to-purple-50"
     >
       <div className="w-full max-w-md space-y-8">
         {/* Header con logo/título */}
@@ -45,13 +44,13 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
             href="/"
             className="inline-block hover:opacity-80 transition-opacity"
           >
-            <div className="mx-auto h-12 w-12 bg-lime-500 rounded-lg flex items-center justify-center mb-4">
-              <FileText className="h-7 w-7 text-white" />
+            <div className="mx-auto h-12 w-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-pink-500/30">
+              <Gift className="h-7 w-7 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900">{appName}</h2>
           </Link>
           <p className="mt-2 text-sm text-gray-600">
-            Sistema de gestión de presupuestos profesionales
+            La app de regalos perfectos - Reserva, comparte y regala
           </p>
         </div>
 

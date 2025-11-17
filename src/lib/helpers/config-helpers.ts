@@ -212,11 +212,11 @@ export async function isPublicRegistrationEnabled(): Promise<boolean> {
 
 /**
  * Obtiene el nombre de la aplicación
- * @returns Nombre de la aplicación (por defecto 'Redpresu')
+ * @returns Nombre de la aplicación (por defecto 'Reserva y Regala')
  */
 export async function getAppName(): Promise<string> {
   const name = await getConfigValue<string>('app_name')
-  return name || 'Redpresu'
+  return name || 'Reserva y Regala'
 }
 
 /**

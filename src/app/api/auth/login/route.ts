@@ -63,8 +63,17 @@ export async function POST(request: NextRequest) {
 
     if (userError || !userData) {
       console.error('[API /auth/login] Error obteniendo usuario:', userError)
+      console.error('[API /auth/login] User ID:', data.user.id)
+      console.error('[API /auth/login] User email:', data.user.email)
+
+      // Cerrar sesión de Supabase Auth ya que el usuario no existe en nuestra tabla
+      await supabase.auth.signOut()
+
       return NextResponse.json(
-        { success: false, error: 'Error al obtener datos del usuario' },
+        {
+          success: false,
+          error: 'Usuario no encontrado en el sistema. Por favor contacte con soporte.'
+        },
         { status: 500 }
       )
     }
@@ -94,8 +103,13 @@ export async function POST(request: NextRequest) {
 
     console.log('[API /auth/login] Login exitoso:', data.user.email, 'Rol:', userData.role)
 
-    // Determinar a dónde redirigir
-    const redirectTo = userData.role === 'comercial' ? '/budgets' : '/dashboard'
+    // Determinar a dónde redirigir según rol
+    let redirectTo = '/dashboard'
+    if (userData.role === 'comercial') {
+      redirectTo = '/scan'
+    } else if (userData.role === 'usuario') {
+      redirectTo = '/wishlist'
+    }
 
     // Crear response
     const response = NextResponse.json({

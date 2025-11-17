@@ -31,8 +31,8 @@ import { Badge } from "@/components/ui/badge";
 
 interface UserMenuProps {
   userId?: string;
-  userName: string;
-  userRole: string;
+  userName?: string;
+  userRole?: string;
   companyName?: string;
   issuerType?: string;
   currentPlan?: string;
@@ -52,7 +52,7 @@ export function UserMenu({
 }: UserMenuProps) {
   const [open, setOpen] = useState(false);
 
-  const getRoleLabel = (role: string) => {
+  const getRoleLabel = (role?: string) => {
     switch (role) {
       case "superadmin":
         return "Super Admin";
@@ -88,7 +88,7 @@ export function UserMenu({
           <CircleUser className="h-8 w-8 text-gray-700" />
           <div className="hidden lg:flex flex-col items-start">
             <span className="text-sm font-medium text-gray-900">
-              {userName}
+              {userName || "Usuario"}
             </span>
             <span className="text-xs text-gray-500">
               {getRoleLabel(userRole)}
@@ -103,7 +103,7 @@ export function UserMenu({
         <DropdownMenuLabel>
           {/* Primera sección: Nombre y Rol */}
           <div className="py-1.5 flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{userName}</p>
+            <p className="text-sm font-medium leading-none">{userName || "Usuario"}</p>
             <p className="text-xs leading-none text-muted-foreground">
               {getRoleLabel(userRole)}
             </p>
@@ -114,7 +114,7 @@ export function UserMenu({
           {/* Segunda sección: Empresa y Tipo */}
           <div className="py-1.5 flex flex-col space-y-1">
             <p className="text-xs font-medium leading-none mt-2">
-              {companyName || userName}
+              {companyName || userName || "Usuario"}
             </p>
             {issuerType && (
               <p className="text-[10px] text-muted-foreground leading-none">

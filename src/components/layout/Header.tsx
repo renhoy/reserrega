@@ -53,12 +53,12 @@ export function Header({
   // Si no está autenticado, mostrar header público
   if (!isAuthenticated) {
     return (
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-pink-100">
+      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-lime-100">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+              <div className="w-8 h-8 bg-gradient-to-br from-lime-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md">
                 <Gift className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">{appName}</span>
@@ -70,7 +70,7 @@ export function Header({
               {multiempresa && subscriptionsEnabled && (
                 <Link
                   href="/pricing"
-                  className="text-gray-700 hover:text-pink-600 transition-colors font-medium"
+                  className="text-gray-700 hover:text-lime-600 transition-colors font-medium"
                 >
                   Precios
                 </Link>
@@ -78,14 +78,14 @@ export function Header({
               {/* Solo mostrar Registro en modo multiempresa */}
               {multiempresa && (
                 <Link href="/register">
-                  <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30 transition-all">
+                  <Button className="bg-gradient-to-r from-lime-500 to-emerald-500 hover:shadow-lg hover:shadow-lime-500/30 transition-all">
                     Registro
                   </Button>
                 </Link>
               )}
               <Link
                 href="/login"
-                className="text-gray-700 hover:text-pink-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-lime-600 transition-colors font-medium"
               >
                 Acceso
               </Link>
@@ -138,7 +138,7 @@ export function Header({
   }, [userRole, userName, navigation]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-pink-100">
+    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-lime-100">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -146,7 +146,7 @@ export function Header({
             href={isAdmin ? "/dashboard" : userRole === "comercial" ? "/scan" : "/wishlist"}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+            <div className="w-8 h-8 bg-gradient-to-br from-lime-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md">
               <Gift className="h-5 w-5 text-white" />
             </div>
             <span className="text-xl font-bold text-gray-900">{appName}</span>
@@ -171,8 +171,8 @@ export function Header({
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
                     isActive
-                      ? "bg-pink-50 text-pink-700"
-                      : "text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+                      ? "bg-lime-50 text-lime-700"
+                      : "text-gray-700 hover:text-lime-600 hover:bg-lime-50"
                   }`}
                 >
                   <Icon className="w-4 h-4" />

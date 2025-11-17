@@ -115,10 +115,10 @@ export default function LoginForm() {
         return;
       }
 
-      // Login exitoso - redirigir donde indica el servidor
+      // Login exitoso - redirigir con recarga completa
       console.log('[LoginForm] Login exitoso, redirigiendo a:', result.redirectTo || '/dashboard');
-      router.push(result.redirectTo || '/dashboard');
-      router.refresh(); // Forzar refresh para que el servidor recargue la sesión
+      // Usar window.location para forzar recarga completa y evitar loops del middleware
+      window.location.href = result.redirectTo || '/dashboard';
 
     } catch (error) {
       console.error('[LoginForm] Error crítico:', error);

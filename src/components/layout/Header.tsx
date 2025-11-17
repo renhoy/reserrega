@@ -6,30 +6,24 @@ import { useEffect } from "react";
 import {
   Building2,
   CircleUser,
-  FileText,
+  Gift,
   HelpCircle,
   Home,
-  Layers,
-  LogOut,
+  Heart,
+  UserPlus,
   Settings,
   Users,
+  Camera,
 } from "lucide-react";
 import LogoutButton from "@/components/auth/LogoutButton";
 import { UserMenu } from "@/components/layout/UserMenu";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 
 interface HeaderProps {
   userId?: string;
   userRole?: string;
   userName?: string;
   isAuthenticated?: boolean;
-  hasBudgets?: boolean;
   appName?: string;
   companyName?: string;
   issuerType?: string;
@@ -45,8 +39,7 @@ export function Header({
   userRole,
   userName,
   isAuthenticated = true,
-  hasBudgets = true,
-  appName = "Redpresu",
+  appName = "Reserrega",
   companyName,
   issuerType,
   currentPlan = "free",
@@ -60,13 +53,13 @@ export function Header({
   // Si no está autenticado, mostrar header público
   if (!isAuthenticated) {
     return (
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
+      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-pink-100">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-lime-500 rounded-lg flex items-center justify-center">
-                <FileText className="h-5 w-5 text-white" />
+            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+                <Gift className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">{appName}</span>
             </Link>
@@ -77,7 +70,7 @@ export function Header({
               {multiempresa && subscriptionsEnabled && (
                 <Link
                   href="/pricing"
-                  className="text-gray-700 hover:text-lime-600 transition-colors font-medium"
+                  className="text-gray-700 hover:text-pink-600 transition-colors font-medium"
                 >
                   Precios
                 </Link>
@@ -85,14 +78,14 @@ export function Header({
               {/* Solo mostrar Registro en modo multiempresa */}
               {multiempresa && (
                 <Link href="/register">
-                  <Button className="bg-lime-500 hover:bg-lime-600">
+                  <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30 transition-all">
                     Registro
                   </Button>
                 </Link>
               )}
               <Link
                 href="/login"
-                className="text-gray-700 hover:text-lime-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-pink-600 transition-colors font-medium"
               >
                 Acceso
               </Link>
@@ -107,11 +100,17 @@ export function Header({
   const isSuperadmin = userRole === "superadmin";
   const isAdmin = userRole === "admin" || userRole === "superadmin";
 
+  // Navegación adaptada según rol
   const navigation = [
-    { name: "Panel", href: "/dashboard", icon: Home, show: true },
-    { name: "Tarifas", href: "/tariffs", icon: Layers, show: true },
-    { name: "Presupuestos", href: "/budgets", icon: FileText, show: true },
-    { name: "Ayuda", href: "/help", icon: HelpCircle, show: true }, // Centro de ayuda
+    // Admin/Superadmin
+    { name: "Panel", href: "/dashboard", icon: Home, show: isAdmin },
+    // Comerciales
+    { name: "Escanear", href: "/scan", icon: Camera, show: userRole === "comercial" },
+    // Usuarios normales
+    { name: "Wishlist", href: "/wishlist", icon: Heart, show: !isAdmin && userRole !== "comercial" },
+    { name: "Amigos", href: "/friends", icon: UserPlus, show: !isAdmin && userRole !== "comercial" },
+    // Común para todos
+    { name: "Ayuda", href: "/help", icon: HelpCircle, show: true },
   ].filter((item) => item.show);
 
   // Formatear rol para mostrar
@@ -139,16 +138,16 @@ export function Header({
   }, [userRole, userName, navigation]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm border-b">
+    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-pink-100">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link
-            href="/dashboard"
+            href={isAdmin ? "/dashboard" : userRole === "comercial" ? "/scan" : "/wishlist"}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <div className="w-8 h-8 bg-lime-500 rounded-lg flex items-center justify-center">
-              <FileText className="h-5 w-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
+              <Gift className="h-5 w-5 text-white" />
             </div>
             <span className="text-xl font-bold text-gray-900">{appName}</span>
             {testingMode && (
@@ -163,55 +162,17 @@ export function Header({
             {navigation.map((item) => {
               const isActive =
                 pathname === item.href ||
-                (item.href !== "/dashboard" && pathname.startsWith(item.href));
+                (item.href !== "/dashboard" && item.href !== "/wishlist" && pathname.startsWith(item.href));
               const Icon = item.icon;
-              const isTarifasButton = item.href === "/tariffs";
-              const isPresupuestosButton = item.href === "/budgets";
-              const isDisabled = isPresupuestosButton && !hasBudgets;
-              const isSpecialButton = isTarifasButton || isPresupuestosButton;
 
-              // Si está deshabilitado, mostrar como span en vez de Link
-              if (isDisabled) {
-                return (
-                  <span
-                    key={item.name}
-                    className="px-3 py-2 text-sm font-medium rounded-md flex items-center gap-2 bg-gray-300 text-gray-500 cursor-not-allowed opacity-60"
-                    title="No tienes presupuestos creados"
-                  >
-                    <Icon className="w-4 h-4" />
-                    {item.name}
-                  </span>
-                );
-              }
-
-              // Botones especiales con fondo (Tarifas y Presupuestos)
-
-              if (isSpecialButton) {
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
-                      isActive
-                        ? "bg-lime-50 text-black"
-                        : "text-white bg-lime-500 hover:bg-lime-600"
-                    }`}
-                  >
-                    <Icon className="w-4 h-4" />
-                    {item.name}
-                  </Link>
-                );
-              }
-
-              // Botones sin fondo (Inicio, Ayuda, Usuarios, Configuración)
               return (
                 <Link
                   key={item.name}
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
                     isActive
-                      ? "bg-lime-50 text-black"
-                      : "text-gray-700 hover:text-lime-600"
+                      ? "bg-pink-50 text-pink-700"
+                      : "text-gray-700 hover:text-pink-600 hover:bg-pink-50"
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -219,65 +180,6 @@ export function Header({
                 </Link>
               );
             })}
-          </nav>
-
-          {/* Navigation - Mobile/Tablet (solo Tarifas y Presupuestos) */}
-          <nav className="flex lg:hidden items-center gap-2">
-            <TooltipProvider>
-              {navigation
-                .filter((item) => item.href === "/tariffs" || item.href === "/budgets")
-                .map((item) => {
-                  const Icon = item.icon;
-                  const isTarifasButton = item.href === "/tariffs";
-                  const isPresupuestosButton = item.href === "/budgets";
-                  const isDisabled = isPresupuestosButton && !hasBudgets;
-                  const isActive =
-                    pathname === item.href ||
-                    (item.href !== "/dashboard" && pathname.startsWith(item.href));
-
-                  // Si está deshabilitado, mostrar como span
-                  if (isDisabled) {
-                    return (
-                      <Tooltip key={item.name}>
-                        <TooltipTrigger asChild>
-                          <span className="px-3 py-2 rounded-md bg-gray-300 text-gray-500 cursor-not-allowed opacity-60 flex items-center gap-2">
-                            <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                            <span className="hidden sm:inline text-sm font-medium">
-                              {item.name}
-                            </span>
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>No tienes presupuestos creados</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    );
-                  }
-
-                  return (
-                    <Tooltip key={item.name}>
-                      <TooltipTrigger asChild>
-                        <Link
-                          href={item.href}
-                          className={`px-3 py-2 rounded-md transition-colors flex items-center gap-2 ${
-                            isActive
-                              ? "bg-lime-50 text-black"
-                              : "bg-lime-500 text-white hover:bg-lime-600"
-                          }`}
-                        >
-                          <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
-                          <span className="hidden sm:inline text-sm font-medium">
-                            {item.name}
-                          </span>
-                        </Link>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>{item.name}</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  );
-                })}
-            </TooltipProvider>
           </nav>
 
           {/* User Menu Dropdown */}

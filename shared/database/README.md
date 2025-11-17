@@ -78,6 +78,47 @@ En Supabase **Table Editor**, verifica que existan **13 tablas**:
 - ✅ contact_messages
 - ✅ user_invitations
 
+### 5. Setup Inicial de Datos
+
+**⚡ Script Todo-en-Uno (Recomendado)**
+
+Ejecuta este script en Supabase SQL Editor para configurar todo de una vez:
+
+```bash
+# En la raíz del proyecto
+cat SETUP_INICIAL_COMPLETO.sql
+```
+
+Este script crea:
+- ✅ Usuario Superadmin (josivela+super@gmail.com)
+- ✅ Empresa Demo (id=1)
+- ✅ Issuer Demo asociado
+
+**Scripts Individuales (Opcionales)**
+
+Si prefieres ejecutar por separado:
+
+1. **Superadmin:** `SETUP_SUPERADMIN.sql`
+   - Crea/actualiza el usuario superadmin
+
+2. **Empresa Demo:** `SETUP_EMPRESA_DEMO.sql`
+   - Crea la empresa por defecto (id=1)
+   - Crea el issuer demo
+
+**Verificar Setup:**
+
+```sql
+-- Ver superadmin
+SELECT role, name, email FROM reserrega.users
+WHERE email = 'josivela+super@gmail.com';
+
+-- Ver empresa demo
+SELECT * FROM reserrega.companies WHERE id = 1;
+
+-- Ver issuer demo
+SELECT * FROM reserrega.issuers WHERE company_id = 1;
+```
+
 ---
 
 ## 📊 Schema Overview

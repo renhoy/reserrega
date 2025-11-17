@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserrega - Reserva lo que amas, Regala sin fallar</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            overflow-x: hidden;
+        }
+
+        /* Variables de color */
+        :root {
+            --primary-pink: #ec4899;
+            --primary-purple: #a855f7;
+            --primary-fuchsia: #d946ef;
+            --accent-orange: #f97316;
+            --accent-yellow: #fbbf24;
+            --light-pink: #fce7f3;
+            --light-purple: #f3e8ff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(236, 72, 153, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--gray-900);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            font-family: 'Georgia', serif;
+            letter-spacing: -2px;
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            color: white;
+            box-shadow: 0 4px 6px rgba(236, 72, 153, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary-pink);
+            border: 2px solid var(--primary-pink);
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-pink);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 18px;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-pink);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-purple) 100%);
+            padding: 80px 24px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-orange) 0%, transparent 70%);
+            opacity: 0.15;
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 24px;
+            border: 1px solid var(--primary-pink);
+            color: var(--primary-pink);
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 5vw, 64px);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            color: var(--gray-900);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--gray-600);
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .stats-display {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid rgba(236, 72, 153, 0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--primary-pink);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 24px;
+            background: white;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--gray-900);
+        }
+
+        .section-subtitle {
+            font-size: clamp(16px, 2vw, 20px);
+            color: var(--gray-600);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: var(--gray-50);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(236, 72, 153, 0.15);
+            border-color: var(--primary-pink);
+            background: white;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .feature-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* How it Works */
+        .how-it-works {
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-purple) 100%);
+            padding: 80px 24px;
+        }
+
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+            margin-bottom: 64px;
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .step:nth-child(even) .step-content {
+            order: 2;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .step-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--gray-900);
+        }
+
+        .step-description {
+            color: var(--gray-600);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .step-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-purple) 100%);
+            border-radius: 16px;
+            padding: 48px;
+            min-height: 250px;
+        }
+
+        .visual-text {
+            font-size: 120px;
+        }
+
+        /* Plans Section */
+        .plans {
+            padding: 80px 24px;
+            background: white;
+        }
+
+        .plans-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .plan-card {
+            background: var(--gray-50);
+            border-radius: 24px;
+            padding: 40px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .plan-card.featured {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .plan-card.featured .plan-title,
+        .plan-card.featured .plan-price,
+        .plan-card.featured .plan-feature {
+            color: white;
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--accent-orange);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(236, 72, 153, 0.2);
+            border-color: var(--primary-pink);
+        }
+
+        .plan-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-pink);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .plan-card.featured .plan-name {
+            color: white;
+        }
+
+        .plan-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--gray-900);
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--gray-900);
+        }
+
+        .plan-period {
+            color: var(--gray-600);
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .plan-card.featured .plan-period {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .plan-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .plan-feature {
+            padding: 12px 0;
+            color: var(--gray-600);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .plan-feature::before {
+            content: '✓';
+            color: var(--primary-pink);
+            font-weight: 800;
+            font-size: 18px;
+        }
+
+        .plan-card.featured .plan-feature::before {
+            color: white;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 80px 24px;
+            background: var(--gray-50);
+        }
+
+        .values-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .value-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(236, 72, 153, 0.15);
+            border-color: var(--primary-pink);
+        }
+
+        .value-icon {
+            font-size: 56px;
+            margin-bottom: 16px;
+        }
+
+        .value-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .value-description {
+            color: var(--gray-600);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            padding: 80px 24px;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: clamp(18px, 2.5vw, 24px);
+            margin-bottom: 48px;
+            opacity: 0.95;
+        }
+
+        .cta-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-box p {
+            margin-bottom: 16px;
+            font-size: 18px;
+        }
+
+        .cta-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--gray-900);
+            color: white;
+            padding: 48px 24px 24px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            font-family: 'Georgia', serif;
+            letter-spacing: -2px;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 24px;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 24px 0;
+        }
+
+        .footer-copyright {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .step {
+                grid-template-columns: 1fr;
+            }
+
+            .step:nth-child(even) .step-content {
+                order: 1;
+            }
+
+            .stats-display {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">RR</div>
+                <span class="logo-text">Reserrega</span>
+            </a>
+            <a href="#" class="btn btn-primary">
+                <span>✨</span> Empezar gratis
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <span>🎁</span> El placer de comprar sin gastar
+            </div>
+            
+            <h1 class="hero-title">
+                Reserva lo que amas<br>
+                <span class="gradient-text">Regala sin fallar</span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                La app que transforma tu experiencia de compra en un juego. 
+                Pruébatelo todo, crea tu lista perfecta, y recibe exactamente lo que quieres.
+            </p>
+            
+            <div class="hero-cta">
+                <a href="#" class="btn btn-primary btn-large">
+                    <span>🚀</span> Crear mi lista gratis
+                </a>
+                <a href="#how-it-works" class="btn btn-secondary btn-large">
+                    <span>👀</span> Ver cómo funciona
+                </a>
+            </div>
+
+            <div class="stats-display">
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Acierto en regalos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1€</div>
+                    <div class="stat-label">Por reserva de 15 días</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0€</div>
+                    <div class="stat-label">Compromiso inicial</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    ¿Por qué <span class="gradient-text">Reserrega</span>?
+                </h2>
+                <p class="section-subtitle">
+                    La forma más inteligente de desear, reservar y recibir regalos perfectos
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛍️</div>
+                    <h3 class="feature-title">Compra sin gastar</h3>
+                    <p class="feature-description">
+                        Ve de tiendas, pruébate todo lo que quieras, escanea los productos 
+                        que te encantan y resérvalo por solo 1€. Vive el placer de comprar 
+                        sin el cargo en tu tarjeta.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Regalos perfectos siempre</h3>
+                    <p class="feature-description">
+                        Tus amigos y familia ven exactamente lo que quieres: talla, 
+                        color, modelo. Sin sorpresas desagradables, sin devoluciones. 
+                        100% de acierto garantizado.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3 class="feature-title">Marketplace competitivo</h3>
+                    <p class="feature-description">
+                        Cuando alguien quiere regalarte algo, múltiples tiendas compiten 
+                        por ofrecerte el mejor precio. Tu regalador ahorra y tú recibes 
+                        exactamente lo que pediste.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">Círculo privado de regaladores</h3>
+                    <p class="feature-description">
+                        Crea tu red de amigos invisibles. Ellos ven tu lista, tú ves la 
+                        suya. El sistema bloquea automáticamente productos cuando alguien 
+                        los está comprando para evitar duplicados.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3 class="feature-title">Vaquitas para regalos caros</h3>
+                    <p class="feature-description">
+                        ¿Un regalo de 500€? Tus amigos pueden unirse y aportar entre 
+                        todos. El sistema gestiona las contribuciones y libera el pago 
+                        cuando se complete el objetivo.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📸</div>
+                    <h3 class="feature-title">Dos formas de crear tu lista</h3>
+                    <p class="feature-description">
+                        Modo casual: Haz fotos de lo que te gusta (GRATIS). 
+                        Modo premium: Escanea productos en tienda con talla y modelo exactos. 
+                        Tú eliges cómo quieres jugar.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="steps-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Así de fácil es <span class="gradient-text">vivir la experiencia Reserrega</span>
+                </h2>
+                <p class="section-subtitle">
+                    Un proceso simple que revoluciona tu forma de desear y regalar
+                </p>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Ve de compras sin gastar</h3>
+                    <p class="step-description">
+                        Entra a tu tienda favorita, pruébate ese vestido que te encanta, 
+                        ese bolso perfecto o esos zapatos de ensueño. Siente el placer 
+                        de probártelo todo sin comprometerte a comprar nada.
+                    </p>
+                </div>
+                <div class="step-visual">
+                    <span class="visual-text">🛍️</span>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Escanea y reserva por 1€</h3>
+                    <p class="step-description">
+                        ¿Te queda perfecto? Abre Reserrega, escanea la etiqueta del 
+                        producto y paga 1€ a la dependienta. El sistema guarda tu 
+                        talla exacta, color y modelo. Tienes 15 días de reserva.
+                    </p>
+                </div>
+                <div class="step-visual">
+                    <span class="visual-text">📱</span>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Tus amigos ven tu lista perfecta</h3>
+                    <p class="step-description">
+                        Tu círculo de regaladores entra a tu perfil y ve exactamente 
+                        lo que quieres. Pueden comprar en la tienda original o buscar 
+                        ofertas en el marketplace. Sin dudas, sin errores.
+                    </p>
+                </div>
+                <div class="step-visual">
+                    <span class="visual-text">🎁</span>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-content">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Recibe exactamente lo que amas</h3>
+                    <p class="step-description">
+                        El regalo llega a tu casa con la talla perfecta, el color 
+                        exacto y el modelo que elegiste. Sin devoluciones, sin 
+                        decepciones. Solo la alegría de recibir lo que realmente querías.
+                    </p>
+                </div>
+                <div class="step-visual">
+                    <span class="visual-text">💝</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans">
+        <div class="features-container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    Elige tu <span class="gradient-text">plan perfecto</span>
+                </h2>
+                <p class="section-subtitle">
+                    Desde listas casuales hasta experiencias premium
+                </p>
+            </div>
+
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <div class="plan-name">FREE</div>
+                    <h3 class="plan-title">Lista Casual</h3>
+                    <div class="plan-price">0€</div>
+                    <div class="plan-period">Gratis para siempre</div>
+                    <ul class="plan-features">
+                        <li class="plan-feature">Fotos ilimitadas de productos</li>
+                        <li class="plan-feature">Lista de deseos básica</li>
+                        <li class="plan-feature">Hasta 10 amigos regaladores</li>
+                        <li class="plan-feature">Notificaciones básicas</li>
+                        <li class="plan-feature">Búsqueda manual de productos</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary btn-large" style="width: 100%;">
+                        Empezar gratis
+                    </a>
+                </div>
+
+                <div class="plan-card featured">
+                    <div class="plan-badge">MÁS POPULAR</div>
+                    <div class="plan-name">PREMIUM</div>
+                    <h3 class="plan-title">Lista Escaneada</h3>
+                    <div class="plan-price">4,99€</div>
+                    <div class="plan-period">por mes</div>
+                    <ul class="plan-features">
+                        <li class="plan-feature">Todo de FREE +</li>
+                        <li class="plan-feature">Escaneo de códigos en tienda</li>
+                        <li class="plan-feature">Reservas físicas (1€/producto)</li>
+                        <li class="plan-feature">Amigos regaladores ilimitados</li>
+                        <li class="plan-feature">Marketplace competitivo</li>
+                        <li class="plan-feature">Sistema de vaquitas</li>
+                        <li class="plan-feature">Múltiples listas</li>
+                        <li class="plan-feature">Notificaciones inteligentes</li>
+                    </ul>
+                    <a href="#" class="btn btn-white btn-large" style="width: 100%;">
+                        Probar 30 días gratis
+                    </a>
+                </div>
+
+                <div class="plan-card">
+                    <div class="plan-name">INFLUENCER</div>
+                    <h3 class="plan-title">Lista Pública</h3>
+                    <div class="plan-price">19,99€</div>
+                    <div class="plan-period">por mes</div>
+                    <ul class="plan-features">
+                        <li class="plan-feature">Todo de PREMIUM +</li>
+                        <li class="plan-feature">Lista pública para fans</li>
+                        <li class="plan-feature">Sistema de recompensas</li>
+                        <li class="plan-feature">Link personalizado</li>
+                        <li class="plan-feature">Badge verificado</li>
+                        <li class="plan-feature">Analytics avanzado</li>
+                        <li class="plan-feature">Integración redes sociales</li>
+                        <li class="plan-feature">Comisión reducida (5%)</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary btn-large" style="width: 100%;">
+                        Empezar ahora
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="section-header">
+            <h2 class="section-title">
+                Nuestros <span class="gradient-text">valores</span>
+            </h2>
+            <p class="section-subtitle">
+                Los principios que guían cada función de Reserrega
+            </p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">💝</div>
+                <h3 class="value-title">Acierto garantizado</h3>
+                <p class="value-description">
+                    Nunca más regalos fallidos. 
+                    100% de satisfacción en cada regalo.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🎯</div>
+                <h3 class="value-title">Simplicidad</h3>
+                <p class="value-description">
+                    Tan fácil como hacer una foto.
+                    Diseñado para que lo uses sin pensar.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🤝</div>
+                <h3 class="value-title">Transparencia</h3>
+                <p class="value-description">
+                    Precios claros, sin sorpresas.
+                    Sabes exactamente qué pagas y por qué.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🛡️</div>
+                <h3 class="value-title">Protección total</h3>
+                <p class="value-description">
+                    Sistema de pago en garantía.
+                    Tu dinero seguro hasta la entrega.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🏪</div>
+                <h3 class="value-title">Partner de tiendas</h3>
+                <p class="value-description">
+                    Trabajamos con las mejores marcas
+                    para ofrecerte experiencias únicas.
+                </p>
+            </div>
+
+            <div class="value-card">
+                <div class="value-icon">🔒</div>
+                <h3 class="value-title">Privacidad</h3>
+                <p class="value-description">
+                    Tus listas son tuyas. Tú decides
+                    quién puede verlas y cuándo.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2 class="cta-title">
+                El regalo perfecto empieza aquí
+            </h2>
+            <p class="cta-subtitle">
+                Únete a miles de personas que ya están viviendo la experiencia Reserrega
+            </p>
+
+            <div class="cta-box">
+                <p>
+                    <strong>✅ Sin compromiso</strong> - Empieza gratis y actualiza cuando quieras
+                </p>
+                <p>
+                    <strong>✅ Resultados inmediatos</strong> - Crea tu primera lista en 5 minutos
+                </p>
+                <p>
+                    <strong>✅ Compatible con tus tiendas favoritas</strong> - Zara, Mango, H&M y más
+                </p>
+            </div>
+
+            <a href="#" class="btn btn-white btn-large">
+                <span>🎉</span> Crear mi lista GRATIS
+            </a>
+
+            <p style="margin-top: 16px; font-size: 14px; opacity: 0.9;">
+                No necesitas tarjeta de crédito • Configuración en 2 minutos
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">RR</div>
+                <span style="font-size: 20px; font-weight: 700;">Reserrega</span>
+            </div>
+            
+            <p class="footer-text">
+                Reserva lo que amas, Regala sin fallar
+            </p>
+
+            <div class="footer-links">
+                <a href="#">Privacidad</a>
+                <a href="#">Términos</a>
+                <a href="#">Para Tiendas</a>
+                <a href="#">Blog</a>
+                <a href="#">Contacto</a>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <p class="footer-copyright">
+                © 2025 Reserrega. Todos los derechos reservados. Hecho con 💖 para ti.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

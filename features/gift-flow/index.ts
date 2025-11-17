@@ -17,10 +17,12 @@ export { GiftSelectionCard } from './components/GiftSelectionCard'
 export { FriendWishlistView } from './components/FriendWishlistView'
 export { LockTimerBadge, LockTimerProgress } from './components/LockTimerBadge'
 
-// Components (will be added in GF-003)
-// export * from './components/GiftCheckoutForm'
-// export * from './components/GiftConfirmation'
-// export * from './components/GiftSummary'
+// Components (GF-003 completed)
+export { GiftCheckoutForm } from './components/GiftCheckoutForm'
+export { GiftConfirmation } from './components/GiftConfirmation'
+export { GiftSummary, GiftSummaryCompact } from './components/GiftSummary'
+
+// Components (will be added later)
 // export * from './components/DeliveryTracking'
 // export * from './components/GiftHistory'
 

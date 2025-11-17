@@ -16,18 +16,18 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Reserrega - Red Social de Regalos",
-    template: "%s | Reserrega",
+    default: "Reserva y Regala - Red Social de Regalos",
+    template: "%s | Reserva y Regala",
   },
   description: "Reserva productos en tienda, crea tu wishlist y recibe los regalos perfectos. La red social que conecta deseos con regalos únicos.",
   keywords: ["regalos", "wishlist", "reservas", "tienda", "social", "compras"],
-  authors: [{ name: "Reserrega" }],
-  creator: "Reserrega",
+  authors: [{ name: "Reserva y Regala" }],
+  creator: "Reserva y Regala",
   openGraph: {
     type: "website",
     locale: "es_ES",
-    siteName: "Reserrega",
-    title: "Reserrega - Red Social de Regalos",
+    siteName: "Reserva y Regala",
+    title: "Reserva y Regala - Red Social de Regalos",
     description: "Reserva productos en tienda, crea tu wishlist y recibe los regalos perfectos.",
   },
 }

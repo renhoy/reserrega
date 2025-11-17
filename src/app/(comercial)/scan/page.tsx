@@ -164,7 +164,7 @@ export default function ScanPage() {
                 <div>
                   <p className="font-semibold">Escanear código QR del cliente</p>
                   <p className="text-muted-foreground">
-                    Pide al cliente que te muestre su código QR desde la app de Reserrega
+                    Pide al cliente que te muestre su código QR desde la app de Reserva y Regala
                   </p>
                 </div>
               </li>

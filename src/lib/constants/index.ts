@@ -120,7 +120,7 @@ export {
  * NOTA: El nombre de la aplicación (APP_NAME) se obtiene dinámicamente desde la BD.
  * - Server Components: usar `await getAppName()` desde @/lib/helpers/config-helpers
  * - Client Components: usar `useAppName()` hook desde @/hooks/useAppName
- * - El valor por defecto si no está configurado en BD es 'Redpresu'
+ * - El valor por defecto si no está configurado en BD es 'Reserva y Regala'
  */
 export const SYSTEM_CONSTANTS = {
   // Identificadores

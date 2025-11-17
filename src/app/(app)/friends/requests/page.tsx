@@ -20,7 +20,7 @@ import { ArrowLeft, UserPlus } from 'lucide-react'
 // =====================================================
 
 export const metadata: Metadata = {
-  title: 'Solicitudes de Amistad | Reserrega',
+  title: 'Solicitudes de Amistad | Reserva y Regala',
   description: 'Gestiona tus solicitudes de amistad pendientes',
 }
 

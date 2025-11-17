@@ -43,7 +43,7 @@ export default async function PricingPage() {
       return features;
     }
 
-    // Convertir objeto a array de strings (sin tariffs/budgets de Redpresu)
+    // Convertir objeto a array de strings
     const featuresArray: string[] = [
       features.users_limit,
       features.storage,

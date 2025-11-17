@@ -550,7 +550,7 @@ export async function getAppNameAction(): Promise<{
       // Devolver nombre por defecto si no existe en BD
       return {
         success: true,
-        data: 'Redpresu'
+        data: 'Reserva y Regala'
       }
     }
 
@@ -558,7 +558,7 @@ export async function getAppNameAction(): Promise<{
   } catch (error) {
     log.error('[getAppNameAction] Error:', error)
     // En caso de error, devolver default en lugar de fallar
-    return { success: true, data: 'Redpresu' }
+    return { success: true, data: 'Reserva y Regala' }
   }
 }
 

@@ -20,8 +20,8 @@ import { UserPlus, Inbox } from 'lucide-react'
 // =====================================================
 
 export const metadata: Metadata = {
-  title: 'Mis Amigos | Reserrega',
-  description: 'Gestiona tu red de amigos en Reserrega',
+  title: 'Mis Amigos | Reserva y Regala',
+  description: 'Gestiona tu red de amigos en Reserva y Regala',
 }
 
 // =====================================================

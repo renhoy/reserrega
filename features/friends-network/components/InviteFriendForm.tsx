@@ -216,7 +216,7 @@ export function InviteFriendForm({
           <div>
             <CardTitle className="text-xl">Invitar Amigo por Email</CardTitle>
             <CardDescription>
-              Envía una invitación para que se una a Reserrega
+              Envía una invitación para que se una a Reserva y Regala
             </CardDescription>
           </div>
         </div>
@@ -259,7 +259,7 @@ export function InviteFriendForm({
             </Label>
             <Textarea
               id="message"
-              placeholder="Ej: ¡Hola! Te invito a unirte a Reserrega para compartir nuestras wishlists..."
+              placeholder="Ej: ¡Hola! Te invito a unirte a Reserva y Regala para compartir nuestras wishlists..."
               value={message}
               onChange={(e) => {
                 setMessage(e.target.value)

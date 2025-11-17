@@ -14,7 +14,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { FileText, Loader2, AlertCircle, ArrowLeft } from "lucide-react";
+import { Gift, Loader2, AlertCircle, ArrowLeft } from "lucide-react";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -69,9 +69,9 @@ export default function ResetPasswordPage() {
   // Mostrar loading mientras se verifica el token
   if (isCheckingToken) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-orange-500" />
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-pink-500" />
           <p className="text-gray-600">Verificando enlace de recuperación...</p>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function ResetPasswordPage() {
   // Si el token no es válido, mostrar mensaje de error
   if (isValidToken === false) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
           {/* Header */}
           <div className="text-center">
@@ -89,13 +89,13 @@ export default function ResetPasswordPage() {
               href="/"
               className="inline-block hover:opacity-80 transition-opacity"
             >
-              <div className="mx-auto h-12 w-12 bg-lime-500 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="h-7 w-7 text-white" />
+              <div className="mx-auto h-12 w-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-pink-500/30">
+                <Gift className="h-7 w-7 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-900">{appName}</h2>
             </Link>
             <p className="mt-2 text-sm text-gray-600">
-              Sistema de gestión de presupuestos profesionales
+              La app de regalos perfectos - Reserva, comparte y regala
             </p>
           </div>
 
@@ -141,14 +141,19 @@ export default function ResetPasswordPage() {
 
   // Token válido - mostrar formulario de reset
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         {/* Header con logo/título */}
         <div className="text-center">
-          <div className="mx-auto h-12 w-12 bg-orange-500 rounded-lg flex items-center justify-center mb-4">
-            <span className="text-white font-bold text-xl">J</span>
-          </div>
-          <h2 className="text-3xl font-bold text-gray-900">{appName}</h2>
+          <Link
+            href="/"
+            className="inline-block hover:opacity-80 transition-opacity"
+          >
+            <div className="mx-auto h-12 w-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-pink-500/30">
+              <Gift className="h-7 w-7 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900">{appName}</h2>
+          </Link>
           <p className="mt-2 text-sm text-gray-600">
             Crea una nueva contraseña para tu cuenta
           </p>
@@ -161,7 +166,7 @@ export default function ResetPasswordPage() {
         <div className="text-center">
           <p className="text-xs text-gray-500">
             ¿Recordaste tu contraseña?{" "}
-            <Link href="/login" className="text-orange-600 hover:underline">
+            <Link href="/login" className="text-pink-600 hover:text-pink-700 hover:underline">
               Volver al login
             </Link>
           </p>

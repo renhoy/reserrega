@@ -46,7 +46,7 @@ export function InviteFriendsPageClient() {
                 Busca usuarios registrados
               </h3>
               <p className="text-gray-600">
-                Encuentra amigos que ya están en Reserrega buscando por nombre o email.
+                Encuentra amigos que ya están en Reserva y Regala buscando por nombre o email.
                 Envíales una solicitud de amistad para empezar a compartir wishlists.
               </p>
             </div>
@@ -79,7 +79,7 @@ export function InviteFriendsPageClient() {
                 Invita amigos por email
               </h3>
               <p className="text-gray-600">
-                Envía una invitación a amigos que aún no están en Reserrega. Cuando se
+                Envía una invitación a amigos que aún no están en Reserva y Regala. Cuando se
                 registren con el link de invitación, automáticamente serán tus amigos.
               </p>
             </div>

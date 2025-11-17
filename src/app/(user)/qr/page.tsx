@@ -33,7 +33,7 @@ export default async function QRPage() {
           <ol className="space-y-2 text-sm text-muted-foreground">
             <li className="flex gap-2">
               <span className="font-bold text-blue-600">1.</span>
-              <span>Ve a una tienda física adherida a Reserrega</span>
+              <span>Ve a una tienda física adherida a Reserva y Regala</span>
             </li>
             <li className="flex gap-2">
               <span className="font-bold text-blue-600">2.</span>

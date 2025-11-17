@@ -19,7 +19,7 @@ import { ArrowLeft } from 'lucide-react'
 // =====================================================
 
 export const metadata: Metadata = {
-  title: 'Invitar Amigos | Reserrega',
+  title: 'Invitar Amigos | Reserva y Regala',
   description: 'Busca usuarios y envía invitaciones para agregar amigos',
 }
 

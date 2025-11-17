@@ -8,7 +8,7 @@
  * =====================================================
  */
 
-import { Menu, User, LogOut, Settings } from 'lucide-react'
+import { Menu, User, LogOut, Settings, Gift } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/shared/common/components/ui/button'
 import {
@@ -21,6 +21,7 @@ import {
 } from '@/shared/common/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/shared/common/components/ui/avatar'
 import { LogoutButton } from '@/shared/auth/components/LogoutButton'
+import { useAppName } from '@/hooks/useAppName'
 import type { AuthUser } from '@/shared/auth/types/auth.types'
 
 interface HeaderProps {
@@ -40,6 +41,7 @@ export function Header({ user, onMenuClick }: HeaderProps) {
   const initials = user
     ? `${user.name.charAt(0)}${user.lastName?.charAt(0) || ''}`.toUpperCase()
     : 'U'
+  const appName = useAppName()
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -58,11 +60,11 @@ export function Header({ user, onMenuClick }: HeaderProps) {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-lime-500">
-              <span className="text-lg font-bold text-white">R</span>
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-purple-500">
+              <Gift className="h-5 w-5 text-white" />
             </div>
             <span className="hidden font-bold sm:inline-block">
-              Reserrega
+              {appName}
             </span>
           </Link>
         </div>

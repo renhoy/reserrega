@@ -95,9 +95,9 @@ export function SubscriptionsClient({
       case "free":
         return "border-gray-200";
       case "pro":
-        return "border-lime-500 ring-2 ring-lime-500";
+        return "border-pink-500 ring-2 ring-pink-500";
       case "enterprise":
-        return "border-yellow-500";
+        return "border-purple-500";
     }
   }
 
@@ -110,10 +110,8 @@ export function SubscriptionsClient({
       return features;
     }
 
-    // Convertir objeto a array de strings
+    // Convertir objeto a array de strings (sin tariffs/budgets de Redpresu)
     const featuresArray: string[] = [
-      features.tariffs_limit,
-      features.budgets_limit,
       features.users_limit,
       features.storage,
       features.support,
@@ -143,7 +141,7 @@ export function SubscriptionsClient({
   }
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <div className="mb-8">
@@ -161,7 +159,7 @@ export function SubscriptionsClient({
             <CardTitle>Plan Actual</CardTitle>
             <CardDescription>
               Estás en el plan{" "}
-              <span className="font-semibold text-lime-700">
+              <span className="font-semibold text-pink-700">
                 {currentPlan.toUpperCase()}
               </span>
             </CardDescription>
@@ -233,7 +231,7 @@ export function SubscriptionsClient({
               >
                 {plan.id === "pro" && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <Badge className="bg-lime-600">Más Popular</Badge>
+                    <Badge className="bg-pink-600">Más Popular</Badge>
                   </div>
                 )}
 
@@ -257,7 +255,7 @@ export function SubscriptionsClient({
                         key={index}
                         className="flex items-start gap-2 text-sm"
                       >
-                        <Check className="w-4 h-4 text-lime-600 flex-shrink-0 mt-0.5" />
+                        <Check className="w-4 h-4 text-pink-600 flex-shrink-0 mt-0.5" />
                         <span>{feature}</span>
                       </li>
                     ))}
@@ -295,7 +293,7 @@ export function SubscriptionsClient({
         </div>
 
         {/* Información adicional */}
-        <div className="mt-8 p-4 bg-lime-50 border border-blue-200 rounded-lg">
+        <div className="mt-8 p-4 bg-pink-50 border border-pink-200 rounded-lg">
           <p className="text-sm text-gray-700">
             💡 <strong>Nota:</strong> Los cambios de plan se aplicarán
             inmediatamente. Si cambias de un plan superior a uno inferior, los

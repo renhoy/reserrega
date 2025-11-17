@@ -175,13 +175,41 @@ La tabla `config` incluye valores por defecto:
 
 ---
 
-## 📝 Generar Tipos TypeScript
+## 📝 Tipos TypeScript
+
+**Los tipos ya están generados** ✅ en `shared/database/types/database.types.ts`
+
+### Uso de los tipos
+
+```typescript
+import { supabase } from '@/lib/supabase/client'
+import type { Tables, TablesInsert, TablesUpdate } from '@/shared/database/types/database.types'
+
+// Tipos automáticos en queries
+const { data: users } = await supabase
+  .from('users')  // ✅ Autocomplete de tablas
+  .select('*')    // ✅ Tipos inferidos automáticamente
+
+// Usar tipos específicos
+type User = Tables<'users'>
+type UserInsert = TablesInsert<'users'>
+type UserUpdate = TablesUpdate<'users'>
+
+const newUser: UserInsert = {
+  id: 'uuid-here',
+  name: 'María',
+  email: 'maria@example.com',
+  role: 'usuario'  // ✅ Autocomplete de roles válidos
+}
+```
+
+### Regenerar tipos (cuando cambies el schema)
 
 ```bash
-# Instalar Supabase CLI
-npm install -g supabase
+# Opción 1: Script automático (requiere .env.local configurado)
+./shared/database/scripts/generate-types.sh
 
-# Generar tipos
+# Opción 2: Manual
 npx supabase gen types typescript \
   --project-id YOUR_PROJECT_ID \
   --schema reserrega \
@@ -231,8 +259,9 @@ SELECT status FROM reserrega.reservations WHERE id = 'uuid';
 - [x] Scripts de inspección
 - [x] Configuración de Supabase clients actualizada
 - [x] Documentación del módulo
-- [ ] Schema ejecutado en Supabase Cloud
-- [ ] Tipos TypeScript generados
+- [x] Schema ejecutado en Supabase Cloud
+- [x] Tipos TypeScript generados
+- [x] Clientes de Supabase configurados con tipos
 - [ ] Tests básicos
 - [ ] Migraciones configuradas
 - [ ] Usuario superadmin inicial creado

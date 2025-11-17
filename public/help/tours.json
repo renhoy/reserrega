@@ -1,0 +1,595 @@
+{
+  "dashboard-page": {
+    "steps": [
+      {
+        "element": "[data-tour='titulo-dashboard']",
+        "popover": {
+          "title": "1. Panel de Control",
+          "description": "Bienvenido al panel de control. Aquí encontrarás un resumen completo de tus presupuestos y estadísticas del periodo seleccionado."
+        }
+      },
+      {
+        "element": "[data-tour='selector-periodo']",
+        "popover": {
+          "title": "2. Selector de Periodo",
+          "description": "Filtra las estadísticas por periodo: Hoy, Esta semana, Este mes o Este año. Las tarjetas y listas se actualizarán automáticamente."
+        }
+      },
+      {
+        "element": "[data-tour='estadisticas-principales']",
+        "popover": {
+          "title": "3. Estadísticas Principales",
+          "description": "Visualiza 4 métricas clave: Total de presupuestos, Valor total en euros, Presupuestos del mes actual y Tasa de conversión (aprobados/enviados)."
+        }
+      },
+      {
+        "element": "[data-tour='accesos-rapidos']",
+        "popover": {
+          "title": "4. Accesos Rápidos",
+          "description": "Accede directamente a las acciones más frecuentes: Crear Tarifa, Ver Tarifas y Ver Presupuestos. Agiliza tu flujo de trabajo."
+        }
+      },
+      {
+        "element": "[data-tour='primeros-pasos']",
+        "popover": {
+          "title": "5. Primeros Pasos",
+          "description": "Guías interactivas para comenzar a usar la aplicación. Cada botón te lleva a un artículo de ayuda detallado según tu rol."
+        }
+      },
+      {
+        "element": "[data-tour='ultimos-presupuestos']",
+        "popover": {
+          "title": "6. Últimos 5 Presupuestos",
+          "description": "Lista de los 5 presupuestos más recientes con su estado, cliente, fecha y valor. Haz clic en cualquiera para editarlo."
+        }
+      },
+      {
+        "element": "[data-tour='proximos-caducar']",
+        "popover": {
+          "title": "7. Próximos a Caducar",
+          "description": "Presupuestos con menos de 7 días restantes de validez. Aparecen destacados en naranja para que puedas actuar a tiempo."
+        }
+      }
+    ]
+  },
+  "crear-tarifa": {
+    "steps": [
+      {
+        "element": "#btn-nueva-tarifa",
+        "popover": {
+          "title": "Paso 1: Nueva tarifa",
+          "description": "Haz clic en el botón 'Nueva Tarifa' para comenzar a crear una tarifa."
+        }
+      },
+      {
+        "element": "#tariff-form",
+        "popover": {
+          "title": "Paso 2: Formulario de tarifa",
+          "description": "Completa los campos del formulario con los datos de tu empresa y los detalles de la tarifa."
+        }
+      }
+    ]
+  },
+  "generar-presupuesto": {
+    "steps": [
+      {
+        "element": "#select-tariff",
+        "popover": {
+          "title": "Paso 1: Seleccionar tarifa",
+          "description": "Elige la tarifa base que quieres usar para generar el presupuesto."
+        }
+      },
+      {
+        "element": "#client-data-form",
+        "popover": {
+          "title": "Paso 2: Datos del cliente",
+          "description": "Introduce los datos completos del cliente que recibirá el presupuesto."
+        }
+      },
+      {
+        "element": "#budget-items",
+        "popover": {
+          "title": "Paso 3: Seleccionar partidas",
+          "description": "Navega por la jerarquía y marca las cantidades de las partidas que quieres incluir."
+        }
+      }
+    ]
+  },
+  "tarifas-page-vacia": {
+    "steps": [
+      {
+        "element": "#nota-crear-primera-tarifa",
+        "popover": {
+          "title": "1. ¿Cómo empezar?",
+          "description": "Para crear presupuestos, primero necesitas crear al menos una tarifa. Las tarifas contienen las partidas, precios y configuración (plantilla PDF, logo, etc.) que se usarán como base para generar presupuestos personalizados para tus clientes."
+        }
+      },
+      {
+        "element": "#btn-nueva-tarifa-list",
+        "popover": {
+          "title": "2. Botón Nueva Tarifa",
+          "description": "Haz clic aquí para crear tu primera tarifa. Podrás definir el título, descripción, plantilla PDF, logo y cargar las partidas desde un archivo CSV con la estructura de precios."
+        }
+      },
+      {
+        "element": "#btn-importar-tarifa",
+        "popover": {
+          "title": "3. Botón Importar",
+          "description": "Si ya tienes tarifas exportadas previamente en formato JSON, puedes importarlas aquí. Útil para restaurar tarifas o compartirlas entre empresas."
+        }
+      },
+      {
+        "element": "#btn-exportar-tarifa",
+        "popover": {
+          "title": "4. Botón Exportar",
+          "description": "Exporta las tarifas seleccionadas en formato JSON (completo) o CSV (solo partidas). Debes seleccionar al menos una tarifa primero. Esta opción estará disponible cuando tengas tarifas creadas."
+        }
+      },
+      {
+        "element": "#filtros-tarifa",
+        "popover": {
+          "title": "5. Campos de Filtros",
+          "description": "Filtra las tarifas por estado (Activa/Inactiva), por texto de búsqueda, o por usuario creador. Esto te ayudará a encontrar rápidamente la tarifa que necesitas cuando tengas varias creadas."
+        }
+      }
+    ]
+  },
+  "tarifas-page": {
+    "steps": [
+      {
+        "element": "#btn-nueva-tarifa-list",
+        "popover": {
+          "title": "1. Botón Nueva Tarifa",
+          "description": "Haz clic aquí para crear una nueva tarifa desde cero. Podrás definir el título, descripción, plantilla PDF, y cargar las partidas desde un archivo CSV."
+        }
+      },
+      {
+        "element": "#btn-importar-tarifa",
+        "popover": {
+          "title": "2. Botón Importar",
+          "description": "Importa tarifas previamente exportadas en formato JSON. Útil para restaurar tarifas o compartirlas entre empresas."
+        }
+      },
+      {
+        "element": "#btn-exportar-tarifa",
+        "popover": {
+          "title": "3. Botón Exportar",
+          "description": "Exporta las tarifas seleccionadas en formato JSON (completo) o CSV (solo partidas). Debes seleccionar al menos una tarifa primero."
+        }
+      },
+      {
+        "element": "#filtros-tarifa",
+        "popover": {
+          "title": "4. Campos de Filtros",
+          "description": "Filtra las tarifas por estado (Activa/Inactiva), por texto de búsqueda, o por usuario creador. Esto te ayuda a encontrar rápidamente la tarifa que necesitas."
+        }
+      },
+      {
+        "element": "[data-tour='btn-crear-presupuesto']",
+        "popover": {
+          "title": "5. Botón Crear Presupuesto",
+          "description": "Crea un nuevo presupuesto basado en esta tarifa. Solo disponible para tarifas activas. Abre el formulario de presupuesto en una nueva pestaña."
+        }
+      },
+      {
+        "element": "[data-tour='btn-ver-presupuestos']",
+        "popover": {
+          "title": "6. Botón Ver Presupuestos",
+          "description": "Muestra el número de presupuestos generados con esta tarifa. Haz clic para ver la lista completa de presupuestos filtrados por esta tarifa."
+        }
+      },
+      {
+        "element": "[data-tour='select-estado']",
+        "popover": {
+          "title": "7. Selector de Estado",
+          "description": "Cambia el estado de la tarifa entre Activa e Inactiva. Solo las tarifas activas pueden usarse para generar nuevos presupuestos."
+        }
+      },
+      {
+        "element": "[data-tour='btn-marcar-plantilla']",
+        "popover": {
+          "title": "8. Botón Marcar como Plantilla",
+          "description": "Marca esta tarifa como plantilla por defecto (solo admins). Las nuevas tarifas se pre-cargarán con los datos de la plantilla activa."
+        }
+      },
+      {
+        "element": "[data-tour='btn-editar']",
+        "popover": {
+          "title": "9. Botón Editar",
+          "description": "Edita los datos de la tarifa: título, descripción, validez, plantilla PDF, logo y partidas CSV. Los cambios no afectan a presupuestos ya creados."
+        }
+      },
+      {
+        "element": "[data-tour='btn-duplicar']",
+        "popover": {
+          "title": "10. Botón Duplicar",
+          "description": "Crea una copia exacta de esta tarifa con el sufijo '(Copia)'. Útil para crear variaciones de una tarifa existente sin empezar desde cero."
+        }
+      },
+      {
+        "element": "[data-tour='btn-eliminar']",
+        "popover": {
+          "title": "11. Botón Eliminar",
+          "description": "Elimina permanentemente esta tarifa y todas sus partidas. ⚠️ Esta acción no se puede deshacer. Los presupuestos ya creados no se verán afectados."
+        }
+      }
+    ]
+  },
+  "presupuestos-page-vacia": {
+    "steps": [
+      {
+        "element": "#btn-nuevo-presupuesto-list",
+        "popover": {
+          "title": "1. Botón Nuevo Presupuesto",
+          "description": "Haz clic aquí para crear un nuevo presupuesto. Primero deberás seleccionar una tarifa activa como base."
+        }
+      },
+      {
+        "element": "#btn-importar-presupuesto",
+        "popover": {
+          "title": "2. Botón Importar",
+          "description": "Importa presupuestos previamente exportados en formato JSON. Útil para restaurar presupuestos o compartirlos entre empresas."
+        }
+      },
+      {
+        "element": "#btn-exportar-presupuesto",
+        "popover": {
+          "title": "3. Botón Exportar",
+          "description": "Exporta los presupuestos seleccionados en formato JSON. Debes seleccionar al menos un presupuesto primero."
+        }
+      },
+      {
+        "element": "#filtros-presupuesto",
+        "popover": {
+          "title": "4. Campos de Filtros",
+          "description": "Filtra los presupuestos por estado, tarifa, texto de búsqueda, o usuario creador. Facilita encontrar rápidamente el presupuesto que necesitas."
+        }
+      },
+      {
+        "element": "#nota-crear-tarifa",
+        "popover": {
+          "title": "5. ¿Cómo crear presupuestos?",
+          "description": "Para crear presupuestos, primero necesitas tener al menos una tarifa activa. Ve a la página de Tarifas, crea una nueva tarifa, y luego podrás generar presupuestos basados en ella."
+        }
+      }
+    ]
+  },
+  "presupuestos-page": {
+    "steps": [
+      {
+        "element": "#btn-nuevo-presupuesto-list",
+        "popover": {
+          "title": "1. Botón Nuevo Presupuesto",
+          "description": "Haz clic aquí para crear un nuevo presupuesto. Te redirigirá a la página de creación donde podrás seleccionar una tarifa activa como base."
+        }
+      },
+      {
+        "element": "#btn-importar-presupuesto",
+        "popover": {
+          "title": "2. Botón Importar",
+          "description": "Importa presupuestos previamente exportados en formato JSON. Útil para restaurar presupuestos o compartirlos entre empresas."
+        }
+      },
+      {
+        "element": "#btn-exportar-presupuesto",
+        "popover": {
+          "title": "3. Botón Exportar",
+          "description": "Exporta los presupuestos seleccionados en formato JSON. Debes seleccionar al menos un presupuesto de la lista primero."
+        }
+      },
+      {
+        "element": "#filtros-presupuesto",
+        "popover": {
+          "title": "4. Campos de Filtros",
+          "description": "Filtra los presupuestos por estado (Borrador / Pendiente / Enviado / Aprobado / Rechazado), por número de presupuesto, nombre de cliente o NIF."
+        }
+      },
+      {
+        "element": "[data-tour='btn-nota']",
+        "popover": {
+          "title": "5. Botón Notas",
+          "description": "Haz clic para ver, crear o editar las notas del presupuesto. Las notas te permiten llevar un seguimiento interno de comentarios, cambios o información relevante sobre cada presupuesto. El badge indica el número de notas existentes."
+        }
+      },
+      {
+        "element": "[data-tour='btn-tarifa']",
+        "popover": {
+          "title": "6. Botón Tarifa",
+          "description": "Muestra el nombre de la tarifa base utilizada para este presupuesto. Haz clic para abrir la tarifa en una nueva pestaña y ver sus detalles completos."
+        }
+      },
+      {
+        "element": "[data-tour='columna-total']",
+        "popover": {
+          "title": "7. Columna Total",
+          "description": "Muestra el importe total del presupuesto, incluyendo IVA y otros impuestos aplicables. Este es el precio final que verá el cliente."
+        }
+      },
+      {
+        "element": "[data-tour='select-estado-presupuesto']",
+        "popover": {
+          "title": "8. Selector de Estado",
+          "description": "Cambia el estado del presupuesto: Borrador (editable sin PDF), Pendiente, Enviado, Aprobado o Rechazado. El estado ayuda a gestionar el flujo de trabajo."
+        }
+      },
+      {
+        "element": "[data-tour='btn-generar-pdf']",
+        "popover": {
+          "title": "9. Columna PDF",
+          "description": "Esta columna muestra el estado del PDF del presupuesto. Si está vacía, significa que aún no se ha generado el PDF (estado Borrador). Si aparece un icono, puedes generar el PDF (icono +) o ver el PDF ya generado (icono ojo). Solo disponible para presupuestos en estado Pendiente o superior."
+        }
+      },
+      {
+        "element": "[data-tour='btn-editar-presupuesto']",
+        "popover": {
+          "title": "10. Botón Editar",
+          "description": "Edita los datos del presupuesto: cliente, partidas seleccionadas y cantidades. Los cambios actualizan automáticamente los totales."
+        }
+      },
+      {
+        "element": "[data-tour='btn-duplicar-presupuesto']",
+        "popover": {
+          "title": "11. Botón Duplicar",
+          "description": "Crea una copia exacta de este presupuesto con el sufijo '(Copia)'. Útil para crear presupuestos similares para diferentes clientes."
+        }
+      },
+      {
+        "element": "[data-tour='btn-eliminar-presupuesto']",
+        "popover": {
+          "title": "12. Botón Eliminar",
+          "description": "Elimina permanentemente este presupuesto. ⚠️ Esta acción no se puede deshacer. El PDF generado en Storage también será eliminado."
+        }
+      }
+    ]
+  },
+  "profile-page": {
+    "steps": [
+      {
+        "element": "#btn-guardar-perfil",
+        "popover": {
+          "title": "1. Guardar Cambios",
+          "description": "Haz clic aquí para guardar todos los cambios realizados en tu perfil. Los cambios se aplicarán inmediatamente."
+        }
+      },
+      {
+        "element": "#card-info-personal",
+        "popover": {
+          "title": "2. Información Personal",
+          "description": "Datos básicos de tu cuenta: nombre, email y rol. Estos datos no se pueden modificar desde aquí, contacta con un administrador si necesitas cambiarlos."
+        }
+      },
+      {
+        "element": "#card-datos-emisor",
+        "popover": {
+          "title": "3. Datos del Emisor",
+          "description": "Información fiscal de tu empresa o negocio autónomo. Estos datos aparecerán en todos los presupuestos que generes."
+        }
+      },
+      {
+        "element": "#nombre_comercial",
+        "popover": {
+          "title": "4. Nombre Comercial",
+          "description": "Nombre de tu empresa o razón social que aparecerá en los presupuestos. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#nif",
+        "popover": {
+          "title": "5. NIF/CIF",
+          "description": "Número de identificación fiscal de tu empresa (CIF) o tu DNI/NIE si eres autónomo. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#direccion_fiscal",
+        "popover": {
+          "title": "6. Dirección Fiscal",
+          "description": "Dirección fiscal completa de tu empresa o domicilio fiscal. Aparecerá en los presupuestos generados."
+        }
+      },
+      {
+        "element": "#irpf_percentage",
+        "popover": {
+          "title": "7. Porcentaje IRPF",
+          "description": "Porcentaje de retención IRPF aplicable (solo para autónomos). Por defecto es 15%. Este valor se aplicará automáticamente en los presupuestos cuando corresponda."
+        }
+      },
+      {
+        "element": "#card-cambiar-password",
+        "popover": {
+          "title": "8. Cambiar Contraseña",
+          "description": "Puedes cambiar tu contraseña desde aquí. Necesitarás ingresar tu contraseña actual y la nueva contraseña que deseas usar."
+        }
+      }
+    ]
+  },
+  "usuarios-page": {
+    "steps": [
+      {
+        "element": "#btn-nuevo-usuario",
+        "popover": {
+          "title": "1. Botón Nuevo Usuario",
+          "description": "Haz clic aquí para crear un nuevo usuario. Solo los administradores y superadministradores pueden crear usuarios."
+        }
+      },
+      {
+        "element": "[data-tour='filtro-estado-usuarios']",
+        "popover": {
+          "title": "2. Barra de Filtros",
+          "description": "Busca usuarios por email o nombre, y filtra por estado: Todos, Activos o Inactivos. Facilita encontrar rápidamente cualquier usuario de tu empresa."
+        }
+      },
+      {
+        "element": "[data-tour='tabla-usuarios']",
+        "popover": {
+          "title": "3. Tabla de Usuarios",
+          "description": "Lista completa de usuarios de la empresa con su información: email, nombre, rol, estado, invitador y último acceso."
+        }
+      },
+      {
+        "element": "[data-tour='select-estado-usuario']",
+        "popover": {
+          "title": "4. Selector de Estado del Usuario",
+          "description": "Cambia el estado del usuario entre Activo, Inactivo o Pendiente. Los usuarios inactivos no pueden acceder al sistema."
+        }
+      },
+      {
+        "element": "[data-tour='btn-editar-usuario']",
+        "popover": {
+          "title": "5. Botón Editar",
+          "description": "Edita los datos del usuario: nombre, apellidos, rol y otros datos. Los cambios se aplican inmediatamente."
+        }
+      },
+      {
+        "element": "[data-tour='btn-borrar-usuario']",
+        "popover": {
+          "title": "6. Botón Borrar Usuario",
+          "description": "Elimina permanentemente el usuario. Podrás elegir si borrar todos sus datos o reasignarlos a otro usuario."
+        }
+      }
+    ]
+  },
+  "tarifa-create": {
+    "steps": [
+      {
+        "element": "#card-datos-tarifa",
+        "popover": {
+          "title": "1. Datos Tarifa",
+          "description": "Sección para los datos generales de la tarifa. Incluye el título identificativo, descripción opcional, validez en días (usado en presupuestos) y el estado (Activa/Inactiva). Solo las tarifas activas pueden usarse para generar presupuestos."
+        }
+      },
+      {
+        "element": "#title",
+        "popover": {
+          "title": "2. Título de la Tarifa",
+          "description": "Nombre identificativo de esta tarifa. Se utilizará para identificarla en el listado de tarifas y al crear presupuestos. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#validity",
+        "popover": {
+          "title": "3. Validez (días)",
+          "description": "Número de días que tendrá validez el presupuesto desde su fecha de emisión. Este valor se mostrará en el PDF generado. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#status",
+        "popover": {
+          "title": "4. Selector de Estado: Activa / Inactiva",
+          "description": "Selecciona el estado de la tarifa. Solo las tarifas activas pueden utilizarse para generar nuevos presupuestos. Las tarifas inactivas siguen disponibles para consulta pero no para crear nuevos presupuestos."
+        }
+      },
+      {
+        "element": "#card-datos-empresa",
+        "popover": {
+          "title": "5. Datos Empresa",
+          "description": "Información de tu empresa o negocio. Estos datos aparecerán en los presupuestos y en los PDFs generados. Incluye logo, nombre, NIF/CIF, dirección fiscal y datos de contacto. Todos los campos son obligatorios."
+        }
+      },
+      {
+        "element": "#logo-uploader",
+        "popover": {
+          "title": "6. Logo de Empresa",
+          "description": "Logo de tu empresa que aparecerá en los presupuestos y PDFs. Puedes subir una imagen nueva o usar la URL de un logo existente. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#name",
+        "popover": {
+          "title": "7. Nombre de Empresa",
+          "description": "Nombre completo de tu empresa o nombre como autónomo. Se mostrará en los presupuestos y en los PDFs generados junto al logo. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#nif",
+        "popover": {
+          "title": "8. NIF/CIF",
+          "description": "CIF de tu empresa (ej: A12345678) o DNI/NIE como autónomo (ej: 12345678Z). El sistema valida automáticamente el formato y la letra de control. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#address",
+        "popover": {
+          "title": "9. Dirección Fiscal",
+          "description": "Dirección completa de tu empresa o domicilio fiscal (calle, código postal, ciudad, provincia). Se mostrará en los presupuestos y PDFs. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#contact",
+        "popover": {
+          "title": "10. Datos de Contacto",
+          "description": "Información de contacto como teléfono, email y web. Se mostrará en los presupuestos y PDFs para que tus clientes puedan contactarte. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#card-configuracion-visual",
+        "popover": {
+          "title": "11. Configuración Visual",
+          "description": "Personalización visual para los presupuestos y PDFs. Incluye la selección de plantilla PDF, color primario y color secundario. Estos colores se aplicarán al diseño del PDF según la plantilla seleccionada."
+        }
+      },
+      {
+        "element": "#template-selector",
+        "popover": {
+          "title": "12. Plantilla PDF",
+          "description": "Selecciona el diseño de plantilla PDF que se usará para generar los presupuestos. Cada plantilla tiene un estilo diferente. Puedes previsualizar las plantillas antes de seleccionar. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#primary_color",
+        "popover": {
+          "title": "13. Color Primario",
+          "description": "Color principal que se utilizará en la página de presupuestos y en las plantillas PDF que usan colores. Afecta al diseño visual de los documentos generados. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#secondary_color",
+        "popover": {
+          "title": "14. Color Secundario",
+          "description": "Color secundario que se utilizará en la página de presupuestos y en las plantillas PDF que usan colores. Complementa al color primario en el diseño. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#card-notas-pdf",
+        "popover": {
+          "title": "15. Notas PDF",
+          "description": "Textos que aparecerán en el PDF del presupuesto. Incluye el texto resumen (información adicional del presupuesto) y las condiciones (forma de pago, plazos, garantías). Ambos campos son obligatorios y admiten formato enriquecido (HTML)."
+        }
+      },
+      {
+        "element": "#summary_note",
+        "popover": {
+          "title": "16. Texto Resumen PDF",
+          "description": "Texto que aparecerá en la sección de resumen del PDF generado. Puedes incluir información adicional sobre el presupuesto. Admite formato de texto enriquecido. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#conditions_note",
+        "popover": {
+          "title": "17. Condiciones PDF",
+          "description": "Condiciones generales que aparecerán en el PDF. Por ejemplo: forma de pago, plazos de entrega, garantías, etc. Admite formato de texto enriquecido. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#card-notas-formulario",
+        "popover": {
+          "title": "18. Notas Formulario",
+          "description": "Notas legales que aparecerán en la página web del presupuesto (no en el PDF). Incluye información sobre política de privacidad, RGPD, avisos legales, etc. Campo obligatorio y admite formato enriquecido."
+        }
+      },
+      {
+        "element": "#legal_note",
+        "popover": {
+          "title": "19. Notas Legales",
+          "description": "Notas legales que aparecerán en la página web del presupuesto. Por ejemplo: política de privacidad, RGPD, avisos legales, etc. Admite formato de texto enriquecido. Campo obligatorio."
+        }
+      },
+      {
+        "element": "#csv-upload-preview",
+        "popover": {
+          "title": "20. Archivo CSV de Partidas",
+          "description": "Carga el archivo CSV con la estructura jerárquica de partidas y precios. Este archivo es obligatorio y define todas las partidas que estarán disponibles para crear presupuestos. El sistema mostrará una vista previa de la jerarquía cargada."
+        }
+      }
+    ]
+  }
+}

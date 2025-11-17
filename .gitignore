@@ -1,0 +1,84 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+public/help/.obsidian/
+
+# ============================================
+# LIMPIEZA PRE-PRODUCCIÓN
+# ============================================
+
+# Documentación (solo desarrollo - excluir de producción)
+# NOTA: prd.md, planificacion.md, tareas.md, claude.md son archivos base del proyecto
+# Se mantienen en repo pero se excluyen en deployment con .dockerignore
+/docs/
+arquitectura.md
+mvp-completado.md
+CHANGELOG_*.md
+CHECKLIST_*.md
+FEATURE_*.md
+importerCSV.md
+INSTRUCCIONES_*.md
+TESTING_*.md
+REFACTORING_*.md
+arbol.txt
+DEPLOYMENT.md
+
+# Archivos temporales y de desarrollo
+/temp/
+/.dev/
+/.claude/
+
+# Migraciones de desarrollo (mantener solo numeradas oficiales)
+migrations/EJECUTAR_*.sql
+migrations/UTIL_*.sql
+migrations/DIAGNOSTICO_*.sql
+migrations/VERIFICAR_*.sql
+migrations/README_*.md
+migrations/delete_*.sql
+
+# Scripts de desarrollo y refactoring
+fix_*.sh
+refactor_*.sh
+/scripts/
+
+# Archivos generados en desarrollo/testing
+public/pdfs/
+public/logos/

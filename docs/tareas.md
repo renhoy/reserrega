@@ -2,8 +2,8 @@
 
 ## MÓDULO ACTIVO: Gift-Flow 🔴
 
-**Tareas Activas:** 3/7
-**Progreso:** 43%
+**Tareas Activas:** 4/7
+**Progreso:** 57%
 
 ---
 
@@ -118,13 +118,15 @@
 - `features/gift-flow/actions/gift-flow.actions.ts`
 
 **Criterio de aceptación:**
-- [ ] viewFriendWishlist verifica que sean amigos
-- [ ] lockGiftItem bloquea por 15 minutos
-- [ ] processGiftPayment actualiza estados (available → in_process)
-- [ ] confirmGiftDelivery marca como gifted
-- [ ] getGiftHistory muestra regalos enviados
-- [ ] releaseExpiredLocks limpia bloqueos antiguos
-- [ ] Validación de permisos en todas las acciones
+- [x] viewFriendWishlist verifica que sean amigos
+- [x] lockGiftItem bloquea por 15 minutos
+- [x] processGiftPayment actualiza estados (available → in_process)
+- [x] confirmGiftDelivery marca como gifted
+- [x] getGiftHistory muestra regalos enviados
+- [x] releaseExpiredLocks limpia bloqueos antiguos
+- [x] Validación de permisos en todas las acciones
+
+**Estado:** ✅ COMPLETADA (2025-01-17)
 
 ---
 

@@ -26,8 +26,8 @@ export { GiftSummary, GiftSummaryCompact } from './components/GiftSummary'
 // export * from './components/DeliveryTracking'
 // export * from './components/GiftHistory'
 
-// Actions (will be added in GF-004)
-// export * from './actions/gift-flow.actions'
+// Actions (GF-004 completed)
+export * from './actions/gift-flow.actions'
 
 // Hooks (will be added in GF-005)
 // export * from './hooks/use-gift-flow'

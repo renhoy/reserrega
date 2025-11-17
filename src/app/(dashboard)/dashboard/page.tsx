@@ -1,12 +1,11 @@
 import { redirect } from 'next/navigation'
-import { getServerUser } from '@/lib/auth/server'
+import { getUser } from '@/shared/auth/server'
 import { getDashboardStats } from '@/app/actions/dashboard'
-import { userHasBudgets } from '@/app/actions/budgets'
 import { getAllHelpArticles, filterArticlesByRole } from '@/lib/helpers/markdown-helpers'
 import { DashboardClient } from '@/components/dashboard/DashboardClient'
 
 export default async function DashboardPage() {
-  const user = await getServerUser()
+  const user = await getUser()
 
   if (!user) {
     redirect('/login')
@@ -25,9 +24,6 @@ export default async function DashboardPage() {
     )
   }
 
-  // Verificar si el usuario tiene presupuestos
-  const hasBudgets = await userHasBudgets()
-
   // Obtener artículos de ayuda de "Primeros pasos" filtrados por rol
   const allArticles = await getAllHelpArticles()
   const userArticles = filterArticlesByRole(allArticles, user.role)
@@ -37,7 +33,6 @@ export default async function DashboardPage() {
     <DashboardClient
       initialStats={stats}
       userRole={user.role}
-      hasBudgets={hasBudgets}
       helpArticles={primerosPasosArticles}
     />
   )

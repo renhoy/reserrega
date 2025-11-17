@@ -79,7 +79,6 @@ type Periodo = "hoy" | "semana" | "mes" | "año";
 export function DashboardClient({
   initialStats,
   userRole,
-  hasBudgets = true,
   helpArticles = [],
 }: DashboardClientProps) {
   const [stats, setStats] = useState(initialStats);

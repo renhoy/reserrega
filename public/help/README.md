@@ -15,7 +15,7 @@ Cada artículo debe ser un archivo `.md` con el siguiente formato:
 ---
 id: nombre-del-articulo
 title: Título del Artículo
-category: Categoría (ej: Primeros pasos, Tarifas, Presupuestos)
+category: Categoría (ej: Primeros pasos, Wishlist, Amigos, Regalos)
 tourId: nombre-del-tour (opcional)
 visible: all
 ---
@@ -51,20 +51,20 @@ Archivo `tours.json`:
 
 ```json
 {
-  "crear-tarifa": {
+  "crear-wishlist": {
     "steps": [
       {
-        "element": "#btn-nueva-tarifa",
+        "element": "#btn-nueva-wishlist",
         "popover": {
-          "title": "Paso 1: Nueva tarifa",
-          "description": "Haz clic en el botón 'Nueva Tarifa'"
+          "title": "Paso 1: Nueva Wishlist",
+          "description": "Haz clic en el botón 'Nueva Wishlist'"
         }
       },
       {
         "element": "#campo-nombre",
         "popover": {
           "title": "Paso 2: Nombre",
-          "description": "Introduce el nombre de la tarifa"
+          "description": "Introduce el nombre de tu lista de deseos"
         }
       }
     ]
@@ -82,8 +82,9 @@ Archivo `tours.json`:
 ## Categorías Sugeridas
 
 - **Primeros pasos**: Introducción y configuración inicial
-- **Tarifas**: Gestión de tarifas
-- **Presupuestos**: Creación y gestión de presupuestos
+- **Wishlist**: Gestión de listas de deseos
+- **Amigos**: Red de amigos y compartir regalos
+- **Reservas**: Reservar regalos para eventos
 - **Usuarios**: Administración de usuarios
 - **Configuración**: Ajustes del sistema
 - **Avanzado**: Funcionalidades avanzadas

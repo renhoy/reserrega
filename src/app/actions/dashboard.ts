@@ -2,28 +2,52 @@
 
 import { createServerActionClient } from "@/lib/supabase/helpers";
 import { supabaseAdmin } from "@/lib/supabase/server";
-import { Budget, Database } from "@/lib/types/database";
 import { log } from "@/lib/logger";
-import { requireValidCompanyId } from "@/lib/helpers/company-validation";
 
-interface DashboardStats {
-  countsByStatus: Record<string, number>;
-  totalsByStatus: Record<string, string>;
-  monthCount: number;
-  conversionRate: number;
-  recentBudgets: Budget[];
-  expiringBudgets: Budget[];
-  totalValue: string;
+interface ReservationItem {
+  id: string;
+  product: {
+    name: string;
+    price: number;
+    image_url: string | null;
+  };
+  store: {
+    name: string;
+  };
+  status: string;
+  created_at: string;
+  expires_at: string;
 }
 
-type Periodo = "hoy" | "semana" | "mes" | "año";
+interface GiftItem {
+  id: string;
+  product: {
+    name: string;
+    price: number;
+    image_url: string | null;
+  };
+  buyer: {
+    name: string;
+  };
+  created_at: string;
+  shipping_status: string;
+}
+
+interface DashboardStats {
+  totalReservations: number;
+  activeReservations: number;
+  totalWishlistItems: number;
+  totalFriends: number;
+  giftsSent: number;
+  giftsReceived: number;
+  recentReservations: ReservationItem[];
+  recentGiftsReceived: GiftItem[];
+}
 
 /**
- * Obtener estadísticas del dashboard
+ * Obtener estadísticas del dashboard para Reserrega
  */
-export async function getDashboardStats(
-  periodo: Periodo = "mes"
-): Promise<DashboardStats | null> {
+export async function getDashboardStats(): Promise<DashboardStats | null> {
   try {
     const supabase = await createServerActionClient();
 
@@ -32,194 +56,97 @@ export async function getDashboardStats(
       data: { user },
       error: authError,
     } = await supabase.auth.getUser();
+
     if (authError || !user) {
       log.error("[getDashboardStats] Error de autenticación:", authError);
       return null;
     }
 
-    // Obtener company_id y rol del usuario (usar supabaseAdmin para schema correcto)
-    const { data: userData, error: userError } = await supabaseAdmin
-      .from("users")
-      .select("company_id, role")
-      .eq("id", user.id)
-      .single();
+    // 1. Obtener total de reservas del usuario
+    const { count: totalReservations } = await supabaseAdmin
+      .from("reservations")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id);
 
-    if (userError || !userData) {
-      log.error("[getDashboardStats] Error obteniendo usuario:", userError);
-      return null;
-    }
+    // 2. Obtener reservas activas (no expiradas, no completadas)
+    const { count: activeReservations } = await supabaseAdmin
+      .from("reservations")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("status", "active");
 
-    // SECURITY: Validar company_id obligatorio
-    let companyId: number
-    try {
-      companyId = requireValidCompanyId(userData, '[getDashboardStats]')
-    } catch (error) {
-      log.error('[getDashboardStats] company_id inválido', { error })
-      return null
-    }
+    // 3. Obtener total de items en wishlist
+    const { count: totalWishlistItems } = await supabaseAdmin
+      .from("wishlists")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id);
 
-    // Calcular fecha de inicio según período
-    const now = new Date();
-    const startDate = new Date();
+    // 4. Obtener total de amigos
+    const { count: totalFriends } = await supabaseAdmin
+      .from("friendships")
+      .select("*", { count: "exact", head: true })
+      .or(`user_id.eq.${user.id},friend_id.eq.${user.id}`);
 
-    switch (periodo) {
-      case "hoy":
-        startDate.setHours(0, 0, 0, 0);
-        break;
-      case "semana":
-        startDate.setDate(now.getDate() - 7);
-        break;
-      case "mes":
-        startDate.setMonth(now.getMonth() - 1);
-        break;
-      case "año":
-        startDate.setFullYear(now.getFullYear() - 1);
-        break;
-    }
+    // 5. Obtener regalos enviados
+    const { count: giftsSent } = await supabaseAdmin
+      .from("gifts")
+      .select("*", { count: "exact", head: true })
+      .eq("buyer_id", user.id)
+      .eq("payment_status", "completed");
 
-    // Construir query base según rol (usar supabaseAdmin para schema correcto)
-    let query = supabaseAdmin
-      .from("budgets")
-      .select("*")
-      .eq("company_id", companyId);
+    // 6. Obtener regalos recibidos
+    const { count: giftsReceived } = await supabaseAdmin
+      .from("gifts")
+      .select("*", { count: "exact", head: true })
+      .eq("recipient_id", user.id)
+      .eq("payment_status", "completed");
 
-    // Comercial: solo sus presupuestos
-    if (userData.role === "comercial") {
-      query = query.eq("user_id", user.id);
-    }
-
-    // Admin/Superadmin: todos de la empresa
-    // (ya filtrado por company_id arriba)
-
-    const { data: budgets, error: budgetsError } = await query;
-
-    if (budgetsError) {
-      log.error(
-        "[getDashboardStats] Error obteniendo presupuestos:",
-        budgetsError
-      );
-      return null;
-    }
-
-    if (!budgets) {
-      return {
-        countsByStatus: {},
-        totalsByStatus: {},
-        monthCount: 0,
-        conversionRate: 0,
-        recentBudgets: [],
-        expiringBudgets: [],
-        totalValue: "€0,00",
-      };
-    }
-
-    // Filtrar por período
-    const budgetsInPeriod = budgets.filter((b) => {
-      const createdAt = new Date(b.created_at);
-      return createdAt >= startDate;
-    });
-
-    // Calcular estadísticas por estado
-    const countsByStatus: Record<string, number> = {};
-    const totalsByStatus: Record<string, number> = {};
-
-    budgetsInPeriod.forEach((budget) => {
-      const status = budget.status;
-      countsByStatus[status] = (countsByStatus[status] || 0) + 1;
-      totalsByStatus[status] =
-        (totalsByStatus[status] || 0) + (budget.total || 0);
-    });
-
-    // Formatear totales a string con formato español
-    const totalsByStatusFormatted: Record<string, string> = {};
-    Object.entries(totalsByStatus).forEach(([status, total]) => {
-      totalsByStatusFormatted[status] = formatCurrency(total);
-    });
-
-    // Valor total
-    const totalValue = budgetsInPeriod.reduce(
-      (sum, b) => sum + (b.total || 0),
-      0
-    );
-
-    // Presupuestos del mes actual
-    const currentMonth = new Date();
-    currentMonth.setDate(1);
-    currentMonth.setHours(0, 0, 0, 0);
-    const monthCount = budgets.filter((b) => {
-      const createdAt = new Date(b.created_at);
-      return createdAt >= currentMonth;
-    }).length;
-
-    // Tasa de conversión: (aprobados / enviados) × 100
-    const enviadosCount = budgetsInPeriod.filter(
-      (b) => b.status === "enviado"
-    ).length;
-    const aprobadosCount = budgetsInPeriod.filter(
-      (b) => b.status === "aprobado"
-    ).length;
-    const conversionRate =
-      enviadosCount > 0 ? (aprobadosCount / enviadosCount) * 100 : 0;
-
-    // Últimos 5 presupuestos
-    const recentBudgets = [...budgets]
-      .sort(
-        (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    // 7. Obtener últimas 5 reservas con detalles
+    const { data: reservations } = await supabaseAdmin
+      .from("reservations")
+      .select(
+        `
+        id,
+        status,
+        created_at,
+        expires_at,
+        product:products(name, price, image_url),
+        store:stores(name)
+      `
       )
-      .slice(0, 5) as Budget[];
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: false })
+      .limit(5);
 
-    // Próximos a caducar (< 7 días restantes)
-    const expiringBudgets = budgets
-      .filter((b) => {
-        if (!b.end_date) return false;
-
-        const endDate = new Date(b.end_date);
-        const today = new Date();
-        const daysRemaining = Math.ceil(
-          (endDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-        );
-
-        return (
-          daysRemaining > 0 &&
-          daysRemaining < 7 &&
-          b.status !== "aprobado" &&
-          b.status !== "rechazado"
-        );
-      })
-      .sort((a, b) => {
-        const daysA = Math.ceil(
-          (new Date(a.end_date!).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-        );
-        const daysB = Math.ceil(
-          (new Date(b.end_date!).getTime() - Date.now()) / (1000 * 60 * 60 * 24)
-        );
-        return daysA - daysB;
-      }) as Budget[];
+    // 8. Obtener últimos 5 regalos recibidos
+    const { data: gifts } = await supabaseAdmin
+      .from("gifts")
+      .select(
+        `
+        id,
+        created_at,
+        shipping_status,
+        product:products(name, price, image_url),
+        buyer:users!gifts_buyer_id_fkey(name)
+      `
+      )
+      .eq("recipient_id", user.id)
+      .eq("payment_status", "completed")
+      .order("created_at", { ascending: false })
+      .limit(5);
 
     return {
-      countsByStatus,
-      totalsByStatus: totalsByStatusFormatted,
-      monthCount,
-      conversionRate: Math.round(conversionRate * 10) / 10,
-      recentBudgets,
-      expiringBudgets,
-      totalValue: formatCurrency(totalValue),
+      totalReservations: totalReservations || 0,
+      activeReservations: activeReservations || 0,
+      totalWishlistItems: totalWishlistItems || 0,
+      totalFriends: totalFriends || 0,
+      giftsSent: giftsSent || 0,
+      giftsReceived: giftsReceived || 0,
+      recentReservations: (reservations || []) as any,
+      recentGiftsReceived: (gifts || []) as any,
     };
   } catch (error) {
     log.error("[getDashboardStats] Error crítico:", error);
     return null;
   }
-}
-
-/**
- * Formatear número a moneda española
- */
-function formatCurrency(value: number): string {
-  return new Intl.NumberFormat("es-ES", {
-    style: "currency",
-    currency: "EUR",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  }).format(value);
 }

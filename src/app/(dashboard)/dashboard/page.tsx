@@ -11,8 +11,8 @@ export default async function DashboardPage() {
     redirect('/login')
   }
 
-  // Obtener estadísticas iniciales (mes actual)
-  const stats = await getDashboardStats('mes')
+  // Obtener estadísticas iniciales
+  const stats = await getDashboardStats()
 
   if (!stats) {
     return (

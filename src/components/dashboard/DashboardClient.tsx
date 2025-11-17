@@ -11,96 +11,91 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import {
-  AlertCircle,
   BookOpen,
-  Calendar,
-  CheckCircle,
-  Clock,
-  Euro,
-  FileText,
+  Gift,
+  Heart,
   Home,
-  Layers,
-  PlusCircle,
-  TrendingUp,
-  XCircle,
+  Package,
+  QrCode,
+  ShoppingBag,
+  Users,
   Zap,
 } from "lucide-react";
-import { getDashboardStats } from "@/app/actions/dashboard";
-import { Budget } from "@/lib/types/database";
 import { formatCurrency } from "@/lib/helpers/format";
 import type { HelpArticleMeta } from "@/lib/helpers/markdown-types";
 import { TourButton } from "@/components/help/TourButton";
 
+interface ReservationItem {
+  id: string;
+  product: {
+    name: string;
+    price: number;
+    image_url: string | null;
+  };
+  store: {
+    name: string;
+  };
+  status: string;
+  created_at: string;
+  expires_at: string;
+}
+
+interface GiftItem {
+  id: string;
+  product: {
+    name: string;
+    price: number;
+    image_url: string | null;
+  };
+  buyer: {
+    name: string;
+  };
+  created_at: string;
+  shipping_status: string;
+}
+
 interface DashboardClientProps {
   initialStats: {
-    countsByStatus: Record<string, number>;
-    totalsByStatus: Record<string, string>;
-    monthCount: number;
-    conversionRate: number;
-    recentBudgets: Budget[];
-    expiringBudgets: Budget[];
-    totalValue: string;
+    totalReservations: number;
+    activeReservations: number;
+    totalWishlistItems: number;
+    totalFriends: number;
+    giftsSent: number;
+    giftsReceived: number;
+    recentReservations: ReservationItem[];
+    recentGiftsReceived: GiftItem[];
   };
   userRole: string;
-  hasBudgets?: boolean;
   helpArticles?: HelpArticleMeta[];
 }
 
-const statusColors = {
-  borrador: "bg-black text-neutral-200",
-  pendiente: "bg-orange-100 text-yellow-800",
-  enviado: "bg-slate-100 text-lime-600",
-  aprobado: "bg-lime-50 text-green-600",
-  rechazado: "bg-pink-100 text-rose-600",
-  caducado: "bg-neutral-200 text-black",
+const statusColors: Record<string, string> = {
+  active: "bg-lime-100 text-lime-800",
+  expired: "bg-gray-100 text-gray-800",
+  completed: "bg-violet-100 text-violet-800",
+  cancelled: "bg-rose-100 text-rose-800",
 };
 
-const statusIcons = {
-  borrador: AlertCircle,
-  pendiente: Clock,
-  enviado: FileText,
-  aprobado: CheckCircle,
-  rechazado: XCircle,
-  caducado: AlertCircle,
+const shippingStatusColors: Record<string, string> = {
+  pending: "bg-amber-100 text-amber-800",
+  shipped: "bg-sky-100 text-sky-800",
+  delivered: "bg-lime-100 text-lime-800",
+  cancelled: "bg-gray-100 text-gray-800",
 };
-
-type Periodo = "hoy" | "semana" | "mes" | "año";
 
 export function DashboardClient({
   initialStats,
   userRole,
   helpArticles = [],
 }: DashboardClientProps) {
-  const [stats, setStats] = useState(initialStats);
-  const [periodo, setPeriodo] = useState<Periodo>("mes");
-  const [loading, setLoading] = useState(false);
+  const [stats] = useState(initialStats);
 
   // Detectar y ejecutar tour pendiente
   useEffect(() => {
     checkAndStartPendingTour();
   }, []);
-
-  const handlePeriodoChange = async (newPeriodo: Periodo) => {
-    setPeriodo(newPeriodo);
-    setLoading(true);
-
-    const newStats = await getDashboardStats(newPeriodo);
-    if (newStats) {
-      setStats(newStats);
-    }
-
-    setLoading(false);
-  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -114,7 +109,7 @@ export function DashboardClient({
   return (
     <div className="min-h-screen bg-lime-50">
       <div className="container mx-auto px-4 py-6 space-y-8">
-        {/* Header con filtro de período */}
+        {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-center md:text-left w-full md:w-auto">
             <div className="flex items-center justify-center md:justify-start gap-3">
@@ -122,111 +117,109 @@ export function DashboardClient({
                 className="text-3xl font-bold flex items-center gap-2"
                 data-tour="titulo-dashboard"
               >
-                <Home className="h-6 w-6" /> Panel de control
+                <Home className="h-6 w-6" /> Panel de Control
               </h1>
               <TourButton tourId="dashboard-page" />
             </div>
-            <p className="text-sm">Información, resumen y estadísticas</p>
-          </div>
-
-          <div
-            className="flex items-center gap-2 w-full md:w-auto justify-center md:justify-end"
-            data-tour="selector-periodo"
-          >
-            <Calendar className="w-4 h-4 text-gray-500" />
-            <Select
-              value={periodo}
-              onValueChange={(value) => handlePeriodoChange(value as Periodo)}
-            >
-              <SelectTrigger className="w-[150px] bg-white">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent className="bg-white">
-                <SelectItem value="hoy">Hoy</SelectItem>
-                <SelectItem value="semana">Esta semana</SelectItem>
-                <SelectItem value="mes">Este mes</SelectItem>
-                <SelectItem value="año">Este año</SelectItem>
-              </SelectContent>
-            </Select>
+            <p className="text-sm text-muted-foreground">
+              Bienvenido a Reserrega - Tu red de regalos
+            </p>
           </div>
         </div>
 
-        {/* Estadísticas principales - Grid 2x2 */}
+        {/* Estadísticas principales - Grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           data-tour="estadisticas-principales"
         >
-          {/* Total presupuestos */}
-          <Card>
-            <CardContent>
-              {loading ? (
-                <Skeleton className="h-6 w-16" />
-              ) : (
-                <div className="text-xl font-bold text-lime-600">
-                  {Object.values(stats.countsByStatus).reduce(
-                    (sum, count) => sum + count,
-                    0
-                  )}
-                </div>
-              )}
-            </CardContent>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-medium text-lime-600">
-                Total Presupuestos
+          {/* Wishlist */}
+          <Card className="bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Mi Wishlist
               </CardTitle>
-              <FileText className="h-6 w-6 text-lime-600" />
+              <ShoppingBag className="h-5 w-5 text-violet-600" />
             </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-violet-600">
+                {stats.totalWishlistItems}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                productos deseados
+              </p>
+            </CardContent>
           </Card>
 
-          {/* Valor total */}
-          <Card>
-            <CardContent>
-              {loading ? (
-                <Skeleton className="h-6 w-24" />
-              ) : (
-                <div className="text-xl font-bold text-lime-600">
-                  {formatCurrency(stats.totalValue)}
-                </div>
-              )}
-            </CardContent>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-medium text-lime-600">
-                Valor Total
+          {/* Reservas */}
+          <Card className="bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Mis Reservas
               </CardTitle>
-              <Euro className="h-6 w-6 text-lime-600" />
+              <Package className="h-5 w-5 text-lime-600" />
             </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-lime-600">
+                {stats.activeReservations}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                activas de {stats.totalReservations} totales
+              </p>
+            </CardContent>
           </Card>
 
-          {/* Presupuestos del mes */}
-          <Card>
-            <CardContent>
-              {loading ? (
-                <Skeleton className="h-6 w-12" />
-              ) : (
-                <div className="text-xl font-bold">{stats.monthCount}</div>
-              )}
-            </CardContent>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-medium">Mes Actual</CardTitle>
-              <Calendar className="h-6 w-6 text-muted-foreground" />
+          {/* Amigos */}
+          <Card className="bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Mi Red
+              </CardTitle>
+              <Users className="h-5 w-5 text-sky-600" />
             </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-sky-600">
+                {stats.totalFriends}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                amigos conectados
+              </p>
+            </CardContent>
           </Card>
 
-          {/* Tasa de conversión */}
-          <Card>
-            <CardContent>
-              {loading ? (
-                <Skeleton className="h-6 w-16" />
-              ) : (
-                <div className="text-xl font-bold">{stats.conversionRate}%</div>
-              )}
-            </CardContent>
-            <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle className="text-sm font-medium">
-                Tasa de Conversión
+          {/* Regalos Enviados */}
+          <Card className="bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Regalos Enviados
               </CardTitle>
-              <TrendingUp className="h-6 w-6 text-muted-foreground" />
+              <Heart className="h-5 w-5 text-rose-500" />
             </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-rose-500">
+                {stats.giftsSent}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                regalos realizados
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* Regalos Recibidos */}
+          <Card className="bg-white">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium text-muted-foreground">
+                Regalos Recibidos
+              </CardTitle>
+              <Gift className="h-5 w-5 text-fuchsia-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-fuchsia-500">
+                {stats.giftsReceived}
+              </div>
+              <p className="text-xs text-muted-foreground mt-1">
+                regalos de amigos
+              </p>
+            </CardContent>
           </Card>
         </div>
 
@@ -237,52 +230,49 @@ export function DashboardClient({
               <Zap className="w-5 h-5" />
               Accesos Rápidos
             </CardTitle>
-
             <CardDescription>Acciones frecuentes</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-              <Link href="/tariffs/create">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              <Link href="/wishlist">
+                <Button
+                  className="w-full h-16 flex items-center gap-2 justify-center border-violet-500 text-violet-600 hover:bg-violet-500 hover:text-white"
+                  variant="outline"
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  <span>Mi Wishlist</span>
+                </Button>
+              </Link>
+
+              <Link href="/qr">
                 <Button
                   className="w-full h-16 flex items-center gap-2 justify-center border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
                   variant="outline"
                 >
-                  <PlusCircle className="w-5 h-5" />
-                  <span>Crear Tarifa</span>
+                  <QrCode className="w-5 h-5" />
+                  <span>Reservar Producto</span>
                 </Button>
               </Link>
 
-              <Link href="/tariffs">
+              <Link href="/friends">
                 <Button
-                  className="w-full h-16 flex items-center gap-2 justify-center border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                  className="w-full h-16 flex items-center gap-2 justify-center border-sky-500 text-sky-600 hover:bg-sky-500 hover:text-white"
                   variant="outline"
                 >
-                  <Layers className="w-5 h-5" />
-                  <span>Ver Tarifas</span>
+                  <Users className="w-5 h-5" />
+                  <span>Mis Amigos</span>
                 </Button>
               </Link>
 
-              {hasBudgets ? (
-                <Link href="/budgets">
-                  <Button
-                    className="w-full h-16 flex items-center gap-2 justify-center border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
-                    variant="outline"
-                  >
-                    <FileText className="w-5 h-5" />
-                    <span>Ver Presupuestos</span>
-                  </Button>
-                </Link>
-              ) : (
+              <Link href="/gift/history">
                 <Button
-                  className="w-full h-16 flex items-center gap-2 justify-center opacity-60 cursor-not-allowed"
+                  className="w-full h-16 flex items-center gap-2 justify-center border-rose-500 text-rose-600 hover:bg-rose-500 hover:text-white"
                   variant="outline"
-                  disabled
-                  title="No tienes presupuestos creados"
                 >
-                  <FileText className="w-5 h-5" />
-                  <span>Ver Presupuestos</span>
+                  <Gift className="w-5 h-5" />
+                  <span>Historial</span>
                 </Button>
-              )}
+              </Link>
             </div>
           </CardContent>
         </Card>
@@ -296,7 +286,7 @@ export function DashboardClient({
                 Primeros Pasos
               </CardTitle>
               <CardDescription>
-                Guías para comenzar a usar la aplicación
+                Guías para comenzar a usar Reserrega
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -319,52 +309,65 @@ export function DashboardClient({
 
         {/* Listados */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Últimos presupuestos */}
-          <Card data-tour="ultimos-presupuestos" className="bg-lime-100">
+          {/* Últimas reservas */}
+          <Card data-tour="ultimas-reservas" className="bg-white">
             <CardHeader>
-              <CardTitle>Últimos 5 Presupuestos</CardTitle>
-              <CardDescription>
-                Presupuestos creados recientemente
-              </CardDescription>
+              <CardTitle>Últimas Reservas</CardTitle>
+              <CardDescription>Tus últimas 5 reservas</CardDescription>
             </CardHeader>
             <CardContent>
-              {loading ? (
-                <div className="space-y-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Skeleton key={i} className="h-16 w-full" />
-                  ))}
-                </div>
-              ) : stats.recentBudgets.length === 0 ? (
+              {stats.recentReservations.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-8">
-                  No hay presupuestos recientes
+                  No tienes reservas aún. ¡Escanea el QR de un producto para
+                  reservar!
                 </p>
               ) : (
                 <div className="space-y-3">
-                  {stats.recentBudgets.map((budget) => (
+                  {stats.recentReservations.map((reservation) => (
                     <Link
-                      key={budget.id}
-                      href={`/budgets/create?tariff_id=${budget.tariff_id}&budget_id=${budget.id}`}
+                      key={reservation.id}
+                      href={`/reservations/${reservation.id}`}
                       className="block p-3 rounded-lg border bg-lime-50 hover:bg-lime-100 transition-colors"
                     >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <p className="font-medium">{budget.client_name}</p>
+                      <div className="flex gap-3">
+                        <div className="w-16 h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
+                          <img
+                            src={
+                              reservation.product.image_url ||
+                              `https://placehold.co/64x64/e5e7eb/6b7280?text=${encodeURIComponent(reservation.product.name.substring(0, 2))}`
+                            }
+                            alt={reservation.product.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">
+                            {reservation.product.name}
+                          </p>
                           <p className="text-sm text-muted-foreground">
-                            {formatDate(budget.created_at)}
+                            {reservation.store.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {formatDate(reservation.created_at)}
                           </p>
                         </div>
-                        <div className="flex flex-col items-end gap-1">
+                        <div className="flex flex-col items-end gap-1 flex-shrink-0">
                           <Badge
                             className={
-                              statusColors[
-                                budget.status as keyof typeof statusColors
-                              ]
+                              statusColors[reservation.status] ||
+                              "bg-gray-100"
                             }
                           >
-                            {budget.status}
+                            {reservation.status === "active"
+                              ? "Activa"
+                              : reservation.status === "expired"
+                                ? "Expirada"
+                                : reservation.status === "completed"
+                                  ? "Completada"
+                                  : "Cancelada"}
                           </Badge>
-                          <span className="text-sm font-medium">
-                            {formatCurrency(budget.total || 0)}
+                          <span className="text-sm font-medium text-lime-600">
+                            {formatCurrency(reservation.product.price)}
                           </span>
                         </div>
                       </div>
@@ -375,66 +378,72 @@ export function DashboardClient({
             </CardContent>
           </Card>
 
-          {/* Próximos a caducar */}
-          <Card data-tour="proximos-caducar" className="bg-lime-100">
+          {/* Últimos regalos recibidos */}
+          <Card data-tour="regalos-recibidos" className="bg-white">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <AlertCircle className="w-5 h-5 text-orange-600" />
-                Próximos a Caducar
+                <Gift className="w-5 h-5 text-fuchsia-500" />
+                Regalos Recibidos
               </CardTitle>
-              <CardDescription>Menos de 7 días restantes</CardDescription>
+              <CardDescription>Tus últimos 5 regalos</CardDescription>
             </CardHeader>
             <CardContent>
-              {loading ? (
-                <div className="space-y-3">
-                  {[...Array(3)].map((_, i) => (
-                    <Skeleton key={i} className="h-16 w-full" />
-                  ))}
-                </div>
-              ) : stats.expiringBudgets.length === 0 ? (
+              {stats.recentGiftsReceived.length === 0 ? (
                 <p className="text-sm text-muted-foreground text-center py-8">
-                  No hay presupuestos próximos a caducar
+                  No has recibido regalos aún. ¡Comparte tu wishlist con amigos!
                 </p>
               ) : (
                 <div className="space-y-3">
-                  {stats.expiringBudgets.map((budget) => {
-                    const daysRemaining = Math.ceil(
-                      (new Date(budget.end_date!).getTime() - Date.now()) /
-                        (1000 * 60 * 60 * 24)
-                    );
-
-                    return (
-                      <Link
-                        key={budget.id}
-                        href={`/budgets/create?tariff_id=${budget.tariff_id}&budget_id=${budget.id}`}
-                        className="block p-3 rounded-lg border border-orange-200 bg-orange-50 hover:bg-orange-100 transition-colors"
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <p className="font-medium">{budget.client_name}</p>
-                            <p className="text-sm text-orange-700">
-                              {daysRemaining}{" "}
-                              {daysRemaining === 1 ? "día" : "días"} restantes
-                            </p>
-                          </div>
-                          <div className="flex flex-col items-end gap-1">
-                            <Badge
-                              className={
-                                statusColors[
-                                  budget.status as keyof typeof statusColors
-                                ]
-                              }
-                            >
-                              {budget.status}
-                            </Badge>
-                            <span className="text-sm font-medium">
-                              {formatCurrency(budget.total || 0)}
-                            </span>
-                          </div>
+                  {stats.recentGiftsReceived.map((gift) => (
+                    <div
+                      key={gift.id}
+                      className="block p-3 rounded-lg border bg-fuchsia-50 hover:bg-fuchsia-100 transition-colors"
+                    >
+                      <div className="flex gap-3">
+                        <div className="w-16 h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
+                          <img
+                            src={
+                              gift.product.image_url ||
+                              `https://placehold.co/64x64/e5e7eb/6b7280?text=${encodeURIComponent(gift.product.name.substring(0, 2))}`
+                            }
+                            alt={gift.product.name}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
-                      </Link>
-                    );
-                  })}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium truncate">
+                            {gift.product.name}
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            <Heart className="inline h-3 w-3 text-rose-500 mr-1" />
+                            De {gift.buyer.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            {formatDate(gift.created_at)}
+                          </p>
+                        </div>
+                        <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                          <Badge
+                            className={
+                              shippingStatusColors[gift.shipping_status] ||
+                              "bg-gray-100"
+                            }
+                          >
+                            {gift.shipping_status === "pending"
+                              ? "Pendiente"
+                              : gift.shipping_status === "shipped"
+                                ? "Enviado"
+                                : gift.shipping_status === "delivered"
+                                  ? "Entregado"
+                                  : "Cancelado"}
+                          </Badge>
+                          <span className="text-sm font-medium text-fuchsia-600">
+                            {formatCurrency(gift.product.price)}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </CardContent>

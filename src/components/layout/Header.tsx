@@ -14,6 +14,8 @@ import {
   Settings,
   Users,
   Camera,
+  Package,
+  QrCode,
 } from "lucide-react";
 import LogoutButton from "@/components/auth/LogoutButton";
 import { UserMenu } from "@/components/layout/UserMenu";
@@ -108,7 +110,9 @@ export function Header({
     { name: "Escanear", href: "/scan", icon: Camera, show: userRole === "comercial" },
     // Usuarios normales
     { name: "Wishlist", href: "/wishlist", icon: Heart, show: !isAdmin && userRole !== "comercial" },
+    { name: "Reservas", href: "/reservations", icon: Package, show: !isAdmin && userRole !== "comercial" },
     { name: "Amigos", href: "/friends", icon: UserPlus, show: !isAdmin && userRole !== "comercial" },
+    { name: "QR", href: "/qr", icon: QrCode, show: !isAdmin && userRole !== "comercial" },
     // Común para todos
     { name: "Ayuda", href: "/help", icon: HelpCircle, show: true },
   ].filter((item) => item.show);

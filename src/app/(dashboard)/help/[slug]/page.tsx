@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
-import { getServerUser } from "@/lib/auth/server";
+import { getUser } from "@/shared/auth/server";
 
 interface HelpArticlePageProps {
   params: {
@@ -46,7 +46,7 @@ export default async function HelpArticlePage({
   params,
 }: HelpArticlePageProps) {
   // Obtener usuario autenticado
-  const user = await getServerUser();
+  const user = await getUser();
 
   if (!user) {
     redirect("/login");
@@ -64,7 +64,7 @@ export default async function HelpArticlePage({
   if (!canView) {
     // El usuario no tiene permisos para ver este artículo
     return (
-      <div className="min-h-screen bg-lime-50">
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
         <div className="container mx-auto px-4 py-6 max-w-5xl">
           <div className="mb-6">
             <Link href="/help">
@@ -104,9 +104,10 @@ export default async function HelpArticlePage({
 
   // Determinar la ruta objetivo para el tour basado en el tourId
   const tourTargetPaths: Record<string, string> = {
-    "crear-tarifa": "/tariffs/create",
     "editar-usuario": "/users",
-    "generar-presupuesto": "/budgets/create",
+    "wishlist-page": "/wishlist",
+    "friends-page": "/friends",
+    "profile-page": `/users/${user.id}/edit`,
     // Añadir más mapeos según sea necesario
   };
 
@@ -115,7 +116,7 @@ export default async function HelpArticlePage({
     : undefined;
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
       <div className="container mx-auto px-4 py-6 max-w-5xl">
         {/* Header con navegación y botones */}
         <div className="mb-6">
@@ -133,7 +134,7 @@ export default async function HelpArticlePage({
           </div>
 
           <div>
-            <h1 className="text-3xl font-bold text-lime-600 mb-2">
+            <h1 className="text-3xl font-bold text-pink-600 mb-2">
               {article.title}
             </h1>
             <Badge variant="secondary">{article.category}</Badge>

@@ -31,9 +31,10 @@
 **Completado:** Login/Register, middleware, hooks, server helpers, permisos
 
 #### 3. Common
-**Estado:** ACTIVO 🔴
+**Estado:** ✅ READ-ONLY (Completado)
 **Propósito:** UI components (shadcn/ui), utilidades, tipos compartidos, layouts
 **Archivos:** `shared/common/`
+**Completado:** 25+ componentes UI, layouts, hooks compartidos, utilidades, constantes, types
 
 ---
 
@@ -96,10 +97,12 @@
 - [x] Protección de rutas según permisos
 
 **Common:**
-- [ ] shadcn/ui instalado y configurado
-- [ ] Layout base (Header, Sidebar)
-- [ ] Componentes UI reutilizables
-- [ ] Hooks compartidos (useUser, usePermissions)
+- [x] shadcn/ui instalado y configurado
+- [x] Layout base (Header, Sidebar, Footer, MainLayout)
+- [x] Componentes UI reutilizables (25+ componentes)
+- [x] Hooks compartidos (usePermissions, useToast, useMediaQuery, etc.)
+- [x] Utilidades (formatters, validators, helpers)
+- [x] Constantes y types compartidos
 
 **Product-Reservation:**
 - [ ] Generar QR temporal para usuario

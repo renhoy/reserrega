@@ -1,45 +1,48 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Common 🔴
+## MÓDULO ACTUAL: Product-Reservation 🔴
 
-**Objetivo:** UI components base, layouts, utilidades compartidas
+**Objetivo:** Escaneo QR temporal, vincular productos a usuarios, pago 1€, expiración 15 días
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-shared/common/
+features/product-reservation/
 ├── components/
-│   ├── ui/                    # shadcn/ui components
-│   ├── layouts/
-│   │   ├── Header.tsx
-│   │   ├── Sidebar.tsx
-│   │   ├── Footer.tsx
-│   │   └── MainLayout.tsx
-│   └── shared/
-│       ├── LoadingSpinner.tsx
-│       ├── ErrorBoundary.tsx
-│       └── ...
+│   ├── QRGenerator.tsx
+│   ├── QRScanner.tsx
+│   ├── ProductScanner.tsx
+│   └── ReservationForm.tsx
+├── actions/
+│   ├── generateQR.ts
+│   ├── scanProduct.ts
+│   └── createReservation.ts
 ├── hooks/
-│   ├── usePermissions.ts
-│   ├── useToast.ts
-│   └── ...
+│   ├── useQRCode.ts
+│   └── useReservation.ts
 ├── lib/
-│   ├── utils.ts
-│   └── cn.ts
+│   ├── qr-utils.ts
+│   └── product-utils.ts
 ├── types/
-│   └── common.types.ts
-├── constants/
-│   └── routes.ts
+│   └── reservation.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
-├── layout.tsx                 # Root layout
-├── (dashboard)/              # Dashboard routes
-│   └── layout.tsx
-└── components/                # App-specific components
+├── (user)/
+│   ├── reservations/
+│   │   ├── page.tsx
+│   │   ├── [id]/
+│   │   │   └── page.tsx
+│   │   └── new/
+│   │       └── page.tsx
+│   └── qr/
+│       └── page.tsx
+└── (comercial)/
+    └── scan/
+        └── page.tsx
 ```
 
 ---
@@ -57,8 +60,16 @@ src/app/
   - Middleware, hooks, server helpers
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados)
-❌ src/app/(routes)/* (excepto layouts permitidos)
+✅ shared/common/* (READ-ONLY - Módulo completado)
+  - 25+ componentes UI (shadcn/ui)
+  - Layouts (Header, Sidebar, Footer, MainLayout)
+  - Hooks compartidos (usePermissions, useToast, etc.)
+  - Utilidades (formatters, validators, helpers)
+  - Constantes y types
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Product-Reservation)
+❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 
 ---
@@ -73,10 +84,10 @@ src/app/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Common
+- Solo trabajar en archivos del módulo Product-Reservation
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/database/* y shared/auth/* pero NO MODIFICAR
+- Puedes LEER shared/database/*, shared/auth/* y shared/common/* pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -108,6 +119,7 @@ src/app/
 **Módulos completados (READ-ONLY):**
 - shared/database/* - Schema y tipos
 - shared/auth/* - Autenticación completa
+- shared/common/* - UI components, layouts, hooks, utilidades
 
 **Herramientas:**
 - clsx / tailwind-merge
@@ -126,13 +138,12 @@ src/app/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Common module incluye:**
-- shadcn/ui components configurados
-- Layouts base (Header, Sidebar, Footer)
-- Componentes reutilizables
-- Hooks compartidos (usePermissions, etc.)
-- Utilidades comunes
-- Constantes de rutas
+**Product-Reservation module incluye:**
+- Generación de QR temporal para usuarios
+- Escaneo de QR + código de barras por comerciales
+- Vinculación de productos a usuarios
+- Sistema de pago simulado (1€ por reserva)
+- Expiración automática de reservas (15 días)
 
 ---
 
@@ -143,14 +154,15 @@ src/app/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Common
-Solo puedes modificar archivos en shared/common/ y layouts en src/app/
+Módulo activo: Product-Reservation
+Solo puedes modificar archivos en features/product-reservation/ y rutas en src/app/(user)/reservations, src/app/(user)/qr, src/app/(comercial)/scan
 
 Tarea actual: [copiar de tareas.md]
 
 Restricciones:
 - NO modificar shared/database/* (READ-ONLY)
 - NO modificar shared/auth/* (READ-ONLY)
+- NO modificar shared/common/* (READ-ONLY)
 - Puedes LEER módulos completados para uso
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
@@ -173,15 +185,23 @@ Restricciones:
 - Server helpers (requireAuth, requireRole)
 - Sistema de permisos completo
 
+✅ **Common** - `shared/common/` (READ-ONLY)
+- 25+ componentes UI (shadcn/ui)
+- Layouts completos (Header, Sidebar, Footer, MainLayout)
+- Componentes compartidos (LoadingSpinner, ErrorBoundary, EmptyState, etc.)
+- Hooks compartidos (usePermissions, useToast, useMediaQuery, etc.)
+- Utilidades (formatters, validators, helpers)
+- Constantes (routes, UI) y types compartidos
+
 ---
 
-## PRÓXIMO MÓDULO (después de completar Common)
+## PRÓXIMO MÓDULO (después de completar Product-Reservation)
 
-**Product-Reservation** - `features/product-reservation/`
+**Wishlist** - `features/wishlist/`
 
-**Cuando Common esté READ-ONLY:**
-1. Actualizar PRD.md → estado Common = READ-ONLY
-2. Mover `shared/common/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Product-Reservation
-4. Actualizar lista PERMITIDOS con archivos de Product-Reservation
-5. Crear nuevo backlog en tareas.md para Product-Reservation
+**Cuando Product-Reservation esté READ-ONLY:**
+1. Actualizar PRD.md → estado Product-Reservation = READ-ONLY
+2. Mover `features/product-reservation/*` a ARCHIVOS PROHIBIDOS
+3. Cambiar MÓDULO ACTUAL a: Wishlist
+4. Actualizar lista PERMITIDOS con archivos de Wishlist
+5. Crear nuevo backlog en tareas.md para Wishlist

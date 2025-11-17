@@ -1,8 +1,8 @@
-# Tareas - MÓDULO: Common
+# Tareas - MÓDULO: Product-Reservation
 
-## MÓDULO ACTIVO: Common 🔴
+## MÓDULO ACTIVO: Product-Reservation 🔴
 
-**Tareas Activas:** 0/3
+**Tareas Activas:** 0/6
 **Progreso:** 0%
 
 ---
@@ -27,212 +27,139 @@
 
 ### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-#### COM-001: Setup shadcn/ui y Tailwind
+#### PR-001: Types y Utilidades Base
 **Prioridad:** Crítica
-**Tiempo:** 1-2 horas
+**Tiempo:** 1 hora
 **Descripción:**
-- Configurar Tailwind CSS
-- Instalar shadcn/ui
-- Configurar components.json
-- Instalar componentes base (Button, Input, Card, etc.)
-- Configurar theme (colors, fonts)
+- Definir types para Product, Reservation, QR
+- Crear utilidades para generar QR
+- Crear utilidades para validar códigos de barras
+- Helpers para calcular expiración
 
 **Archivos a crear:**
-- `shared/common/lib/utils.ts`
-- `shared/common/components/ui/*` (shadcn components)
-- `tailwind.config.ts` (actualizar)
-- `components.json`
+- `features/product-reservation/types/reservation.types.ts`
+- `features/product-reservation/lib/qr-utils.ts`
+- `features/product-reservation/lib/product-utils.ts`
 
 **Criterio de aceptación:**
-- [ ] Tailwind configurado
-- [ ] shadcn/ui instalado
-- [ ] Componentes base funcionando
-- [ ] Theme configurado
+- [ ] Types completos con JSDoc
+- [ ] Función generateQRCode()
+- [ ] Función validateBarcode()
+- [ ] Función calculateExpiration()
+- [ ] Tests unitarios básicos
 
 ---
 
-#### COM-002: Componentes UI Base
-**Prioridad:** Crítica
-**Tiempo:** 2-3 horas
-**Descripción:**
-- Instalar componentes shadcn/ui necesarios:
-  - Button, Input, Label, Card
-  - Select, Checkbox, Switch
-  - Dialog, Sheet, Popover
-  - Table, Avatar, Badge
-  - Dropdown Menu
-- Configurar variantes
-- Documentar uso
-
-**Archivos a crear:**
-- `shared/common/components/ui/button.tsx`
-- `shared/common/components/ui/input.tsx`
-- `shared/common/components/ui/card.tsx`
-- `shared/common/components/ui/*` (resto)
-
-**Criterio de aceptación:**
-- [ ] Todos los componentes instalados
-- [ ] Variantes configuradas
-- [ ] TypeScript types correctos
-
----
-
-#### COM-003: Layout Components
-**Prioridad:** Crítica
-**Tiempo:** 3-4 horas
-**Descripción:**
-- Header con navegación y user menu
-- Sidebar con navegación por roles
-- Footer simple
-- MainLayout que combina todo
-- Responsive design
-
-**Archivos a crear:**
-- `shared/common/components/layouts/Header.tsx`
-- `shared/common/components/layouts/Sidebar.tsx`
-- `shared/common/components/layouts/Footer.tsx`
-- `shared/common/components/layouts/MainLayout.tsx`
-
-**Criterio de aceptación:**
-- [ ] Header con logo, nav, user menu
-- [ ] Sidebar con navegación por rol
-- [ ] Footer con info básica
-- [ ] MainLayout integra todo
-- [ ] Responsive (mobile, tablet, desktop)
-
----
-
-#### COM-004: Root Layout y Providers
-**Prioridad:** Crítica
-**Tiempo:** 1-2 horas
-**Descripción:**
-- Actualizar src/app/layout.tsx
-- Incluir AuthProvider
-- Incluir Toaster para notificaciones
-- Metadata y fonts
-- HTML base structure
-
-**Archivos a modificar:**
-- `src/app/layout.tsx`
-
-**Criterio de aceptación:**
-- [ ] AuthProvider incluido
-- [ ] Toaster configurado
-- [ ] Fonts cargadas
-- [ ] Metadata correcta
-
----
-
-#### COM-005: Shared Components
-**Prioridad:** Crítica
-**Tiempo:** 2-3 horas
-**Descripción:**
-- LoadingSpinner component
-- ErrorBoundary component
-- EmptyState component
-- ConfirmDialog component
-- PageHeader component
-
-**Archivos a crear:**
-- `shared/common/components/shared/LoadingSpinner.tsx`
-- `shared/common/components/shared/ErrorBoundary.tsx`
-- `shared/common/components/shared/EmptyState.tsx`
-- `shared/common/components/shared/ConfirmDialog.tsx`
-- `shared/common/components/shared/PageHeader.tsx`
-
-**Criterio de aceptación:**
-- [ ] Todos los componentes creados
-- [ ] Reutilizables y configurables
-- [ ] TypeScript types
-- [ ] Documentados
-
----
-
-#### COM-006: Hooks Compartidos
+#### PR-002: QR Generator Component
 **Prioridad:** Crítica
 **Tiempo:** 2 horas
 **Descripción:**
-- usePermissions (wrapper sobre auth)
-- useToast (notificaciones)
-- useMediaQuery (responsive)
-- useDebounce
-- useLocalStorage
+- Componente para generar QR temporal del usuario
+- Mostrar QR en pantalla con cuenta regresiva
+- Incluir información del usuario
+- Auto-refresh cuando expire
 
 **Archivos a crear:**
-- `shared/common/hooks/usePermissions.ts`
-- `shared/common/hooks/useToast.ts`
-- `shared/common/hooks/useMediaQuery.ts`
-- `shared/common/hooks/useDebounce.ts`
-- `shared/common/hooks/useLocalStorage.ts`
-- `shared/common/hooks/index.ts`
+- `features/product-reservation/components/QRGenerator.tsx`
+- `features/product-reservation/hooks/useQRCode.ts`
+- `features/product-reservation/actions/generateQR.ts`
 
 **Criterio de aceptación:**
-- [ ] Todos los hooks funcionando
-- [ ] TypeScript types
-- [ ] Documentados con ejemplos
+- [ ] QR se genera con userId y timestamp
+- [ ] Expira en 24 horas
+- [ ] Muestra cuenta regresiva
+- [ ] Auto-refresh al expirar
+- [ ] Responsive design
 
 ---
 
-#### COM-007: Utilidades y Helpers
+#### PR-003: Product Scanner (Comercial)
 **Prioridad:** Crítica
-**Tiempo:** 1-2 horas
+**Tiempo:** 3 horas
 **Descripción:**
-- Funciones de formateo (dates, currency)
-- Validadores comunes
-- String helpers
-- Array helpers
-- Object helpers
+- Escanear QR del usuario
+- Escanear código de barras del producto
+- Vincular producto a usuario
+- Validar permisos de comercial
 
 **Archivos a crear:**
-- `shared/common/lib/formatters.ts`
-- `shared/common/lib/validators.ts`
-- `shared/common/lib/helpers.ts`
+- `features/product-reservation/components/QRScanner.tsx`
+- `features/product-reservation/components/ProductScanner.tsx`
+- `features/product-reservation/actions/scanProduct.ts`
 
 **Criterio de aceptación:**
-- [ ] Formatters funcionando
-- [ ] Validators implementados
-- [ ] Helpers útiles
-- [ ] TypeScript types
+- [ ] Escanea QR y extrae userId
+- [ ] Valida QR no expirado
+- [ ] Escanea código de barras
+- [ ] Crea producto si no existe
+- [ ] Vincula producto a usuario
 
 ---
 
-#### COM-008: Constantes y Tipos
+#### PR-004: Crear Reserva con Pago
+**Prioridad:** Crítica
+**Tiempo:** 3-4 horas
+**Descripción:**
+- Formulario de reserva con detalles del producto
+- Simulación de pago (1€)
+- Crear reserva en BD con expiración 15 días
+- Confirmación y redirección
+
+**Archivos a crear:**
+- `features/product-reservation/components/ReservationForm.tsx`
+- `features/product-reservation/actions/createReservation.ts`
+- `features/product-reservation/actions/simulatePayment.ts`
+
+**Criterio de aceptación:**
+- [ ] Form con validación (talla, color, etc.)
+- [ ] Simulación de pago 1€
+- [ ] Crea reserva en tabla `reservations`
+- [ ] Expiration_date = created_at + 15 días
+- [ ] Status = 'active'
+- [ ] Notificación de éxito
+
+---
+
+#### PR-005: Páginas y Rutas
+**Prioridad:** Crítica
+**Tiempo:** 2-3 horas
+**Descripción:**
+- Página de QR para usuarios
+- Página de scan para comerciales
+- Página de lista de reservas
+- Página de detalle de reserva
+
+**Archivos a crear:**
+- `src/app/(user)/qr/page.tsx`
+- `src/app/(user)/reservations/page.tsx`
+- `src/app/(user)/reservations/[id]/page.tsx`
+- `src/app/(comercial)/scan/page.tsx`
+
+**Criterio de aceptación:**
+- [ ] /qr muestra QR generator
+- [ ] /reservations lista reservas del usuario
+- [ ] /reservations/[id] muestra detalle
+- [ ] /scan (comercial) permite escanear
+- [ ] Protección con requireRole()
+
+---
+
+#### PR-006: README y Documentación
 **Prioridad:** Crítica
 **Tiempo:** 1 hora
 **Descripción:**
-- Definir rutas de la app
-- Constantes UI (breakpoints, etc.)
-- Tipos comunes compartidos
-- Enums reutilizables
-
-**Archivos a crear:**
-- `shared/common/constants/routes.ts`
-- `shared/common/constants/ui.ts`
-- `shared/common/types/common.types.ts`
-
-**Criterio de aceptación:**
-- [ ] Rutas definidas
-- [ ] Constantes UI
-- [ ] Tipos comunes
-- [ ] Todo exportado
-
----
-
-#### COM-009: README y Documentación
-**Prioridad:** Crítica
-**Tiempo:** 1 hora
-**Descripción:**
-- README.md del módulo
+- README del módulo
 - Documentar componentes
-- Documentar hooks
+- Documentar flujo completo
 - Ejemplos de uso
 
 **Archivos a crear:**
-- `shared/common/README.md`
-- `shared/common/index.ts`
+- `features/product-reservation/README.md`
+- `features/product-reservation/index.ts`
 
 **Criterio de aceptación:**
 - [ ] README completo
+- [ ] Flujo documentado paso a paso
 - [ ] Ejemplos de uso
 - [ ] Exports organizados
 
@@ -240,79 +167,97 @@
 
 ### 🟡 ALTA PRIORIDAD (Mejoran calidad pero no bloquean)
 
-#### COM-010: Dashboard Layout
+#### PR-007: Validación Avanzada
 **Prioridad:** Alta
 **Tiempo:** 2 horas
 **Descripción:**
-- Layout específico para dashboard
-- Incluir MainLayout
-- Stats cards
-- Charts placeholder
+- Validar límite de reservas por usuario
+- Validar disponibilidad del producto
+- Check de duplicados
+- Manejo de errores robusto
 
-**Archivos a crear:**
-- `src/app/(dashboard)/layout.tsx`
-- `src/app/(dashboard)/dashboard/page.tsx`
+---
+
+#### PR-008: Notificaciones
+**Prioridad:** Alta
+**Tiempo:** 1 hora
+**Descripción:**
+- Notificación al crear reserva
+- Notificación cuando expira
+- Notificación al comercial
 
 ---
 
 ## ARCHIVOS DE ESTE MÓDULO
 
 ```
-shared/common/
+features/product-reservation/
 ├── components/
-│   ├── ui/                        # COM-002
-│   │   ├── button.tsx
-│   │   ├── input.tsx
-│   │   ├── card.tsx
-│   │   └── ...
-│   ├── layouts/                   # COM-003
-│   │   ├── Header.tsx
-│   │   ├── Sidebar.tsx
-│   │   ├── Footer.tsx
-│   │   └── MainLayout.tsx
-│   └── shared/                    # COM-005
-│       ├── LoadingSpinner.tsx
-│       ├── ErrorBoundary.tsx
-│       ├── EmptyState.tsx
-│       ├── ConfirmDialog.tsx
-│       └── PageHeader.tsx
-├── hooks/                         # COM-006
-│   ├── usePermissions.ts
-│   ├── useToast.ts
-│   ├── useMediaQuery.ts
-│   ├── useDebounce.ts
-│   ├── useLocalStorage.ts
-│   └── index.ts
-├── lib/                           # COM-001, COM-007
-│   ├── utils.ts
-│   ├── formatters.ts
-│   ├── validators.ts
-│   └── helpers.ts
-├── constants/                     # COM-008
-│   ├── routes.ts
-│   └── ui.ts
-├── types/                         # COM-008
-│   └── common.types.ts
-├── README.md                      # COM-009
-└── index.ts                       # COM-009
+│   ├── QRGenerator.tsx          # PR-002
+│   ├── QRScanner.tsx            # PR-003
+│   ├── ProductScanner.tsx       # PR-003
+│   └── ReservationForm.tsx      # PR-004
+├── actions/
+│   ├── generateQR.ts            # PR-002
+│   ├── scanProduct.ts           # PR-003
+│   ├── createReservation.ts     # PR-004
+│   └── simulatePayment.ts       # PR-004
+├── hooks/
+│   ├── useQRCode.ts             # PR-002
+│   └── useReservation.ts        # PR-004
+├── lib/
+│   ├── qr-utils.ts              # PR-001
+│   └── product-utils.ts         # PR-001
+├── types/
+│   └── reservation.types.ts     # PR-001
+├── README.md                     # PR-006
+└── index.ts                      # PR-006
 
 src/app/
-├── layout.tsx                     # COM-004
-├── (dashboard)/                   # COM-010
-│   ├── layout.tsx
-│   └── dashboard/
-│       └── page.tsx
-└── globals.css                    # COM-001
+├── (user)/
+│   ├── qr/
+│   │   └── page.tsx             # PR-005
+│   └── reservations/
+│       ├── page.tsx             # PR-005
+│       └── [id]/
+│           └── page.tsx         # PR-005
+└── (comercial)/
+    └── scan/
+        └── page.tsx             # PR-005
 ```
 
 ---
 
 ## NOTAS IMPORTANTES
 
-- **Orden sugerido:** COM-001 → COM-002 → COM-003 → COM-004 → COM-005 → COM-006 → COM-007 → COM-008 → COM-009
-- **Bloqueos:** COM-003 necesita COM-002, COM-004 necesita COM-003
-- **shadcn/ui:** Usar CLI para instalar componentes
-- **Responsive:** Mobile-first approach
+- **Orden sugerido:** PR-001 → PR-002 → PR-003 → PR-004 → PR-005 → PR-006
+- **Bloqueos:** PR-003 necesita PR-001, PR-004 necesita PR-003, PR-005 necesita todos anteriores
+- **QR:** Usar librería `qrcode` o similar
+- **Barcode:** Usar `@zxing/library` o similar
+- **Pago:** Solo simulación, no Stripe real todavía
+- **Expiración:** Usar `date-fns` para calcular +15 días
+
+---
+
+## FLUJO COMPLETO
+
+**Usuario (Reserva producto):**
+1. Usuario genera QR temporal en /qr
+2. Va a tienda física y muestra QR a comercial
+3. Comercial escanea QR → obtiene userId
+4. Comercial escanea código de barras del producto
+5. Sistema vincula producto a usuario
+6. Usuario completa form de reserva (talla, color)
+7. Usuario paga 1€ (simulado)
+8. Reserva creada con expiración 15 días
+9. Producto aparece en su wishlist
+
+**Comercial (Ayuda a reservar):**
+1. Va a /scan
+2. Escanea QR del usuario
+3. Escanea producto
+4. Confirma vinculación
+5. Usuario completa en su móvil
 
 ---
 
@@ -320,11 +265,21 @@ src/app/
 
 **Cuando todas las CRÍTICAS estén hechas:**
 
-1. [ ] Todos los componentes funcionando
-2. [ ] Layouts responsive
-3. [ ] Hooks documentados
-4. [ ] README.md escrito (COM-009)
-5. [ ] Actualizar PRD.md → estado Common = READ-ONLY
-6. [ ] Mover a claude.md → shared/common/* a PROHIBIDOS
-7. [ ] Cambiar MÓDULO ACTUAL en claude.md → Product-Reservation
-8. [ ] Crear nuevo backlog en este archivo para Product-Reservation
+1. [ ] Flujo completo funcionando
+2. [ ] QR genera y expira correctamente
+3. [ ] Escaneo funciona en comercial
+4. [ ] Reservas se crean con expiración
+5. [ ] Pago simulado funciona
+6. [ ] README.md escrito (PR-006)
+7. [ ] Actualizar PRD.md → estado Product-Reservation = READ-ONLY
+8. [ ] Mover a claude.md → features/product-reservation/* a PROHIBIDOS
+9. [ ] Cambiar MÓDULO ACTUAL en claude.md → Wishlist
+10. [ ] Crear nuevo backlog en este archivo para Wishlist
+
+---
+
+## MÓDULOS COMPLETADOS
+
+✅ **Database** - Schema, types, RLS policies
+✅ **Auth** - Login, register, middleware, permisos
+✅ **Common** - UI components, layouts, hooks, utilidades

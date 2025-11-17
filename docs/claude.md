@@ -1,33 +1,46 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Database 🔴
+## MÓDULO ACTUAL: Auth 🔴
 
-**Objetivo:** Crear schema multi-tenant en Supabase con tablas core y RLS policies
+**Objetivo:** Sistema de autenticación y autorización con Supabase Auth
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-shared/database/schema/
-├── 01_core_tables.sql
-├── 02_rls_policies.sql
-├── 03_functions.sql
-└── 04_triggers.sql
-
-shared/database/types/
-├── database.types.ts
+shared/auth/
+├── components/
+│   ├── LoginForm.tsx
+│   ├── RegisterForm.tsx
+│   └── AuthProvider.tsx
+├── hooks/
+│   ├── useAuth.ts
+│   ├── useUser.ts
+│   └── useSession.ts
+├── middleware/
+│   ├── authMiddleware.ts
+│   └── roleGuard.ts
+├── server/
+│   ├── getUser.ts
+│   ├── requireAuth.ts
+│   └── requireRole.ts
+├── types/
+│   └── auth.types.ts
+├── utils/
+│   ├── permissions.ts
+│   └── session.ts
+├── README.md
 └── index.ts
 
-shared/database/migrations/
-└── [archivos de migración]
-
-shared/database/tests/
-└── database.test.ts
-
-shared/database/
-├── README.md
-└── package.json
+src/middleware.ts
+src/app/auth/
+├── login/
+│   └── page.tsx
+├── register/
+│   └── page.tsx
+└── callback/
+    └── route.ts
 ```
 
 ---
@@ -35,12 +48,14 @@ shared/database/
 ## ARCHIVOS PROHIBIDOS (NO tocar):
 
 ```
-(Ninguno todavía - es el primer módulo)
+✅ shared/database/* (READ-ONLY - Módulo completado)
+  - Schema ya definido y ejecutado
+  - Tipos TypeScript generados
+  - Solo lectura para consultas
 
-A medida que completes módulos, se añadirán aquí:
-- shared/auth/* (cuando esté READ-ONLY)
-- shared/common/* (cuando esté READ-ONLY)
-- features/* (cuando estén READ-ONLY)
+❌ shared/common/* (Todavía no iniciado)
+❌ features/* (Todavía no iniciados)
+❌ src/app/* (excepto src/app/auth/)
 ```
 
 ---
@@ -55,9 +70,10 @@ A medida que completes módulos, se añadirán aquí:
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Database
+- Solo trabajar en archivos del módulo Auth
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
+- Puedes LEER shared/database/* pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -70,41 +86,46 @@ A medida que completes módulos, se añadirán aquí:
 
 ## STACK TÉCNICO PERMITIDO
 
-**Base de datos:**
-- PostgreSQL (Supabase)
-- Schema: `reserrega`
-- RLS habilitado
-
-**Lenguajes:**
-- SQL (DDL/DML)
+**Framework:**
+- Next.js 15 (App Router)
+- React 19
 - TypeScript 5
 
+**Autenticación:**
+- Supabase Auth (PKCE flow)
+- Email/Password
+- Magic Links (futuro)
+
+**Base de datos (READ-ONLY):**
+- PostgreSQL (Supabase)
+- Schema: `reserrega`
+- Tabla `users` ya creada
+
 **Herramientas:**
-- Supabase CLI (migraciones)
 - @supabase/supabase-js
+- @supabase/ssr (para cookies)
+- Server Actions
 
 **NO usar:**
-- ORMs externos (Prisma, TypeORM) - usar Supabase directamente
-- Migraciones custom - usar Supabase migrations
+- NextAuth / Auth.js (conflicto con Supabase)
+- Cookies manuales (usar @supabase/ssr)
+- Client-side routing sin protección
 
 ---
 
 ## CONTEXTO DEL PROYECTO
 
-**Tipo:** SaaS multi-tenant, red social de regalos  
-**Roles:** Superadmin, Admin empresa, Usuario, Comercial  
+**Tipo:** SaaS multi-tenant, red social de regalos
+**Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Tablas Core (a crear en este módulo):**
-- `users` - Usuarios del sistema
-- `companies` - Tiendas/empresas partner
-- `products` - Catálogo de productos
-- `reservations` - Reservas activas (1€, 15 días)
-- `wishlists` - Listas de deseos de usuarios
-- `gifts` - Regalos realizados
-- `friend_requests` - Solicitudes de amistad
-- `friendships` - Relaciones de amistad confirmadas
-- `stores` - Tiendas físicas (ubicaciones)
+**Autenticación requerida:**
+- Login con email/password
+- Registro de nuevos usuarios (rol: usuario por defecto)
+- Callback URL para auth flow
+- Middleware para proteger rutas
+- Server helpers para verificar roles
+- Logout
 
 ---
 
@@ -115,26 +136,37 @@ A medida que completes módulos, se añadirán aquí:
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Database
-Solo puedes modificar archivos en shared/database/
+Módulo activo: Auth
+Solo puedes modificar archivos en shared/auth/ y src/app/auth/
 
 Tarea actual: [copiar de tareas.md]
 
 Restricciones:
-- NO tocar archivos fuera de shared/database/
+- NO modificar shared/database/* (READ-ONLY)
+- Puedes LEER shared/database/* para consultas
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
 ```
 
 ---
 
-## PRÓXIMO MÓDULO (después de completar Database)
+## MÓDULO ANTERIOR (completado)
 
-**Auth** - `shared/auth/`
+✅ **Database** - `shared/database/` (READ-ONLY)
+- Schema con 13 tablas creadas
+- Tipos TypeScript generados
+- RLS policies configuradas
+- Superadmin y empresa demo creados
 
-**Cuando Database esté READ-ONLY:**
-1. Actualizar PRD.md → estado Database = READ-ONLY
-2. Mover `shared/database/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Auth
-4. Actualizar lista PERMITIDOS con archivos de Auth
-5. Crear nuevo backlog en tareas.md para Auth
+---
+
+## PRÓXIMO MÓDULO (después de completar Auth)
+
+**Common** - `shared/common/`
+
+**Cuando Auth esté READ-ONLY:**
+1. Actualizar PRD.md → estado Auth = READ-ONLY
+2. Mover `shared/auth/*` a ARCHIVOS PROHIBIDOS
+3. Cambiar MÓDULO ACTUAL a: Common
+4. Actualizar lista PERMITIDOS con archivos de Common
+5. Crear nuevo backlog en tareas.md para Common

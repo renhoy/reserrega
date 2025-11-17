@@ -92,6 +92,16 @@ export function DashboardClient({
 }: DashboardClientProps) {
   const [stats] = useState(initialStats);
 
+  // Detectar si no hay datos (tablas no creadas)
+  const hasNoData =
+    stats.totalReservations === 0 &&
+    stats.totalWishlistItems === 0 &&
+    stats.totalFriends === 0 &&
+    stats.giftsSent === 0 &&
+    stats.giftsReceived === 0 &&
+    stats.recentReservations.length === 0 &&
+    stats.recentGiftsReceived.length === 0;
+
   // Detectar y ejecutar tour pendiente
   useEffect(() => {
     checkAndStartPendingTour();
@@ -126,6 +136,32 @@ export function DashboardClient({
             </p>
           </div>
         </div>
+
+        {/* Mensaje informativo si no hay datos */}
+        {hasNoData && (
+          <Card className="bg-amber-50 border-amber-200">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-3">
+                <div className="flex-shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                    <Zap className="w-5 h-5 text-amber-600" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-amber-900 mb-1">
+                    ¡Comienza a usar Reserrega!
+                  </h3>
+                  <p className="text-sm text-amber-800 mb-3">
+                    Aún no tienes actividad en tu cuenta. Usa los accesos rápidos abajo para comenzar a reservar productos, crear tu wishlist y conectar con amigos.
+                  </p>
+                  <p className="text-xs text-amber-700">
+                    <strong>Nota:</strong> Si eres administrador y ves este mensaje, es posible que las tablas de base de datos de Reserrega aún no estén creadas. Revisa <code className="bg-amber-100 px-1 rounded">shared/database/schema/RESERREGA_FINAL.sql</code>
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Estadísticas principales - Grid */}
         <div

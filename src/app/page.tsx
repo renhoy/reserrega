@@ -42,7 +42,7 @@ export default async function LandingPage() {
               RR
             </div>
             <span className="text-2xl font-extrabold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-              Reserrega
+              Reserva y Regala
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -118,7 +118,7 @@ export default async function LandingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              ¿Por qué <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">Reserrega</span>?
+              ¿Por qué <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">Reserva y Regala</span>?
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               La forma más inteligente de desear, reservar y recibir regalos perfectos
@@ -194,7 +194,7 @@ export default async function LandingPage() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-extrabold mb-4">
-              Así de fácil es <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">vivir la experiencia Reserrega</span>
+              Así de fácil es <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">vivir la experiencia Reserva y Regala</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Un proceso simple que revoluciona tu forma de desear y regalar
@@ -212,7 +212,7 @@ export default async function LandingPage() {
               {
                 number: "2",
                 title: "Escanea y reserva por 1€",
-                description: "¿Te queda perfecto? Abre Reserrega, escanea la etiqueta del producto y paga 1€ a la dependienta. El sistema guarda tu talla exacta, color y modelo. Tienes 15 días de reserva.",
+                description: "¿Te queda perfecto? Abre Reserva y Regala, escanea la etiqueta del producto y paga 1€ a la dependienta. El sistema guarda tu talla exacta, color y modelo. Tienes 15 días de reserva.",
                 emoji: "📱"
               },
               {
@@ -252,7 +252,7 @@ export default async function LandingPage() {
             El regalo perfecto empieza aquí
           </h2>
           <p className="text-xl md:text-2xl mb-12 opacity-95">
-            Únete a miles de personas que ya están viviendo la experiencia Reserrega
+            Únete a miles de personas que ya están viviendo la experiencia Reserva y Regala
           </p>
 
           <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 mb-8 border border-white/20">
@@ -288,7 +288,7 @@ export default async function LandingPage() {
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-pink-500 to-purple-500 flex items-center justify-center text-white font-black text-xl">
               RR
             </div>
-            <span className="text-xl font-bold">Reserrega</span>
+            <span className="text-xl font-bold">Reserva y Regala</span>
           </div>
 
           <p className="text-white/80 mb-6">
@@ -305,7 +305,7 @@ export default async function LandingPage() {
           <div className="h-px bg-white/10 my-6"></div>
 
           <p className="text-white/60 text-sm">
-            © 2025 Reserrega. Todos los derechos reservados. Hecho con 💖 para ti.
+            © 2025 Reserva y Regala. Todos los derechos reservados. Hecho con 💖 para ti.
           </p>
         </div>
       </footer>

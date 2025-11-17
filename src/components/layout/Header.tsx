@@ -39,7 +39,7 @@ export function Header({
   userRole,
   userName,
   isAuthenticated = true,
-  appName = "Reserrega",
+  appName = "Reserva y Regala",
   companyName,
   issuerType,
   currentPlan = "free",

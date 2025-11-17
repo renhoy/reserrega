@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, Mail, ArrowLeft, FileText } from "lucide-react";
+import { Loader2, Mail, ArrowLeft, Gift } from "lucide-react";
 import { forgotPasswordSchema } from "@/lib/validators/auth-schemas";
 
 interface ForgotPasswordFormData {
@@ -109,8 +109,7 @@ export default function ForgotPasswordPage() {
   if (emailSent) {
     return (
       <div
-        className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-        style={{ background: "#f7fee7" }}
+        className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 to-purple-50"
       >
         <div className="w-full max-w-md space-y-8">
           {/* Header */}
@@ -119,8 +118,8 @@ export default function ForgotPasswordPage() {
               href="/"
               className="inline-block hover:opacity-80 transition-opacity"
             >
-              <div className="mx-auto h-12 w-12 bg-lime-500 rounded-lg flex items-center justify-center mb-4">
-                <FileText className="h-7 w-7 text-white" />
+              <div className="mx-auto h-12 w-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-pink-500/30">
+                <Gift className="h-7 w-7 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-gray-900">{appName}</h2>
             </Link>
@@ -129,7 +128,7 @@ export default function ForgotPasswordPage() {
           <Card className="w-full">
             <CardHeader className="space-y-1">
               <div className="flex justify-center mb-4">
-                <Mail className="h-16 w-16 text-lime-500" />
+                <Mail className="h-16 w-16 text-pink-500" />
               </div>
               <CardTitle className="text-2xl text-center">
                 Revisa tu Email
@@ -140,8 +139,8 @@ export default function ForgotPasswordPage() {
             </CardHeader>
 
             <CardContent className="space-y-4">
-              <Alert className="border-lime-500 bg-lime-50">
-                <AlertDescription className="text-lime-800">
+              <Alert className="border-pink-500 bg-pink-50">
+                <AlertDescription className="text-pink-800">
                   Si el email <strong>{formData.email}</strong> está registrado
                   en el sistema, recibirás un enlace para resetear tu
                   contraseña.
@@ -179,8 +178,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-      style={{ background: "#f7fee7" }}
+      className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-pink-50 to-purple-50"
     >
       <div className="w-full max-w-md space-y-8">
         {/* Header con logo/título */}
@@ -189,8 +187,8 @@ export default function ForgotPasswordPage() {
             href="/"
             className="inline-block hover:opacity-80 transition-opacity"
           >
-            <div className="mx-auto h-12 w-12 bg-lime-500 rounded-lg flex items-center justify-center mb-4">
-              <FileText className="h-7 w-7 text-white" />
+            <div className="mx-auto h-12 w-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-pink-500/30">
+              <Gift className="h-7 w-7 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900">{appName}</h2>
           </Link>
@@ -239,7 +237,7 @@ export default function ForgotPasswordPage() {
               </div>
 
               {/* Botón de envío */}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -271,7 +269,7 @@ export default function ForgotPasswordPage() {
             ¿No tienes una cuenta?{" "}
             <Link
               href="/register"
-              className="text-lime-600 hover:text-lime-700 hover:underline"
+              className="text-pink-600 hover:text-pink-700 hover:underline"
             >
               Regístrate aquí
             </Link>

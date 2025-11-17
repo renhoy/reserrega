@@ -6,7 +6,7 @@
  *
  * Uso:
  * ```tsx
- * const appName = useAppName(); // "Redpresu" (o valor personalizado)
+ * const appName = useAppName(); // "Reserva y Regala" (o valor personalizado)
  * ```
  */
 
@@ -18,10 +18,10 @@ import { getAppNameAction } from "@/app/actions/config";
 /**
  * Hook para obtener el nombre de la aplicación desde config
  *
- * @param fallback - Nombre por defecto si falla la carga (default: 'Redpresu')
+ * @param fallback - Nombre por defecto si falla la carga (default: 'Reserva y Regala')
  * @returns Nombre de la aplicación
  */
-export function useAppName(fallback: string = "Redpresu"): string {
+export function useAppName(fallback: string = "Reserva y Regala"): string {
   const [appName, setAppName] = useState<string>(fallback);
 
   useEffect(() => {

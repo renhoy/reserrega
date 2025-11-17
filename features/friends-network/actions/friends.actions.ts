@@ -8,7 +8,7 @@
 
 'use server'
 
-import { getServerUser } from '@/shared/auth/helpers/server'
+import { getUser } from '@/shared/auth/server'
 import { createClient } from '@/shared/database/supabase/server'
 import type {
   GetFriendsResponse,
@@ -43,7 +43,7 @@ import { addDays } from 'date-fns'
  */
 export async function getFriends(): Promise<GetFriendsResponse> {
   try {
-    const user = await getServerUser()
+    const user = await getUser()
     if (!user) {
       throw new Error('No autenticado')
     }
@@ -104,7 +104,7 @@ export async function getFriends(): Promise<GetFriendsResponse> {
  */
 export async function getFriendRequests(): Promise<GetFriendRequestsResponse> {
   try {
-    const user = await getServerUser()
+    const user = await getUser()
     if (!user) {
       throw new Error('No autenticado')
     }
@@ -193,7 +193,7 @@ export async function sendFriendRequest(
   recipientId: string
 ): Promise<SendFriendRequestResponse> {
   try {
-    const user = await getServerUser()
+    const user = await getUser()
     if (!user) {
       throw new Error('No autenticado')
     }
@@ -286,7 +286,7 @@ export async function manageFriendRequest(
   action: 'accept' | 'reject' | 'cancel'
 ): Promise<ManageFriendRequestResponse> {
   try {
-    const user = await getServerUser()
+    const user = await getUser()
     if (!user) {
       throw new Error('No autenticado')
     }
@@ -400,7 +400,7 @@ export async function searchUsers(
   limit: number = 20
 ): Promise<SearchUsersResponse> {
   try {
-    const user = await getServerUser()
+    const user = await getUser()
     if (!user) {
       throw new Error('No autenticado')
     }
@@ -495,7 +495,7 @@ export async function generateInvitation(
   data: SendInvitationFormData
 ): Promise<SendInvitationResponse> {
   try {
-    const user = await getServerUser()
+    const user = await getUser()
     if (!user) {
       throw new Error('No autenticado')
     }

@@ -9,7 +9,7 @@
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getServerUser } from '@/shared/auth/helpers/server'
+import { getUser } from '@/shared/auth/server'
 import { getFriends } from '@/features/friends-network/actions/friends.actions'
 import { FriendsPageClient } from './FriendsPageClient'
 import { Button } from '@/shared/common/components/ui/button'
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default async function FriendsPage() {
   // Verify authentication
-  const user = await getServerUser()
+  const user = await getUser()
   if (!user) {
     redirect('/auth/login')
   }

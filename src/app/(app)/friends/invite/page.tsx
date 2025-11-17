@@ -9,7 +9,7 @@
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getServerUser } from '@/shared/auth/helpers/server'
+import { getUser } from '@/shared/auth/server'
 import { InviteFriendsPageClient } from './InviteFriendsPageClient'
 import { Button } from '@/shared/common/components/ui/button'
 import { ArrowLeft } from 'lucide-react'
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default async function InviteFriendsPage() {
   // Verify authentication
-  const user = await getServerUser()
+  const user = await getUser()
   if (!user) {
     redirect('/auth/login')
   }

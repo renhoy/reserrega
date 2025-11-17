@@ -9,7 +9,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, MapPin, Calendar, Euro, AlertTriangle, Package, Clock, Trash2 } from 'lucide-react'
-import { requireAuth } from '@/shared/auth/helpers/server'
+import { requireAuth } from '@/shared/auth/server'
 import { getWishlistItemAction } from '@/features/wishlist/actions/getWishlist'
 import { ProductStatusBadge } from '@/features/wishlist/components/ProductStatusBadge'
 import { VisibilityToggle } from '@/features/wishlist/components/VisibilityToggle'

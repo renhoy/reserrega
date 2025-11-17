@@ -13,11 +13,11 @@ import {
   Store,
   Shield
 } from "lucide-react";
-import { getServerUser } from '@/shared/auth/helpers/server'
+import { getUser } from '@/shared/auth/server'
 
 export default async function LandingPage() {
   // Verificar si el usuario ya está autenticado
-  const user = await getServerUser()
+  const user = await getUser()
 
   if (user) {
     // Redirigir según rol

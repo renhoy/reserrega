@@ -12,9 +12,12 @@ export * from './types/gift.types'
 // Utilities
 export * from './lib/gift-utils'
 
-// Components (will be added in GF-002, GF-003)
-// export * from './components/GiftSelectionCard'
-// export * from './components/FriendWishlistView'
+// Components (GF-002 completed)
+export { GiftSelectionCard } from './components/GiftSelectionCard'
+export { FriendWishlistView } from './components/FriendWishlistView'
+export { LockTimerBadge, LockTimerProgress } from './components/LockTimerBadge'
+
+// Components (will be added in GF-003)
 // export * from './components/GiftCheckoutForm'
 // export * from './components/GiftConfirmation'
 // export * from './components/GiftSummary'

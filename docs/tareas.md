@@ -2,8 +2,8 @@
 
 ## MÓDULO ACTIVO: Gift-Flow 🔴
 
-**Tareas Activas:** 1/7
-**Progreso:** 14%
+**Tareas Activas:** 2/7
+**Progreso:** 29%
 
 ---
 
@@ -66,12 +66,14 @@
 - `features/gift-flow/components/FriendWishlistView.tsx`
 
 **Criterio de aceptación:**
-- [ ] GiftSelectionCard muestra info del producto
-- [ ] Indicador visual de productos bloqueados
-- [ ] Badge con countdown de bloqueo
-- [ ] Botón seleccionar funcional
-- [ ] Solo mostrar productos disponibles del wishlist
-- [ ] Responsive design
+- [x] GiftSelectionCard muestra info del producto
+- [x] Indicador visual de productos bloqueados
+- [x] Badge con countdown de bloqueo
+- [x] Botón seleccionar funcional
+- [x] Solo mostrar productos disponibles del wishlist
+- [x] Responsive design
+
+**Estado:** ✅ COMPLETADA (2025-01-17)
 
 ---
 

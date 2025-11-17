@@ -1,46 +1,45 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Auth 🔴
+## MÓDULO ACTUAL: Common 🔴
 
-**Objetivo:** Sistema de autenticación y autorización con Supabase Auth
+**Objetivo:** UI components base, layouts, utilidades compartidas
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-shared/auth/
+shared/common/
 ├── components/
-│   ├── LoginForm.tsx
-│   ├── RegisterForm.tsx
-│   └── AuthProvider.tsx
+│   ├── ui/                    # shadcn/ui components
+│   ├── layouts/
+│   │   ├── Header.tsx
+│   │   ├── Sidebar.tsx
+│   │   ├── Footer.tsx
+│   │   └── MainLayout.tsx
+│   └── shared/
+│       ├── LoadingSpinner.tsx
+│       ├── ErrorBoundary.tsx
+│       └── ...
 ├── hooks/
-│   ├── useAuth.ts
-│   ├── useUser.ts
-│   └── useSession.ts
-├── middleware/
-│   ├── authMiddleware.ts
-│   └── roleGuard.ts
-├── server/
-│   ├── getUser.ts
-│   ├── requireAuth.ts
-│   └── requireRole.ts
+│   ├── usePermissions.ts
+│   ├── useToast.ts
+│   └── ...
+├── lib/
+│   ├── utils.ts
+│   └── cn.ts
 ├── types/
-│   └── auth.types.ts
-├── utils/
-│   ├── permissions.ts
-│   └── session.ts
+│   └── common.types.ts
+├── constants/
+│   └── routes.ts
 ├── README.md
 └── index.ts
 
-src/middleware.ts
-src/app/auth/
-├── login/
-│   └── page.tsx
-├── register/
-│   └── page.tsx
-└── callback/
-    └── route.ts
+src/app/
+├── layout.tsx                 # Root layout
+├── (dashboard)/              # Dashboard routes
+│   └── layout.tsx
+└── components/                # App-specific components
 ```
 
 ---
@@ -53,9 +52,13 @@ src/app/auth/
   - Tipos TypeScript generados
   - Solo lectura para consultas
 
-❌ shared/common/* (Todavía no iniciado)
+✅ shared/auth/* (READ-ONLY - Módulo completado)
+  - Sistema de autenticación completo
+  - Middleware, hooks, server helpers
+  - Solo lectura para uso
+
 ❌ features/* (Todavía no iniciados)
-❌ src/app/* (excepto src/app/auth/)
+❌ src/app/(routes)/* (excepto layouts permitidos)
 ```
 
 ---
@@ -70,10 +73,10 @@ src/app/auth/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Auth
+- Solo trabajar en archivos del módulo Common
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/database/* pero NO MODIFICAR
+- Puedes LEER shared/database/* y shared/auth/* pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -91,25 +94,29 @@ src/app/auth/
 - React 19
 - TypeScript 5
 
-**Autenticación:**
-- Supabase Auth (PKCE flow)
-- Email/Password
-- Magic Links (futuro)
+**UI/UX:**
+- shadcn/ui (componentes base)
+- Tailwind CSS
+- Radix UI primitives
+- Lucide icons
 
-**Base de datos (READ-ONLY):**
-- PostgreSQL (Supabase)
-- Schema: `reserrega`
-- Tabla `users` ya creada
+**State Management:**
+- React Context
+- Server Actions
+- URL state
+
+**Módulos completados (READ-ONLY):**
+- shared/database/* - Schema y tipos
+- shared/auth/* - Autenticación completa
 
 **Herramientas:**
-- @supabase/supabase-js
-- @supabase/ssr (para cookies)
-- Server Actions
+- clsx / tailwind-merge
+- class-variance-authority
 
 **NO usar:**
-- NextAuth / Auth.js (conflicto con Supabase)
-- Cookies manuales (usar @supabase/ssr)
-- Client-side routing sin protección
+- CSS-in-JS libraries
+- Styled components
+- Otras UI libraries (Material UI, Ant Design, etc.)
 
 ---
 
@@ -119,13 +126,13 @@ src/app/auth/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Autenticación requerida:**
-- Login con email/password
-- Registro de nuevos usuarios (rol: usuario por defecto)
-- Callback URL para auth flow
-- Middleware para proteger rutas
-- Server helpers para verificar roles
-- Logout
+**Common module incluye:**
+- shadcn/ui components configurados
+- Layouts base (Header, Sidebar, Footer)
+- Componentes reutilizables
+- Hooks compartidos (usePermissions, etc.)
+- Utilidades comunes
+- Constantes de rutas
 
 ---
 
@@ -136,21 +143,22 @@ src/app/auth/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Auth
-Solo puedes modificar archivos en shared/auth/ y src/app/auth/
+Módulo activo: Common
+Solo puedes modificar archivos en shared/common/ y layouts en src/app/
 
 Tarea actual: [copiar de tareas.md]
 
 Restricciones:
 - NO modificar shared/database/* (READ-ONLY)
-- Puedes LEER shared/database/* para consultas
+- NO modificar shared/auth/* (READ-ONLY)
+- Puedes LEER módulos completados para uso
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
 ```
 
 ---
 
-## MÓDULO ANTERIOR (completado)
+## MÓDULOS ANTERIORES (completados)
 
 ✅ **Database** - `shared/database/` (READ-ONLY)
 - Schema con 13 tablas creadas
@@ -158,15 +166,22 @@ Restricciones:
 - RLS policies configuradas
 - Superadmin y empresa demo creados
 
+✅ **Auth** - `shared/auth/` (READ-ONLY)
+- Login/Register funcional
+- Middleware de protección
+- Hooks de autenticación
+- Server helpers (requireAuth, requireRole)
+- Sistema de permisos completo
+
 ---
 
-## PRÓXIMO MÓDULO (después de completar Auth)
+## PRÓXIMO MÓDULO (después de completar Common)
 
-**Common** - `shared/common/`
+**Product-Reservation** - `features/product-reservation/`
 
-**Cuando Auth esté READ-ONLY:**
-1. Actualizar PRD.md → estado Auth = READ-ONLY
-2. Mover `shared/auth/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Common
-4. Actualizar lista PERMITIDOS con archivos de Common
-5. Crear nuevo backlog en tareas.md para Common
+**Cuando Common esté READ-ONLY:**
+1. Actualizar PRD.md → estado Common = READ-ONLY
+2. Mover `shared/common/*` a ARCHIVOS PROHIBIDOS
+3. Cambiar MÓDULO ACTUAL a: Product-Reservation
+4. Actualizar lista PERMITIDOS con archivos de Product-Reservation
+5. Crear nuevo backlog en tareas.md para Product-Reservation

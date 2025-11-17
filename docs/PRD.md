@@ -19,18 +19,20 @@
 ### SHARED (Desarrollar primero - Orden obligatorio)
 
 #### 1. Database
-**Estado:** ACTIVO 🔴  
-**Propósito:** Schema multi-tenant, tablas core, RLS policies  
+**Estado:** ✅ READ-ONLY (Completado)
+**Propósito:** Schema multi-tenant, tablas core, RLS policies
 **Archivos:** `shared/database/`
+**Completado:** Schema con 13 tablas, RLS policies, tipos TypeScript, scripts de setup
 
 #### 2. Auth
-**Estado:** No iniciado  
-**Propósito:** Autenticación Supabase, roles (Superadmin, Admin, Usuario, Comercial)  
+**Estado:** ✅ READ-ONLY (Completado)
+**Propósito:** Autenticación Supabase, roles (Superadmin, Admin, Usuario, Comercial)
 **Archivos:** `shared/auth/`
+**Completado:** Login/Register, middleware, hooks, server helpers, permisos
 
 #### 3. Common
-**Estado:** No iniciado  
-**Propósito:** UI components (shadcn/ui), utilidades, tipos compartidos, layouts  
+**Estado:** ACTIVO 🔴
+**Propósito:** UI components (shadcn/ui), utilidades, tipos compartidos, layouts
 **Archivos:** `shared/common/`
 
 ---
@@ -82,16 +84,16 @@
 ### Criterios Específicos por Módulo:
 
 **Database:**
-- [ ] Schema `reserrega` creado en Supabase
-- [ ] Tablas: users, companies, products, reservations, wishlists, gifts, stores, friend_requests
-- [ ] RLS policies configuradas por rol
-- [ ] Tipos TypeScript generados
+- [x] Schema `reserrega` creado en Supabase
+- [x] Tablas: users, companies, products, reservations, wishlists, gifts, stores, friend_requests
+- [x] RLS policies configuradas por rol
+- [x] Tipos TypeScript generados
 
 **Auth:**
-- [ ] Login/Register funcional
-- [ ] Middleware con verificación de roles
-- [ ] getServerUser() helper funcionando
-- [ ] Protección de rutas según permisos
+- [x] Login/Register funcional
+- [x] Middleware con verificación de roles
+- [x] getServerUser() helper funcionando
+- [x] Protección de rutas según permisos
 
 **Common:**
 - [ ] shadcn/ui instalado y configurado

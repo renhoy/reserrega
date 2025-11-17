@@ -1,48 +1,39 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Product-Reservation 🔴
+## MÓDULO ACTUAL: Wishlist 🔴
 
-**Objetivo:** Escaneo QR temporal, vincular productos a usuarios, pago 1€, expiración 15 días
+**Objetivo:** Ver productos reservados, gestionar estados (disponible/proceso/regalado), configurar visibilidad
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/product-reservation/
+features/wishlist/
 ├── components/
-│   ├── QRGenerator.tsx
-│   ├── QRScanner.tsx
-│   ├── ProductScanner.tsx
-│   └── ReservationForm.tsx
+│   ├── WishlistGrid.tsx
+│   ├── WishlistItem.tsx
+│   ├── ProductStatusBadge.tsx
+│   └── VisibilityToggle.tsx
 ├── actions/
-│   ├── generateQR.ts
-│   ├── scanProduct.ts
-│   └── createReservation.ts
+│   ├── getWishlist.ts
+│   ├── updateProductStatus.ts
+│   └── updateVisibility.ts
 ├── hooks/
-│   ├── useQRCode.ts
-│   └── useReservation.ts
+│   └── useWishlist.ts
 ├── lib/
-│   ├── qr-utils.ts
-│   └── product-utils.ts
+│   └── wishlist-utils.ts
 ├── types/
-│   └── reservation.types.ts
+│   └── wishlist.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
 ├── (user)/
-│   ├── reservations/
-│   │   ├── page.tsx
-│   │   ├── [id]/
-│   │   │   └── page.tsx
-│   │   └── new/
-│   │       └── page.tsx
-│   └── qr/
-│       └── page.tsx
-└── (comercial)/
-    └── scan/
-        └── page.tsx
+│   └── wishlist/
+│       ├── page.tsx
+│       └── [id]/
+│           └── page.tsx
 ```
 
 ---
@@ -68,7 +59,14 @@ src/app/
   - Constantes y types
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados - excepto Product-Reservation)
+✅ features/product-reservation/* (READ-ONLY - Módulo completado)
+  - QR generator y scanners (QR/barcode)
+  - Formulario de reserva con pago simulado
+  - Hooks y utilidades para reservas
+  - Páginas de usuario y comercial
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Wishlist)
 ❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 
@@ -84,10 +82,10 @@ src/app/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Product-Reservation
+- Solo trabajar en archivos del módulo Wishlist
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/database/*, shared/auth/* y shared/common/* pero NO MODIFICAR
+- Puedes LEER shared/database/*, shared/auth/*, shared/common/* y features/product-reservation/* pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -120,6 +118,7 @@ src/app/
 - shared/database/* - Schema y tipos
 - shared/auth/* - Autenticación completa
 - shared/common/* - UI components, layouts, hooks, utilidades
+- features/product-reservation/* - QR, escaneo, reservas, pago simulado
 
 **Herramientas:**
 - clsx / tailwind-merge
@@ -138,12 +137,12 @@ src/app/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Product-Reservation module incluye:**
-- Generación de QR temporal para usuarios
-- Escaneo de QR + código de barras por comerciales
-- Vinculación de productos a usuarios
-- Sistema de pago simulado (1€ por reserva)
-- Expiración automática de reservas (15 días)
+**Wishlist module incluye:**
+- Visualización de productos reservados del usuario
+- Gestión de estados (disponible, en proceso, regalado)
+- Configuración de visibilidad por producto
+- Productos expirados visibles sin botón de compra
+- Filtrado por estado
 
 ---
 
@@ -154,8 +153,8 @@ src/app/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Product-Reservation
-Solo puedes modificar archivos en features/product-reservation/ y rutas en src/app/(user)/reservations, src/app/(user)/qr, src/app/(comercial)/scan
+Módulo activo: Wishlist
+Solo puedes modificar archivos en features/wishlist/ y rutas en src/app/(user)/wishlist
 
 Tarea actual: [copiar de tareas.md]
 
@@ -163,6 +162,7 @@ Restricciones:
 - NO modificar shared/database/* (READ-ONLY)
 - NO modificar shared/auth/* (READ-ONLY)
 - NO modificar shared/common/* (READ-ONLY)
+- NO modificar features/product-reservation/* (READ-ONLY)
 - Puedes LEER módulos completados para uso
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
@@ -193,15 +193,23 @@ Restricciones:
 - Utilidades (formatters, validators, helpers)
 - Constantes (routes, UI) y types compartidos
 
+✅ **Product-Reservation** - `features/product-reservation/` (READ-ONLY)
+- QRGenerator component con auto-refresh (24h)
+- QRScanner y ProductScanner con acceso a cámara
+- ReservationForm con pago simulado (1€)
+- Páginas /qr, /reservations, /scan
+- Hooks useQRCode y useReservation
+- Server actions completas
+
 ---
 
-## PRÓXIMO MÓDULO (después de completar Product-Reservation)
+## PRÓXIMO MÓDULO (después de completar Wishlist)
 
-**Wishlist** - `features/wishlist/`
+**Friends-Network** - `features/friends-network/`
 
-**Cuando Product-Reservation esté READ-ONLY:**
-1. Actualizar PRD.md → estado Product-Reservation = READ-ONLY
-2. Mover `features/product-reservation/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Wishlist
-4. Actualizar lista PERMITIDOS con archivos de Wishlist
-5. Crear nuevo backlog en tareas.md para Wishlist
+**Cuando Wishlist esté READ-ONLY:**
+1. Actualizar PRD.md → estado Wishlist = READ-ONLY
+2. Mover `features/wishlist/*` a ARCHIVOS PROHIBIDOS
+3. Cambiar MÓDULO ACTUAL a: Friends-Network
+4. Actualizar lista PERMITIDOS con archivos de Friends-Network
+5. Crear nuevo backlog en tareas.md para Friends-Network

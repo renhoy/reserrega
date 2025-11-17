@@ -41,10 +41,10 @@
 ### FEATURES (Desarrollar después - Orden secuencial)
 
 #### 4. Product-Reservation
-**Estado:** Pendiente  
-**Propósito:** Escaneo QR temporal, vincular productos a usuarios, pago 1€, expiración 15 días  
-**Archivos:** `features/product-reservation/`  
-**Depende de:** Database, Auth
+**Estado:** ✅ READ-ONLY (Completado)
+**Propósito:** Escaneo QR temporal, vincular productos a usuarios, pago 1€, expiración 15 días
+**Archivos:** `features/product-reservation/`
+**Completado:** QR generator, scanners (QR/barcode), formulario reserva, simulación pago, páginas usuario/comercial
 
 #### 5. Wishlist
 **Estado:** Pendiente  
@@ -105,10 +105,12 @@
 - [x] Constantes y types compartidos
 
 **Product-Reservation:**
-- [ ] Generar QR temporal para usuario
-- [ ] Escanear QR + código de barras
-- [ ] Crear reserva con expiración 15 días
-- [ ] Pago 1€ simulado funcional
+- [x] Generar QR temporal para usuario (24h expiration)
+- [x] Escanear QR + código de barras (cámara device)
+- [x] Crear reserva con expiración 15 días
+- [x] Pago 1€ simulado funcional
+- [x] Páginas usuario (/qr, /reservations)
+- [x] Página comercial (/scan)
 
 **Wishlist:**
 - [ ] Ver productos reservados del usuario

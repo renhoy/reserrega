@@ -21,7 +21,7 @@ export default async function ContactPage() {
   const multiempresa = await isMultiEmpresa();
 
   return (
-    <div className="min-h-screen bg-lime-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 flex flex-col">
       <Header
         isAuthenticated={false}
         appName={appName}

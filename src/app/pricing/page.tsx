@@ -64,7 +64,7 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-lime-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 flex flex-col">
       <Header
         isAuthenticated={false}
         appName={appName}
@@ -94,13 +94,13 @@ export default async function PricingPage() {
                 key={plan.id}
                 className={`relative flex flex-col ${
                   isPopular
-                    ? "border-lime-500 border-2 shadow-lg"
+                    ? "border-pink-500 border-2 shadow-lg"
                     : "border-gray-200"
                 }`}
               >
                 {isPopular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="bg-lime-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-pink-500 text-white px-4 py-1 rounded-full text-sm font-medium">
                       Más Popular
                     </span>
                   </div>
@@ -125,7 +125,7 @@ export default async function PricingPage() {
                   <ul className="space-y-3">
                     {getFeaturesArray(plan).map((feature, index) => (
                       <li key={index} className="flex items-start gap-3">
-                        <Check className="h-5 w-5 text-lime-500 shrink-0 mt-0.5" />
+                        <Check className="h-5 w-5 text-pink-500 shrink-0 mt-0.5" />
                         <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
@@ -137,10 +137,10 @@ export default async function PricingPage() {
                     <Button
                       className={`w-full ${
                         isPopular
-                          ? "bg-lime-500 hover:bg-lime-600"
+                          ? "bg-pink-500 hover:bg-pink-600"
                           : isFree
                           ? "bg-gray-600 hover:bg-gray-700"
-                          : "bg-yellow-600 hover:bg-yellow-700"
+                          : "bg-purple-600 hover:bg-purple-700"
                       }`}
                     >
                       {isFree ? "Comenzar Gratis" : "Comenzar Ahora"}
@@ -155,7 +155,7 @@ export default async function PricingPage() {
         {/* FAQs / Información adicional */}
         <div className="mt-16 text-center">
           <p className="text-gray-600 mb-4">
-            ¿Tienes dudas? <Link href="/contact" className="text-lime-600 hover:text-lime-700 font-medium">Contáctanos</Link>
+            ¿Tienes dudas? <Link href="/contact" className="text-pink-600 hover:text-pink-700 font-medium">Contáctanos</Link>
           </p>
           <p className="text-sm text-gray-500">
             Todos los precios son en euros (€) y no incluyen IVA. Puedes cancelar o cambiar tu plan en cualquier momento.

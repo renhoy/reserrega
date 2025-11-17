@@ -47,10 +47,10 @@
 **Completado:** QR generator, scanners (QR/barcode), formulario reserva, simulación pago, páginas usuario/comercial
 
 #### 5. Wishlist
-**Estado:** Pendiente  
-**Propósito:** Ver productos reservados, estados (disponible/proceso/regalado), visibilidad configurable  
-**Archivos:** `features/wishlist/`  
-**Depende de:** Database, Auth, Product-Reservation
+**Estado:** ✅ READ-ONLY (Completado)
+**Propósito:** Ver productos reservados, estados (disponible/proceso/regalado), visibilidad configurable
+**Archivos:** `features/wishlist/`
+**Completado:** Grid responsivo, filtros por estado, control visibilidad, badges de estado, warnings expiración, páginas usuario
 
 #### 6. Friends-Network
 **Estado:** Pendiente  
@@ -113,10 +113,12 @@
 - [x] Página comercial (/scan)
 
 **Wishlist:**
-- [ ] Ver productos reservados del usuario
-- [ ] Estados: disponible/proceso/regalado
-- [ ] Configurar visibilidad por producto
-- [ ] Productos caducados visibles sin botón comprar
+- [x] Ver productos reservados del usuario
+- [x] Estados: disponible/proceso/regalado/expirado
+- [x] Configurar visibilidad por producto (privado/amigos/público)
+- [x] Productos caducados visibles sin botón comprar
+- [x] Filtros por estado y estadísticas
+- [x] Optimistic UI updates
 
 **Friends-Network:**
 - [ ] Invitar por email con token

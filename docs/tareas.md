@@ -1,6 +1,6 @@
-# Tareas - MÓDULO: Wishlist
+# Tareas - MÓDULO: Friends-Network
 
-## MÓDULO ACTIVO: Wishlist 🔴
+## MÓDULO ACTIVO: Friends-Network 🔴
 
 **Tareas Activas:** 0/7
 **Progreso:** 0%
@@ -27,140 +27,154 @@
 
 ### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-#### WL-001: Types y Utilidades Base
+#### FN-001: Types y Utilidades Base
 **Prioridad:** Crítica
 **Tiempo:** 1 hora
 **Descripción:**
-- Definir types para Wishlist, WishlistItem, filters
-- Crear utilidades para formatear estados
-- Helpers para validar visibilidad
-- Utils para detectar productos expirados
+- Definir types para FriendRequest, Invitation, FriendshipStatus
+- Crear utilidades para tokens de invitación
+- Helpers para formatear estados de solicitud
+- Utils para validar emails
 
 **Archivos a crear:**
-- `features/wishlist/types/wishlist.types.ts`
-- `features/wishlist/lib/wishlist-utils.ts`
+- `features/friends-network/types/friends.types.ts`
+- `features/friends-network/lib/friends-utils.ts`
 
 **Criterio de aceptación:**
 - [ ] Types completos con JSDoc
-- [ ] WishlistItem, WishlistFilters types
-- [ ] Función formatWishlistStatus()
-- [ ] Función isProductExpired()
-- [ ] Función canViewProduct(visibility, relationship)
+- [ ] FriendRequest, Invitation, SearchResult types
+- [ ] Función generateInvitationToken()
+- [ ] Función validateInvitationToken()
+- [ ] Función formatFriendRequestStatus()
 
 ---
 
-#### WL-002: Componentes Base UI
+#### FN-002: Componentes de Solicitudes
 **Prioridad:** Crítica
-**Tiempo:** 2 horas
+**Tiempo:** 2-3 horas
 **Descripción:**
-- WishlistItem component (card con producto)
-- ProductStatusBadge (disponible/proceso/regalado/expirado)
-- Mostrar info producto, precio, estado
-- Warning si está expirado
+- FriendRequestCard (recibida y enviada)
+- Botones aprobar/rechazar/cancelar
+- Estados visuales (pending/accepted/rejected)
+- Información del usuario (avatar, nombre, email)
 
 **Archivos a crear:**
-- `features/wishlist/components/WishlistItem.tsx`
-- `features/wishlist/components/ProductStatusBadge.tsx`
+- `features/friends-network/components/FriendRequestCard.tsx`
+- `features/friends-network/components/FriendRequestsList.tsx`
 
 **Criterio de aceptación:**
-- [ ] WishlistItem muestra producto completo
-- [ ] Incluye imagen, nombre, marca, talla, color, precio
-- [ ] ProductStatusBadge con colores según estado
-- [ ] Warning visual para productos expirados
+- [ ] FriendRequestCard muestra info de usuario
+- [ ] Botones aprobar/rechazar funcionales
+- [ ] Estados visuales claros
+- [ ] Lista de solicitudes con separación recibidas/enviadas
 - [ ] Responsive design
 
 ---
 
-#### WL-003: Grid y Controles de Visibilidad
-**Prioridad:** Crítica
-**Tiempo:** 2 horas
-**Descripción:**
-- WishlistGrid con layout responsive
-- VisibilityToggle component (private/friends/public)
-- Filtros por estado
-- Empty state
-
-**Archivos a crear:**
-- `features/wishlist/components/WishlistGrid.tsx`
-- `features/wishlist/components/VisibilityToggle.tsx`
-
-**Criterio de aceptación:**
-- [ ] Grid responsivo (1/2/3 columnas)
-- [ ] Toggle de visibilidad por producto
-- [ ] Filtros por estado funcionales
-- [ ] Empty state con call-to-action
-- [ ] Loading states
-
----
-
-#### WL-004: Server Actions
+#### FN-003: Componentes de Lista y Búsqueda
 **Prioridad:** Crítica
 **Tiempo:** 2-3 horas
 **Descripción:**
-- getWishlist - obtener productos del usuario
-- updateProductStatus - cambiar estado
-- updateVisibility - cambiar visibilidad
-- removeFromWishlist - eliminar producto
-- Validar permisos de propietario
+- FriendsList component (grid/list view)
+- UserSearchBar con debounce
+- Resultados de búsqueda
+- InviteFriendForm (email)
 
 **Archivos a crear:**
-- `features/wishlist/actions/getWishlist.ts`
-- `features/wishlist/actions/updateProductStatus.ts`
-- `features/wishlist/actions/updateVisibility.ts`
+- `features/friends-network/components/FriendsList.tsx`
+- `features/friends-network/components/FriendCard.tsx`
+- `features/friends-network/components/UserSearchBar.tsx`
+- `features/friends-network/components/InviteFriendForm.tsx`
 
 **Criterio de aceptación:**
-- [ ] getWishlist con filtros opcionales
-- [ ] updateProductStatus valida estados
-- [ ] updateVisibility valida opciones
-- [ ] Solo propietario puede modificar
-- [ ] Incluye info de reserva y producto
+- [ ] FriendsList muestra todos los amigos
+- [ ] FriendCard con avatar, nombre, y acciones
+- [ ] Búsqueda con debounce (300ms)
+- [ ] Formulario de invitación por email
+- [ ] Empty states
 
 ---
 
-#### WL-005: Hook de Gestión
+#### FN-004: Server Actions
 **Prioridad:** Crítica
-**Tiempo:** 1-2 horas
+**Tiempo:** 3-4 horas
 **Descripción:**
-- useWishlist hook para gestionar estado
-- Filtrado local por estado
-- Optimistic updates
-- Error handling
+- getFriends - obtener lista de amigos
+- sendFriendRequest - enviar solicitud
+- acceptFriendRequest - aceptar solicitud
+- rejectFriendRequest - rechazar solicitud
+- searchUsers - buscar por username/email
+- sendInvitationEmail - invitar por email
+- validateInvitationToken - validar token de invitación
 
 **Archivos a crear:**
-- `features/wishlist/hooks/useWishlist.ts`
+- `features/friends-network/actions/getFriends.ts`
+- `features/friends-network/actions/sendFriendRequest.ts`
+- `features/friends-network/actions/manageFriendRequest.ts`
+- `features/friends-network/actions/searchUsers.ts`
+- `features/friends-network/actions/generateInvitation.ts`
 
 **Criterio de aceptación:**
-- [ ] Fetch inicial con loading state
-- [ ] Filtros cliente-side
-- [ ] updateStatus con optimistic update
-- [ ] updateVisibility con optimistic update
-- [ ] Error handling y rollback
+- [ ] getFriends con paginación
+- [ ] sendFriendRequest valida no duplicados
+- [ ] acceptFriendRequest crea relación bidireccional
+- [ ] searchUsers busca por nombre y email
+- [ ] sendInvitationEmail genera token único
+- [ ] validateInvitationToken verifica expiración
+- [ ] Validación de permisos en todas las acciones
 
 ---
 
-#### WL-006: Páginas y Rutas
+#### FN-005: Hooks de Gestión
 **Prioridad:** Crítica
 **Tiempo:** 2 horas
 **Descripción:**
-- Página principal de wishlist (/wishlist)
-- Página de detalle de producto (/wishlist/[id])
-- Integración con Header/Sidebar
-- Protección de rutas
+- useFriends hook para gestionar amigos
+- useFriendRequests hook para solicitudes
+- useUserSearch hook para búsqueda
+- useInvitation hook para invitaciones
+- Optimistic updates
 
 **Archivos a crear:**
-- `src/app/(user)/wishlist/page.tsx`
-- `src/app/(user)/wishlist/[id]/page.tsx`
+- `features/friends-network/hooks/useFriends.ts`
+- `features/friends-network/hooks/useFriendRequests.ts`
+- `features/friends-network/hooks/useUserSearch.ts`
+- `features/friends-network/hooks/useInvitation.ts`
 
 **Criterio de aceptación:**
-- [ ] /wishlist muestra grid completo
-- [ ] Filtros y controles funcionales
-- [ ] /wishlist/[id] muestra detalle completo
-- [ ] Permite cambiar estado y visibilidad
-- [ ] Protección con requireAuth()
+- [ ] useFriends con loading states
+- [ ] useFriendRequests separado por recibidas/enviadas
+- [ ] useUserSearch con debounce
+- [ ] useInvitation para enviar invitaciones
+- [ ] Optimistic updates en aprobar/rechazar
 
 ---
 
-#### WL-007: README y Documentación
+#### FN-006: Páginas y Rutas
+**Prioridad:** Crítica
+**Tiempo:** 3 horas
+**Descripción:**
+- Página de amigos (/friends)
+- Página de solicitudes (/friends/requests)
+- Página de invitar (/friends/invite)
+- Protección de rutas
+
+**Archivos a crear:**
+- `src/app/(user)/friends/page.tsx`
+- `src/app/(user)/friends/requests/page.tsx`
+- `src/app/(user)/friends/invite/page.tsx`
+
+**Criterio de aceptación:**
+- [ ] /friends muestra lista de amigos + búsqueda
+- [ ] /friends/requests muestra solicitudes recibidas y enviadas
+- [ ] /friends/invite permite invitar por email
+- [ ] Tabs para navegación entre secciones
+- [ ] Protección con requireAuth()
+- [ ] Loading states y empty states
+
+---
+
+#### FN-007: README y Documentación
 **Prioridad:** Crítica
 **Tiempo:** 1 hora
 **Descripción:**
@@ -170,8 +184,8 @@
 - Ejemplos de uso
 
 **Archivos a crear:**
-- `features/wishlist/README.md`
-- `features/wishlist/index.ts`
+- `features/friends-network/README.md`
+- `features/friends-network/index.ts`
 
 **Criterio de aceptación:**
 - [ ] README completo
@@ -183,86 +197,113 @@
 
 ### 🟡 ALTA PRIORIDAD (Mejoran calidad pero no bloquean)
 
-#### WL-008: Ordenamiento y Prioridad
+#### FN-008: QR Friend Add (Opcional)
 **Prioridad:** Alta
-**Tiempo:** 1 hora
+**Tiempo:** 2-3 horas
 **Descripción:**
-- Ordenar por prioridad (1-5)
-- Drag & drop para reordenar
-- Guardar orden en BD
+- Generar QR con userId
+- Escanear QR de otro usuario
+- Enviar solicitud automáticamente
+
+**Archivos a crear:**
+- `features/friends-network/components/FriendQRGenerator.tsx`
+- `features/friends-network/components/FriendQRScanner.tsx`
+- `features/friends-network/actions/addFriendByQR.ts`
 
 ---
 
-#### WL-009: Notificaciones de Estado
+#### FN-009: Notificaciones de Solicitudes
 **Prioridad:** Alta
 **Tiempo:** 1 hora
 **Descripción:**
-- Notificar cuando producto está "en proceso"
-- Notificar cuando es regalado
-- Notificar cuando expira
+- Notificar cuando recibes solicitud
+- Notificar cuando aceptan/rechazan
+- Badge con contador de pendientes
 
 ---
 
 ## ARCHIVOS DE ESTE MÓDULO
 
 ```
-features/wishlist/
+features/friends-network/
 ├── components/
-│   ├── WishlistGrid.tsx         # WL-003
-│   ├── WishlistItem.tsx         # WL-002
-│   ├── ProductStatusBadge.tsx   # WL-002
-│   └── VisibilityToggle.tsx     # WL-003
+│   ├── FriendsList.tsx              # FN-003
+│   ├── FriendCard.tsx               # FN-003
+│   ├── FriendRequestCard.tsx        # FN-002
+│   ├── FriendRequestsList.tsx       # FN-002
+│   ├── UserSearchBar.tsx            # FN-003
+│   ├── InviteFriendForm.tsx         # FN-003
+│   ├── FriendQRGenerator.tsx        # FN-008 (opcional)
+│   └── FriendQRScanner.tsx          # FN-008 (opcional)
 ├── actions/
-│   ├── getWishlist.ts           # WL-004
-│   ├── updateProductStatus.ts   # WL-004
-│   └── updateVisibility.ts      # WL-004
+│   ├── getFriends.ts                # FN-004
+│   ├── sendFriendRequest.ts         # FN-004
+│   ├── manageFriendRequest.ts       # FN-004
+│   ├── searchUsers.ts               # FN-004
+│   └── generateInvitation.ts        # FN-004
 ├── hooks/
-│   └── useWishlist.ts           # WL-005
+│   ├── useFriends.ts                # FN-005
+│   ├── useFriendRequests.ts         # FN-005
+│   ├── useUserSearch.ts             # FN-005
+│   └── useInvitation.ts             # FN-005
 ├── lib/
-│   └── wishlist-utils.ts        # WL-001
+│   └── friends-utils.ts             # FN-001
 ├── types/
-│   └── wishlist.types.ts        # WL-001
-├── README.md                     # WL-007
-└── index.ts                      # WL-007
+│   └── friends.types.ts             # FN-001
+├── README.md                         # FN-007
+└── index.ts                          # FN-007
 
 src/app/
 └── (user)/
-    └── wishlist/
-        ├── page.tsx             # WL-006
-        └── [id]/
-            └── page.tsx         # WL-006
+    └── friends/
+        ├── page.tsx                 # FN-006
+        ├── requests/
+        │   └── page.tsx             # FN-006
+        └── invite/
+            └── page.tsx             # FN-006
 ```
 
 ---
 
 ## NOTAS IMPORTANTES
 
-- **Orden sugerido:** WL-001 → WL-002 → WL-003 → WL-004 → WL-005 → WL-006 → WL-007
-- **Bloqueos:** WL-002 necesita WL-001, WL-003 necesita WL-002, etc.
-- **Estados:** available, in_process, gifted, expired
-- **Visibilidad:** private (solo yo), friends (amigos), public (todos)
-- **Productos expirados:** Visibles pero sin botón de compra
-- **Relación con Reservations:** wishlist.reservation_id → reservations.id
+- **Orden sugerido:** FN-001 → FN-002 → FN-003 → FN-004 → FN-005 → FN-006 → FN-007
+- **Bloqueos:** FN-002 necesita FN-001, FN-003 necesita FN-001, etc.
+- **Estados solicitud:** pending, accepted, rejected
+- **Tokens invitación:** UUID v4 con expiración 7 días
+- **Búsqueda:** Por username (campo `name` en users) y email
+- **Relación bidireccional:** Al aceptar solicitud, se crea 1 registro con status=accepted
+- **Tabla:** friend_requests (sender_id, recipient_id, status, invitation_token, invitation_email)
 
 ---
 
 ## FLUJO COMPLETO
 
-**Usuario (Gestiona su wishlist):**
-1. Va a /wishlist
-2. Ve todos sus productos reservados
-3. Productos expirados aparecen con warning (sin botón compra)
-4. Puede filtrar por estado (disponible/proceso/regalado/expirado)
-5. Puede cambiar visibilidad de cada producto (privado/amigos/público)
-6. Puede cambiar estado manualmente (disponible → regalado si lo compró él mismo)
-7. Click en producto → ve detalle completo
-8. Desde detalle puede editar estado, visibilidad, y ver info de reserva
+### Flujo 1: Buscar y Añadir Amigo (usuario registrado)
+1. Usuario va a /friends
+2. Usa UserSearchBar para buscar por nombre o email
+3. Ve resultados y hace click en "Añadir amigo"
+4. Se crea friend_request con status=pending
+5. Destinatario recibe notificación
+6. Destinatario va a /friends/requests
+7. Aprueba o rechaza solicitud
+8. Si aprueba → ambos son amigos (status=accepted)
 
-**Amigo (Ve wishlist de otro usuario):**
-1. Ve productos según visibilidad configurada
-2. Si producto = "in_process" → muestra "Alguien está comprando esto"
-3. Si producto = "gifted" → no se muestra
-4. Si producto = "expired" → se muestra con warning, sin botón compra
+### Flujo 2: Invitar por Email (usuario no registrado)
+1. Usuario va a /friends/invite
+2. Ingresa email del amigo
+3. Sistema genera invitation_token único
+4. Envía email con link: /register?token={token}
+5. Amigo hace click y se registra
+6. Al completar registro, friend_request se actualiza con recipient_id
+7. Amistad se crea automáticamente (status=accepted)
+
+### Flujo 3: QR Add Friend (opcional - FN-008)
+1. Usuario A genera QR en /friends/invite
+2. Usuario B escanea QR (contiene userId de A)
+3. Se crea friend_request automáticamente
+4. Usuario A aprueba en /friends/requests
+5. Amistad creada
 
 ---
 
@@ -270,16 +311,17 @@ src/app/
 
 **Cuando todas las CRÍTICAS estén hechas:**
 
-1. [ ] Flujo completo funcionando
-2. [ ] Ver productos reservados con estados
-3. [ ] Filtrado por estado funcional
-4. [ ] Cambio de visibilidad funcional
-5. [ ] Productos expirados se muestran correctamente
-6. [ ] README.md escrito (WL-007)
-7. [ ] Actualizar PRD.md → estado Wishlist = READ-ONLY
-8. [ ] Mover a claude.md → features/wishlist/* a PROHIBIDOS
-9. [ ] Cambiar MÓDULO ACTUAL en claude.md → Friends-Network
-10. [ ] Crear nuevo backlog en este archivo para Friends-Network
+1. [ ] Flujo completo funcionando (búsqueda, envío, aprobación)
+2. [ ] Invitaciones por email funcionales
+3. [ ] Lista de amigos visible
+4. [ ] Solicitudes recibidas y enviadas funcionan
+5. [ ] Aprobar/rechazar funcional
+6. [ ] Búsqueda por nombre/email funciona
+7. [ ] README.md escrito (FN-007)
+8. [ ] Actualizar PRD.md → estado Friends-Network = READ-ONLY
+9. [ ] Mover a claude.md → features/friends-network/* a PROHIBIDOS
+10. [ ] Cambiar MÓDULO ACTUAL en claude.md → Gift-Flow
+11. [ ] Crear nuevo backlog en este archivo para Gift-Flow
 
 ---
 
@@ -289,27 +331,28 @@ src/app/
 ✅ **Auth** - Login, register, middleware, permisos
 ✅ **Common** - UI components, layouts, hooks, utilidades
 ✅ **Product-Reservation** - QR generator, scanners, reservas, pago simulado
+✅ **Wishlist** - Grid, filtros, visibilidad, badges, páginas usuario
 
 ---
 
-## MÓDULO ANTERIOR: Product-Reservation ✅ COMPLETADO
+## MÓDULO ANTERIOR: Wishlist ✅ COMPLETADO
 
 **Fecha completado:** 2025-11-17
 
 **Tareas completadas:**
-- ✅ PR-001: Types y Utilidades Base
-- ✅ PR-002: QR Generator Component
-- ✅ PR-003: Product Scanner (Comercial)
-- ✅ PR-004: Crear Reserva con Pago
-- ✅ PR-005: Páginas y Rutas
-- ✅ PR-006: README y Documentación
+- ✅ WL-001: Types y Utilidades Base
+- ✅ WL-002: Componentes Base UI (ProductStatusBadge, WishlistItem)
+- ✅ WL-003: Grid y Controles de Visibilidad
+- ✅ WL-004: Server Actions (getWishlist, updateStatus, updateVisibility)
+- ✅ WL-005: Hook useWishlist con optimistic updates
+- ✅ WL-006: Páginas /wishlist y /wishlist/[id]
+- ✅ WL-007: README y Documentación
 
 **Funcionalidad entregada:**
-- Generación de QR temporal (24h) para usuarios
-- Escaneo de QR + código de barras con cámara
-- Creación de productos on-the-fly si no existen
-- Sistema de reservas con expiración 15 días
-- Pago simulado de 1€ con split 50/50
-- Páginas completas para usuarios (/qr, /reservations)
-- Página completa para comerciales (/scan)
-- Documentación completa del módulo
+- Grid responsivo con filtros por estado
+- Control de visibilidad (privado/amigos/público)
+- ProductStatusBadge con colores según estado
+- Warnings de expiración para productos
+- Optimistic UI updates con rollback automático
+- Estadísticas en tiempo real
+- Páginas de lista y detalle completas

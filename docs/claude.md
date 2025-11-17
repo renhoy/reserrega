@@ -1,39 +1,46 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Wishlist 🔴
+## MÓDULO ACTUAL: Friends-Network 🔴
 
-**Objetivo:** Ver productos reservados, gestionar estados (disponible/proceso/regalado), configurar visibilidad
+**Objetivo:** Sistema de amigos - invitar por email/QR, búsqueda de usuarios, solicitudes de amistad, gestionar red de regaladores
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/wishlist/
+features/friends-network/
 ├── components/
-│   ├── WishlistGrid.tsx
-│   ├── WishlistItem.tsx
-│   ├── ProductStatusBadge.tsx
-│   └── VisibilityToggle.tsx
+│   ├── FriendsList.tsx
+│   ├── FriendRequestCard.tsx
+│   ├── InviteFriendForm.tsx
+│   ├── FriendQRGenerator.tsx
+│   ├── FriendQRScanner.tsx
+│   └── UserSearchBar.tsx
 ├── actions/
-│   ├── getWishlist.ts
-│   ├── updateProductStatus.ts
-│   └── updateVisibility.ts
+│   ├── getFriends.ts
+│   ├── sendFriendRequest.ts
+│   ├── manageFriendRequest.ts
+│   ├── searchUsers.ts
+│   └── generateInvitation.ts
 ├── hooks/
-│   └── useWishlist.ts
+│   ├── useFriends.ts
+│   └── useInvitation.ts
 ├── lib/
-│   └── wishlist-utils.ts
+│   └── friends-utils.ts
 ├── types/
-│   └── wishlist.types.ts
+│   └── friends.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
 ├── (user)/
-│   └── wishlist/
-│       ├── page.tsx
-│       └── [id]/
-│           └── page.tsx
+│   ├── friends/
+│   │   ├── page.tsx
+│   │   ├── requests/
+│   │   │   └── page.tsx
+│   │   └── invite/
+│   │       └── page.tsx
 ```
 
 ---
@@ -66,7 +73,15 @@ src/app/
   - Páginas de usuario y comercial
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados - excepto Wishlist)
+✅ features/wishlist/* (READ-ONLY - Módulo completado)
+  - Grid responsivo con filtros por estado
+  - Control de visibilidad (privado/amigos/público)
+  - Badges de estado con warnings de expiración
+  - Optimistic UI updates
+  - Páginas /wishlist y /wishlist/[id]
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Friends-Network)
 ❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 
@@ -82,10 +97,10 @@ src/app/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Wishlist
+- Solo trabajar en archivos del módulo Friends-Network
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/database/*, shared/auth/*, shared/common/* y features/product-reservation/* pero NO MODIFICAR
+- Puedes LEER shared/*, features/product-reservation/* y features/wishlist/* pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -119,6 +134,7 @@ src/app/
 - shared/auth/* - Autenticación completa
 - shared/common/* - UI components, layouts, hooks, utilidades
 - features/product-reservation/* - QR, escaneo, reservas, pago simulado
+- features/wishlist/* - Grid, filtros, visibilidad, badges de estado
 
 **Herramientas:**
 - clsx / tailwind-merge
@@ -137,12 +153,13 @@ src/app/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Wishlist module incluye:**
-- Visualización de productos reservados del usuario
-- Gestión de estados (disponible, en proceso, regalado)
-- Configuración de visibilidad por producto
-- Productos expirados visibles sin botón de compra
-- Filtrado por estado
+**Friends-Network module incluye:**
+- Invitar amigos por email con token único
+- Generar/escanear QR para añadir amigos
+- Búsqueda de usuarios por username/email
+- Enviar/aprobar/rechazar solicitudes de amistad
+- Ver lista de amigos
+- Gestionar red de regaladores
 
 ---
 
@@ -153,16 +170,15 @@ src/app/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Wishlist
-Solo puedes modificar archivos en features/wishlist/ y rutas en src/app/(user)/wishlist
+Módulo activo: Friends-Network
+Solo puedes modificar archivos en features/friends-network/ y rutas en src/app/(user)/friends
 
 Tarea actual: [copiar de tareas.md]
 
 Restricciones:
-- NO modificar shared/database/* (READ-ONLY)
-- NO modificar shared/auth/* (READ-ONLY)
-- NO modificar shared/common/* (READ-ONLY)
+- NO modificar shared/* (READ-ONLY)
 - NO modificar features/product-reservation/* (READ-ONLY)
+- NO modificar features/wishlist/* (READ-ONLY)
 - Puedes LEER módulos completados para uso
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
@@ -201,15 +217,27 @@ Restricciones:
 - Hooks useQRCode y useReservation
 - Server actions completas
 
+✅ **Wishlist** - `features/wishlist/` (READ-ONLY)
+- WishlistGrid con filtros por estado y estadísticas
+- WishlistItem cards responsivos con acciones
+- ProductStatusBadge y VisibilityToggle
+- Control de visibilidad (privado/amigos/público)
+- Estados: disponible/en proceso/regalado/expirado
+- Warnings de expiración
+- Optimistic UI updates
+- Páginas /wishlist y /wishlist/[id]
+- Hook useWishlist
+- Server actions completas
+
 ---
 
-## PRÓXIMO MÓDULO (después de completar Wishlist)
+## PRÓXIMO MÓDULO (después de completar Friends-Network)
 
-**Friends-Network** - `features/friends-network/`
+**Gift-Flow** - `features/gift-flow/`
 
-**Cuando Wishlist esté READ-ONLY:**
-1. Actualizar PRD.md → estado Wishlist = READ-ONLY
-2. Mover `features/wishlist/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Friends-Network
-4. Actualizar lista PERMITIDOS con archivos de Friends-Network
-5. Crear nuevo backlog en tareas.md para Friends-Network
+**Cuando Friends-Network esté READ-ONLY:**
+1. Actualizar PRD.md → estado Friends-Network = READ-ONLY
+2. Mover `features/friends-network/*` a ARCHIVOS PROHIBIDOS
+3. Cambiar MÓDULO ACTUAL a: Gift-Flow
+4. Actualizar lista PERMITIDOS con archivos de Gift-Flow
+5. Crear nuevo backlog en tareas.md para Gift-Flow

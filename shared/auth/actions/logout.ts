@@ -61,7 +61,7 @@ export async function logout(): Promise<ServerActionResult> {
     await supabase.auth.signOut()
 
     // Redirect to login
-    redirect('/auth/login')
+    redirect('/login')
   } catch (error) {
     console.error('[logout] Error:', error)
     return {

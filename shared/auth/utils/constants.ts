@@ -46,8 +46,8 @@ export const DEFAULT_ROLE: UserRole = ROLES.USUARIO
  */
 export const PUBLIC_ROUTES = [
   '/',
-  '/auth/login',
-  '/auth/register',
+  '/login',
+  '/register',
   '/auth/callback',
   '/auth/reset-password',
   '/auth/verify-email',
@@ -107,7 +107,7 @@ export const DEFAULT_REDIRECT_BY_ROLE: Record<UserRole, string> = {
 /**
  * Default redirect after logout
  */
-export const LOGOUT_REDIRECT = '/auth/login'
+export const LOGOUT_REDIRECT = '/login'
 
 /**
  * Default redirect when unauthorized

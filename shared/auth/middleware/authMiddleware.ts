@@ -68,7 +68,7 @@ export async function authMiddleware(request: NextRequest) {
 
   if (isPublicRoute) {
     // Redirect to dashboard if already authenticated and trying to access auth pages
-    if (session && (pathname.startsWith('/auth/login') || pathname.startsWith('/auth/register'))) {
+    if (session && (pathname.startsWith('/login') || pathname.startsWith('/register'))) {
       const redirectUrl = request.nextUrl.clone()
       redirectUrl.pathname = '/dashboard'
       return NextResponse.redirect(redirectUrl)
@@ -79,7 +79,7 @@ export async function authMiddleware(request: NextRequest) {
   // Require authentication for protected routes
   if (!session) {
     const redirectUrl = request.nextUrl.clone()
-    redirectUrl.pathname = '/auth/login'
+    redirectUrl.pathname = '/login'
     redirectUrl.searchParams.set('redirect', pathname)
     return NextResponse.redirect(redirectUrl)
   }
@@ -94,7 +94,7 @@ export async function authMiddleware(request: NextRequest) {
   if (!user) {
     // User not found in database, redirect to login
     const redirectUrl = request.nextUrl.clone()
-    redirectUrl.pathname = '/auth/login'
+    redirectUrl.pathname = '/login'
     return NextResponse.redirect(redirectUrl)
   }
 

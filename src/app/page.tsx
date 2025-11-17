@@ -45,11 +45,18 @@ export default async function LandingPage() {
               Reserrega
             </span>
           </Link>
-          <Link href="/auth/register">
-            <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30 transition-all hover:-translate-y-0.5">
-              ✨ Empezar gratis
-            </Button>
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link href="/login">
+              <Button variant="ghost" className="text-gray-700 hover:text-pink-600">
+                Iniciar sesión
+              </Button>
+            </Link>
+            <Link href="/register">
+              <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30 transition-all hover:-translate-y-0.5">
+                ✨ Empezar gratis
+              </Button>
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -75,7 +82,7 @@ export default async function LandingPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-            <Link href="/auth/register">
+            <Link href="/register">
               <Button size="lg" className="bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30 transition-all hover:-translate-y-0.5 text-lg px-8">
                 🚀 Crear mi lista gratis
               </Button>
@@ -262,7 +269,7 @@ export default async function LandingPage() {
             </div>
           </div>
 
-          <Link href="/auth/register">
+          <Link href="/register">
             <Button size="lg" className="bg-white text-pink-600 hover:bg-gray-50 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1 text-lg px-10">
               🎉 Crear mi lista GRATIS
             </Button>

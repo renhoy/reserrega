@@ -29,5 +29,5 @@ export { GiftSummary, GiftSummaryCompact } from './components/GiftSummary'
 // Actions (GF-004 completed)
 export * from './actions/gift-flow.actions'
 
-// Hooks (will be added in GF-005)
-// export * from './hooks/use-gift-flow'
+// Hooks (GF-005 completed)
+export * from './hooks/use-gift-flow'

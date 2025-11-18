@@ -55,8 +55,31 @@ export async function middleware(req: NextRequest) {
     // Verificar si suscripciones están habilitadas
     const subscriptionsEnabled = await getSubscriptionsEnabled()
 
-    // Verificar si hay sesión válida (usuario autenticado con token válido)
-    const isAuthenticated = !error && !!user
+    // CRÍTICO: Verificar que el usuario existe en la base de datos y obtener rol/status
+    // Esto previene loops infinitos cuando hay sesión de Supabase Auth pero no registro en reserrega.users
+    let userExistsInDB = false
+    let userRole: string | undefined
+    let userStatus: string | undefined
+
+    if (!error && user) {
+      const { data: dbUser, error: dbError } = await supabaseAdmin
+        .from('users')
+        .select('id, role, status')
+        .eq('id', user.id)
+        .single()
+
+      userExistsInDB = !dbError && !!dbUser
+
+      if (userExistsInDB && dbUser) {
+        userRole = dbUser.role
+        userStatus = dbUser.status
+      } else {
+        console.warn(`[Middleware] Usuario con sesión válida pero no existe en BD: ${user.email}`)
+      }
+    }
+
+    // Verificar si hay sesión válida (usuario autenticado con token válido Y existe en BD)
+    const isAuthenticated = !error && !!user && userExistsInDB
     const session = user ? { user } : null
 
     // Bloquear /subscriptions si:
@@ -141,24 +164,14 @@ export async function middleware(req: NextRequest) {
     // Verificar acceso a rutas restringidas por rol
     // NO verificar en rutas públicas (login, register, etc)
     if (isAuthenticated && session?.user && !isPublicRoute) {
-      // Obtener rol y status desde la base de datos usando supabaseAdmin (bypasea RLS)
-      const { data: userData, error: userError } = await supabaseAdmin
-        .from('users')
-        .select('role, status')
-        .eq('id', session.user.id)
-        .single()
+      // Usar rol y status ya obtenidos arriba (evita query duplicada)
+      const finalUserRole = userRole || 'usuario'
+      const finalUserStatus = userStatus || 'active'
 
-      if (userError) {
-        console.error(`[Middleware] Error obteniendo datos usuario:`, userError)
-      }
-
-      const userRole = userData?.role || 'usuario'
-      const userStatus = userData?.status || 'active'
-
-      console.log(`[Middleware] Verificando permisos - Path: ${pathname}, Rol: ${userRole} (desde BD), Status: ${userStatus}, MultiEmpresa: ${multiempresa}`)
+      console.log(`[Middleware] Verificando permisos - Path: ${pathname}, Rol: ${finalUserRole} (desde BD), Status: ${finalUserStatus}, MultiEmpresa: ${multiempresa}`)
 
       // Verificar si el usuario está inactivo
-      if (userStatus === 'inactive') {
+      if (finalUserStatus === 'inactive') {
         console.warn(`[Middleware] Usuario inactivo detectado: ${session.user.email}`)
         // Redirigir directamente al login con mensaje
         const redirectUrl = req.nextUrl.clone()
@@ -187,18 +200,18 @@ export async function middleware(req: NextRequest) {
       // /companies - Solo superadmin en modo multiempresa
       // En modo monoempresa, admin redirige a /companies/edit
       if (pathname === '/companies') {
-        console.log(`[Middleware] Acceso a /companies - Rol: ${userRole}, MultiEmpresa: ${multiempresa}`)
+        console.log(`[Middleware] Acceso a /companies - Rol: ${finalUserRole}, MultiEmpresa: ${multiempresa}`)
 
-        if (userRole === 'superadmin') {
+        if (finalUserRole === 'superadmin') {
           // Superadmin siempre puede ver lista de empresas
           console.log(`[Middleware] Superadmin: acceso permitido a /companies`)
-        } else if (userRole === 'admin' && !multiempresa) {
+        } else if (finalUserRole === 'admin' && !multiempresa) {
           // Admin en modo mono redirige a editar su empresa
           console.log(`[Middleware] Admin en modo mono: /companies → /companies/edit`)
           const redirectUrl = req.nextUrl.clone()
           redirectUrl.pathname = '/companies/edit'
           return createRedirectWithCookies(redirectUrl, res)
-        } else if (userRole === 'admin' && multiempresa) {
+        } else if (finalUserRole === 'admin' && multiempresa) {
           // Admin en modo multi no puede ver lista
           console.log(`[Middleware] Admin en modo multi: acceso denegado a /companies → /dashboard`)
           const redirectUrl = req.nextUrl.clone()
@@ -206,7 +219,7 @@ export async function middleware(req: NextRequest) {
           return createRedirectWithCookies(redirectUrl, res)
         } else {
           // Otros roles no tienen acceso
-          console.log(`[Middleware] Rol ${userRole}: acceso denegado a /companies → /dashboard`)
+          console.log(`[Middleware] Rol ${finalUserRole}: acceso denegado a /companies → /dashboard`)
           const redirectUrl = req.nextUrl.clone()
           redirectUrl.pathname = '/dashboard'
           return createRedirectWithCookies(redirectUrl, res)
@@ -215,8 +228,8 @@ export async function middleware(req: NextRequest) {
 
       // /companies/[id]/edit - Solo superadmin puede editar cualquier empresa
       if (pathname.startsWith('/companies/') && pathname.includes('/edit') && pathname !== '/companies/edit') {
-        if (userRole !== 'superadmin') {
-          console.log(`[Middleware] Acceso denegado a ${pathname} (rol: ${userRole}) → /dashboard`)
+        if (finalUserRole !== 'superadmin') {
+          console.log(`[Middleware] Acceso denegado a ${pathname} (rol: ${finalUserRole}) → /dashboard`)
           const redirectUrl = req.nextUrl.clone()
           redirectUrl.pathname = '/dashboard'
           return createRedirectWithCookies(redirectUrl, res)
@@ -224,32 +237,32 @@ export async function middleware(req: NextRequest) {
       }
 
       // /companies/edit - Admin y superadmin pueden editar su propia empresa
-      if (pathname === '/companies/edit' && !['admin', 'superadmin'].includes(userRole)) {
-        console.log(`[Middleware] Acceso denegado a /companies/edit (rol: ${userRole}) → /dashboard`)
+      if (pathname === '/companies/edit' && !['admin', 'superadmin'].includes(finalUserRole)) {
+        console.log(`[Middleware] Acceso denegado a /companies/edit (rol: ${finalUserRole}) → /dashboard`)
         const redirectUrl = req.nextUrl.clone()
         redirectUrl.pathname = '/dashboard'
         return createRedirectWithCookies(redirectUrl, res)
       }
 
       // /settings - Solo superadmin
-      if (pathname.startsWith('/settings') && userRole !== 'superadmin') {
-        console.log(`[Middleware] Acceso denegado a /settings (rol: ${userRole}) → /dashboard`)
+      if (pathname.startsWith('/settings') && finalUserRole !== 'superadmin') {
+        console.log(`[Middleware] Acceso denegado a /settings (rol: ${finalUserRole}) → /dashboard`)
         const redirectUrl = req.nextUrl.clone()
         redirectUrl.pathname = '/dashboard'
         return createRedirectWithCookies(redirectUrl, res)
       }
 
       // /contact-messages - Solo superadmin
-      if (pathname.startsWith('/contact-messages') && userRole !== 'superadmin') {
-        console.log(`[Middleware] Acceso denegado a /contact-messages (rol: ${userRole}) → /dashboard`)
+      if (pathname.startsWith('/contact-messages') && finalUserRole !== 'superadmin') {
+        console.log(`[Middleware] Acceso denegado a /contact-messages (rol: ${finalUserRole}) → /dashboard`)
         const redirectUrl = req.nextUrl.clone()
         redirectUrl.pathname = '/dashboard'
         return createRedirectWithCookies(redirectUrl, res)
       }
 
       // /users/create - Solo admin y superadmin
-      if (pathname === '/users/create' && !['admin', 'superadmin'].includes(userRole)) {
-        console.log(`[Middleware] Acceso denegado a /users/create (rol: ${userRole}) → /dashboard`)
+      if (pathname === '/users/create' && !['admin', 'superadmin'].includes(finalUserRole)) {
+        console.log(`[Middleware] Acceso denegado a /users/create (rol: ${finalUserRole}) → /dashboard`)
         const redirectUrl = req.nextUrl.clone()
         redirectUrl.pathname = '/dashboard'
         return createRedirectWithCookies(redirectUrl, res)

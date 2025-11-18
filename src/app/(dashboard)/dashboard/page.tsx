@@ -1,11 +1,11 @@
 import { redirect } from 'next/navigation'
-import { getUser } from '@/shared/auth/server'
+import { getServerUser } from '@/lib/auth/server'
 import { getDashboardStats } from '@/app/actions/dashboard'
 import { getAllHelpArticles, filterArticlesByRole } from '@/lib/helpers/markdown-helpers'
 import { DashboardClient } from '@/components/dashboard/DashboardClient'
 
 export default async function DashboardPage() {
-  const user = await getUser()
+  const user = await getServerUser()
 
   if (!user) {
     redirect('/login')

@@ -144,7 +144,7 @@ CREATE TRIGGER issuers_updated_at
 -- =====================================================
 
 -- TABLA: config (JSONB - igual que redpresu)
-CREATE TABLE IF NOT EXISTS reserrega.config (
+CREATE TABLE IF NOT EXISTS public.config (
   key TEXT PRIMARY KEY,
   value JSONB NOT NULL,
   description TEXT,
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS reserrega.config (
 );
 
 -- Valores iniciales específicos de Reserrega
-INSERT INTO reserrega.config (key, value, description, category) VALUES
+INSERT INTO public.config (key, value, description, category) VALUES
   ('app_name', '"Reserrega"', 'Nombre de la aplicación', 'general'),
   ('multiempresa', 'true', 'Modo multi-empresa', 'general'),
   ('subscriptions_enabled', 'true', 'Suscripciones habilitadas', 'general'),
@@ -166,7 +166,7 @@ INSERT INTO reserrega.config (key, value, description, category) VALUES
   ('platform_share_percentage', '50', 'Porcentaje que recibe la plataforma (50%)', 'reserrega')
 ON CONFLICT (key) DO NOTHING;
 
-COMMENT ON TABLE reserrega.config IS 'Configuración global (JSONB)';
+COMMENT ON TABLE public.config IS 'Configuración global (JSONB)';
 
 -- =====================================================
 
@@ -549,7 +549,7 @@ ALTER TABLE reserrega.gifts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reserrega.friend_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reserrega.friendships ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reserrega.subscriptions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE reserrega.config ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.config ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reserrega.contact_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE reserrega.user_invitations ENABLE ROW LEVEL SECURITY;
 
@@ -575,11 +575,11 @@ CREATE POLICY "user_update_profile" ON reserrega.users
   WITH CHECK (id = auth.uid());
 
 -- Config: todos leen, solo superadmin modifica
-CREATE POLICY "read_config" ON reserrega.config
+CREATE POLICY "read_config" ON public.config
   FOR SELECT TO authenticated
   USING (true);
 
-CREATE POLICY "superadmin_modify_config" ON reserrega.config
+CREATE POLICY "superadmin_modify_config" ON public.config
   FOR ALL TO authenticated
   USING (
     EXISTS (SELECT 1 FROM reserrega.users u WHERE u.id = auth.uid() AND u.role = 'superadmin')

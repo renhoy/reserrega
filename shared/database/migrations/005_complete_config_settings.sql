@@ -9,7 +9,7 @@
 -- CONFIGURACIONES GENERALES
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   -- Aplicación
   ('app_mode', '"development"', 'Modo de la aplicación (development/production)', 'aplicacion', false),
   ('app_name', '"Reserrega"', 'Nombre de la aplicación', 'aplicacion', false),
@@ -27,7 +27,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES DE CONTACTO Y NOTIFICACIONES
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('contact_notification_emails', '["admin@reserrega.com"]', 'Emails que reciben notificaciones de formularios de contacto', 'contacto', false),
   ('enable_gift_notifications', 'true', 'Activar notificaciones cuando se recibe un regalo', 'notificaciones', false),
   ('enable_delivery_notifications', 'true', 'Activar notificaciones de estado de entrega', 'notificaciones', false),
@@ -42,7 +42,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES DE RESERREGA (NEGOCIO)
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   -- Reservas
   ('reservation_fee', '1.00', 'Precio de reserva de productos en euros', 'reserrega', false),
   ('reservation_expiration_days', '15', 'Días de validez de una reserva', 'reserrega', false),
@@ -80,7 +80,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES DE INVITACIONES
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('invitation_token_expiration_days', '7', 'Días de validez de los tokens de invitación', 'usuarios', false),
   ('invitation_email_template', '{
     "subject": "Has sido invitado a unirte a {company_name} en Reserrega",
@@ -98,7 +98,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES DE EMAIL
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('welcome_email_template', '{
     "subject": "¡Bienvenido a Reserrega!",
     "body_html": "<div style=\"font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;\"><h1 style=\"color: #ec4899;\">¡Bienvenido a Reserrega!</h1><p>Hola {user_name},</p><p>Gracias por registrarte en Reserrega. Ahora puedes:</p><ul><li>Reservar productos en tiendas físicas</li><li>Crear tu wishlist de regalos</li><li>Invitar amigos para que sepan qué regalarte</li><li>Regalar sin errores</li></ul><p><a href=\"{dashboard_url}\" style=\"background-color: #ec4899; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;\">Ir a mi Dashboard</a></p></div>",
@@ -127,7 +127,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES DE PAGOS (STRIPE)
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('subscriptions_enabled', 'false', 'Activar módulo de suscripciones Stripe', 'features', true),
   ('stripe_enabled', 'false', 'Activar pagos reales con Stripe (false = simulación)', 'payments', false),
   ('subscription_grace_period_days', '7', 'Días de gracia después de que expire una suscripción', 'suscripciones', false),
@@ -189,7 +189,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES LEGALES
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('forms_legal_notice', '"<p><strong>Información legal</strong></p><ul><li><strong>Responsable:</strong> Reserrega</li><li><strong>Finalidad:</strong> Gestión de reservas, wishlists y regalos</li><li><strong>Derechos:</strong> Acceso, rectificación, cancelación en <a href=\"/legal\">política de privacidad</a></li></ul>"', 'Texto legal que aparece en formularios públicos (registro, contacto)', 'general', true),
 
   ('legal_page_content', '"<h1>Aviso Legal y Política de Privacidad - Reserrega</h1><p>Última actualización: 2025-11-20</p><h2>1. Información General</h2><p>Titular: Reserrega<br>Web: https://reserrega.com<br>Email: legal@reserrega.com</p><h2>2. Política de Privacidad</h2><p>Reserrega es una plataforma que conecta tiendas físicas con usuarios para gestionar wishlists y regalos.</p><h3>Datos que recopilamos:</h3><ul><li>Información de cuenta (nombre, email)</li><li>Productos en wishlist</li><li>Red de amigos</li><li>Reservas y regalos</li></ul><h3>Uso de datos:</h3><ul><li>Gestión de reservas de productos</li><li>Facilitar regalos entre amigos</li><li>Comunicaciones del servicio</li></ul><h3>Tus derechos:</h3><p>Acceso, rectificación, supresión, oposición. Contacto: legal@reserrega.com</p><h2>3. Cookies</h2><p>Utilizamos cookies técnicas necesarias para el funcionamiento del sitio.</p><h2>4. Contacto</h2><p>Para cualquier consulta: legal@reserrega.com</p>"', 'Contenido de la página legal (/legal)', 'general', true)
@@ -204,7 +204,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- CONFIGURACIONES DE FUNCIONALIDADES
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('enable_delivery_tracking', 'true', 'Habilitar seguimiento de entregas', 'features', false),
   ('enable_wishlist_sharing', 'true', 'Permitir compartir wishlists públicamente', 'features', false),
   ('enable_barcode_scanning', 'true', 'Habilitar escaneo de códigos de barras', 'features', false),
@@ -220,12 +220,12 @@ ON CONFLICT (key) DO UPDATE SET
 -- COMENTARIOS DE AYUDA
 -- =====================================================
 
-COMMENT ON TABLE reserrega.config IS 'Configuración global del sistema. Clave-valor con descripción y categoría.';
-COMMENT ON COLUMN reserrega.config.key IS 'Identificador único de la configuración';
-COMMENT ON COLUMN reserrega.config.value IS 'Valor en formato JSONB (permite cualquier tipo de dato)';
-COMMENT ON COLUMN reserrega.config.description IS 'Descripción legible de qué hace esta configuración';
-COMMENT ON COLUMN reserrega.config.category IS 'Categoría para agrupar configuraciones (aplicacion, reserrega, email, features, etc.)';
-COMMENT ON COLUMN reserrega.config.is_system IS 'Si true, solo superadmin puede modificar. Si false, admin puede modificar.';
+COMMENT ON TABLE public.config IS 'Configuración global del sistema. Clave-valor con descripción y categoría.';
+COMMENT ON COLUMN public.config.key IS 'Identificador único de la configuración';
+COMMENT ON COLUMN public.config.value IS 'Valor en formato JSONB (permite cualquier tipo de dato)';
+COMMENT ON COLUMN public.config.description IS 'Descripción legible de qué hace esta configuración';
+COMMENT ON COLUMN public.config.category IS 'Categoría para agrupar configuraciones (aplicacion, reserrega, email, features, etc.)';
+COMMENT ON COLUMN public.config.is_system IS 'Si true, solo superadmin puede modificar. Si false, admin puede modificar.';
 
 -- =====================================================
 -- RESULTADO
@@ -237,6 +237,6 @@ SELECT
   COUNT(*) as total_configs,
   COUNT(*) FILTER (WHERE is_system = true) as system_configs,
   COUNT(*) FILTER (WHERE is_system = false) as user_configs
-FROM reserrega.config
+FROM public.config
 GROUP BY category
 ORDER BY category;

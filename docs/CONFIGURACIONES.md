@@ -63,7 +63,7 @@ Reserrega utiliza una tabla `config` con formato clave-valor (JSONB) para gestio
 **Ejemplo de cambio:**
 ```sql
 -- Cambiar precio de reserva a 2€
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '2.00', updated_at = NOW()
 WHERE key = 'reservation_fee';
 ```
@@ -119,7 +119,7 @@ WHERE key = 'reservation_fee';
 **Ejemplo de cambio:**
 ```sql
 -- Añadir más emails de notificación
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '["admin@reserrega.com", "support@reserrega.com", "sales@reserrega.com"]'
 WHERE key = 'contact_notification_emails';
 ```
@@ -188,7 +188,7 @@ WHERE key = 'contact_notification_emails';
 **Ejemplo de personalización:**
 ```sql
 -- Personalizar email de bienvenida
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '{
   "subject": "¡Bienvenido a tu comunidad de regalos!",
   "body_html": "<div style=\"font-family: Arial;\"><h1>¡Hola {user_name}!</h1><p>Estamos encantados de tenerte en Reserrega.</p><p><a href=\"{dashboard_url}\">Empieza ahora</a></p></div>",
@@ -318,7 +318,7 @@ WHERE key = 'welcome_email_template';
 **Personalización:**
 ```sql
 -- Actualizar página legal
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '"<h1>Mi Política Personalizada</h1>..."'
 WHERE key = 'legal_page_content';
 ```
@@ -350,32 +350,32 @@ Estas configuraciones **solo pueden ser modificadas por superadmin**:
 ```sql
 -- Ver todas las configuraciones
 SELECT key, value, description, category, is_system
-FROM reserrega.config
+FROM public.config
 ORDER BY category, key;
 
 -- Ver configuraciones de una categoría
 SELECT key, value, description
-FROM reserrega.config
+FROM public.config
 WHERE category = 'reserrega'
 ORDER BY key;
 
 -- Actualizar un valor
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '"new_value"', updated_at = NOW()
 WHERE key = 'app_mode';
 
 -- Actualizar valor numérico
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '20', updated_at = NOW()
 WHERE key = 'reservation_expiration_days';
 
 -- Actualizar valor booleano
-UPDATE reserrega.config
+UPDATE public.config
 SET value = 'true', updated_at = NOW()
 WHERE key = 'enable_qr_scanning';
 
 -- Actualizar valor JSON
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '["email1@example.com", "email2@example.com"]', updated_at = NOW()
 WHERE key = 'contact_notification_emails';
 ```
@@ -424,7 +424,7 @@ SELECT
   COUNT(*) as total,
   COUNT(*) FILTER (WHERE is_system = true) as system_only,
   COUNT(*) FILTER (WHERE is_system = false) as editable
-FROM reserrega.config
+FROM public.config
 GROUP BY category
 ORDER BY category;
 ```
@@ -461,20 +461,20 @@ ORDER BY category;
 
 ```sql
 -- Verificar que se insertaron todas
-SELECT COUNT(*) as total_configs FROM reserrega.config;
+SELECT COUNT(*) as total_configs FROM public.config;
 -- Debe retornar: 45+ configuraciones
 
 -- Ver todas las categorías
-SELECT DISTINCT category FROM reserrega.config ORDER BY category;
+SELECT DISTINCT category FROM public.config ORDER BY category;
 ```
 
 ### 3. Personalizar
 
 ```sql
 -- Ejemplo: Configurar para producción
-UPDATE reserrega.config SET value = '"production"' WHERE key = 'app_mode';
-UPDATE reserrega.config SET value = 'true' WHERE key = 'stripe_enabled';
-UPDATE reserrega.config SET value = '["support@midominio.com"]' WHERE key = 'contact_notification_emails';
+UPDATE public.config SET value = '"production"' WHERE key = 'app_mode';
+UPDATE public.config SET value = 'true' WHERE key = 'stripe_enabled';
+UPDATE public.config SET value = '["support@midominio.com"]' WHERE key = 'contact_notification_emails';
 ```
 
 ---
@@ -484,36 +484,36 @@ UPDATE reserrega.config SET value = '["support@midominio.com"]' WHERE key = 'con
 ### 1. **Documentar Cambios**
 Añadir comentario al actualizar:
 ```sql
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '2.00', updated_at = NOW()
 WHERE key = 'reservation_fee';
 
 -- Comentar el cambio
-COMMENT ON COLUMN reserrega.config.value IS 'Cambiado a 2€ el 2025-11-20 por promoción';
+COMMENT ON COLUMN public.config.value IS 'Cambiado a 2€ el 2025-11-20 por promoción';
 ```
 
 ### 2. **Backup Antes de Cambios Masivos**
 ```sql
 -- Crear tabla de respaldo
-CREATE TABLE config_backup AS SELECT * FROM reserrega.config;
+CREATE TABLE config_backup AS SELECT * FROM public.config;
 ```
 
 ### 3. **Validar Valores JSON**
 ```sql
 -- Verificar que los valores JSON son válidos
 SELECT key, value::text
-FROM reserrega.config
+FROM public.config
 WHERE value::text !~ '^["{\\[].*["}\\]]$'
-AND key NOT IN (SELECT key FROM reserrega.config WHERE value::text ~ '^[0-9]+$');
+AND key NOT IN (SELECT key FROM public.config WHERE value::text ~ '^[0-9]+$');
 ```
 
 ### 4. **Testing en Development Primero**
 ```sql
 -- Cambiar solo en development
-UPDATE reserrega.config
+UPDATE public.config
 SET value = '"new_value"'
 WHERE key = 'some_key'
-AND (SELECT value FROM reserrega.config WHERE key = 'app_mode') = '"development"';
+AND (SELECT value FROM public.config WHERE key = 'app_mode') = '"development"';
 ```
 
 ---
@@ -524,7 +524,7 @@ AND (SELECT value FROM reserrega.config WHERE key = 'app_mode') = '"development"
 
 ```sql
 -- Solo superadmin puede modificar configuraciones de sistema
-CREATE POLICY "superadmin_modify_config" ON reserrega.config
+CREATE POLICY "superadmin_modify_config" ON public.config
   FOR UPDATE
   USING (
     auth.uid() IN (
@@ -544,7 +544,7 @@ CREATE POLICY "superadmin_modify_config" ON reserrega.config
 ```sql
 -- Ver últimas modificaciones
 SELECT key, value, updated_at
-FROM reserrega.config
+FROM public.config
 ORDER BY updated_at DESC
 LIMIT 10;
 ```

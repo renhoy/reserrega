@@ -9,7 +9,7 @@
 -- PASO 1: INSERTAR VALORES DE CONFIG
 -- =====================================================
 
-INSERT INTO reserrega.config (key, value, description, category, is_system) VALUES
+INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('app_name', '"Reserrega"', 'Nombre de la aplicación', 'general', false),
   ('multiempresa', 'true', 'Modo multi-empresa', 'general', false),
   ('subscriptions_enabled', 'true', 'Suscripciones habilitadas', 'general', false),
@@ -73,7 +73,7 @@ SELECT
   key,
   value,
   category
-FROM reserrega.config
+FROM public.config
 ORDER BY category, key;
 
 -- Ver suscripción de empresa demo

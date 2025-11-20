@@ -1,9 +1,9 @@
-# Tareas - MÓDULO: Gift-Flow
+# Tareas - MÓDULO: Store-Panel
 
-## MÓDULO ACTIVO: Gift-Flow 🔴
+## MÓDULO ACTIVO: Store-Panel 🔴
 
-**Tareas Activas:** 7/7
-**Progreso:** 100% ✅
+**Tareas Activas:** 0/7
+**Progreso:** 0%
 
 ---
 
@@ -27,281 +27,290 @@
 
 ### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-#### GF-001: Types y Utilidades Base
+#### SP-001: Types y Utilidades Base
 **Prioridad:** Crítica
 **Tiempo:** 1-2 horas
 **Descripción:**
-- Definir types para Gift, GiftLock, GiftTransaction
-- Utilidades para bloqueo temporal de productos
-- Helpers para calcular tiempos de bloqueo
-- Utils para validar estados de regalo
+- Definir types para StoreSession, ScanResult, StoreStats
+- Utilidades para manejo de sesiones de tienda
+- Helpers para validar códigos QR y códigos de barras
+- Utils para calcular estadísticas de tienda
 
 **Archivos a crear:**
-- `features/gift-flow/types/gift.types.ts`
-- `features/gift-flow/lib/gift-utils.ts`
+- `features/store-panel/types/store.types.ts`
+- `features/store-panel/lib/store-utils.ts`
 
 **Criterio de aceptación:**
-- [x] Types completos con JSDoc
-- [x] Gift, GiftLock, GiftTransaction types
-- [x] Función lockGiftItem() con timeout
-- [x] Función releaseLock()
-- [x] Función calculateLockExpiration()
-- [x] Helpers para formatear estados de regalo
+- [ ] Types completos con JSDoc
+- [ ] StoreSession, ScanResult, StoreStats types
+- [ ] Función validateQRCode() para validar QR de usuario
+- [ ] Función validateBarcode() para validar códigos de producto
+- [ ] Función calculateSessionDuration()
+- [ ] Helpers para formatear stats de tienda
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### GF-002: Componentes de Selección
+#### SP-002: Componentes de Escaneo
 **Prioridad:** Crítica
 **Tiempo:** 2-3 horas
 **Descripción:**
-- GiftSelectionCard para mostrar productos del wishlist
-- Indicador de producto bloqueado por otro usuario
-- Botón de seleccionar/desbloquear
-- Badge con tiempo restante de bloqueo
+- UserQRScanner para escanear QR de usuario
+- ProductScanner para escanear códigos de barras
+- SessionHeader con info de sesión activa
+- Feedback visual de escaneos exitosos/fallidos
 
 **Archivos a crear:**
-- `features/gift-flow/components/GiftSelectionCard.tsx`
-- `features/gift-flow/components/FriendWishlistView.tsx`
+- `features/store-panel/components/UserQRScanner.tsx`
+- `features/store-panel/components/ProductScanner.tsx`
+- `features/store-panel/components/SessionHeader.tsx`
 
 **Criterio de aceptación:**
-- [x] GiftSelectionCard muestra info del producto
-- [x] Indicador visual de productos bloqueados
-- [x] Badge con countdown de bloqueo
-- [x] Botón seleccionar funcional
-- [x] Solo mostrar productos disponibles del wishlist
-- [x] Responsive design
+- [ ] UserQRScanner abre cámara y lee QR de usuario
+- [ ] ProductScanner lee códigos de barras de productos
+- [ ] SessionHeader muestra usuario actual y duración de sesión
+- [ ] Feedback visual claro (success/error)
+- [ ] Manejo de errores de cámara
+- [ ] Responsive design
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### GF-003: Componentes de Checkout
+#### SP-003: Componentes de Gestión
 **Prioridad:** Crítica
 **Tiempo:** 3-4 horas
 **Descripción:**
-- GiftCheckoutForm con datos de pago simulado
-- Resumen del producto seleccionado
-- Confirmación antes de completar
-- GiftConfirmation con detalles de la orden
+- ActiveReservations para ver reservas de la tienda
+- DeliveryMarker para marcar productos como enviados
+- StoreStats con métricas de tienda
+- Filtros por estado de reserva
 
 **Archivos a crear:**
-- `features/gift-flow/components/GiftCheckoutForm.tsx`
-- `features/gift-flow/components/GiftConfirmation.tsx`
-- `features/gift-flow/components/GiftSummary.tsx`
+- `features/store-panel/components/ActiveReservations.tsx`
+- `features/store-panel/components/DeliveryMarker.tsx`
+- `features/store-panel/components/StoreStats.tsx`
 
 **Criterio de aceptación:**
-- [x] Formulario de pago simulado
-- [x] Resumen del producto y precio
-- [x] Confirmación de orden
-- [x] GiftConfirmation muestra número de orden
-- [x] Info de tracking
-- [x] Email de confirmación (simulado)
+- [ ] ActiveReservations muestra lista de reservas activas
+- [ ] Filtros por estado (pending, confirmed, shipped)
+- [ ] DeliveryMarker permite marcar como enviado
+- [ ] StoreStats muestra métricas (total reservas, enviados, pendientes)
+- [ ] Actualización en tiempo real
+- [ ] Empty states cuando no hay datos
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### GF-004: Server Actions
+#### SP-004: Server Actions
 **Prioridad:** Crítica
 **Tiempo:** 4-5 horas
 **Descripción:**
-- viewFriendWishlist - ver wishlist de un amigo
-- lockGiftItem - bloquear producto temporalmente
-- processGiftPayment - procesar pago simulado
-- confirmGiftDelivery - marcar como entregado
-- getGiftHistory - historial de regalos enviados
-- releaseExpiredLocks - liberar bloqueos expirados
+- scanUserQR - validar QR y crear sesión
+- scanProduct - vincular producto a sesión
+- getStoreReservations - obtener reservas de la tienda
+- markAsShipped - marcar producto como enviado
+- getStoreStats - obtener estadísticas de tienda
+- endSession - finalizar sesión de escaneo
 
 **Archivos a crear:**
-- `features/gift-flow/actions/gift-flow.actions.ts`
+- `features/store-panel/actions/store-panel.actions.ts`
 
 **Criterio de aceptación:**
-- [x] viewFriendWishlist verifica que sean amigos
-- [x] lockGiftItem bloquea por 15 minutos
-- [x] processGiftPayment actualiza estados (available → in_process)
-- [x] confirmGiftDelivery marca como gifted
-- [x] getGiftHistory muestra regalos enviados
-- [x] releaseExpiredLocks limpia bloqueos antiguos
-- [x] Validación de permisos en todas las acciones
+- [ ] scanUserQR valida QR y crea sesión temporal
+- [ ] scanProduct vincula producto escaneado a usuario de sesión
+- [ ] getStoreReservations filtra por store_id del comercial
+- [ ] markAsShipped actualiza estado de reserva
+- [ ] getStoreStats calcula métricas en tiempo real
+- [ ] endSession limpia sesión y libera recursos
+- [ ] Validación de permisos (solo rol Comercial)
+- [ ] Manejo de errores robusto
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### GF-005: Hooks de Gestión
+#### SP-005: Hooks de Gestión
 **Prioridad:** Crítica
 **Tiempo:** 2-3 horas
 **Descripción:**
-- useGiftFlow hook para gestionar flujo completo
-- useGiftLock para manejar bloqueos
-- useDeliveryTracking para seguimiento
-- useGiftHistory para historial
+- useStoreSession hook para gestionar sesión activa
+- useProductScanner para manejar escaneo de productos
+- useStoreReservations para listar reservas
+- useStoreStats para estadísticas con polling
 - Optimistic updates
 
 **Archivos a crear:**
-- `features/gift-flow/hooks/use-gift-flow.ts`
+- `features/store-panel/hooks/use-store-session.ts`
+- `features/store-panel/hooks/use-product-scanner.ts`
+- `features/store-panel/hooks/use-store-reservations.ts`
 
 **Criterio de aceptación:**
-- [x] useGiftFlow con estados (viewing, selecting, checkout, confirmed)
-- [x] useGiftLock con countdown timer
-- [x] useDeliveryTracking con polling
-- [x] useGiftHistory con paginación
-- [x] Optimistic updates en todas las acciones
-- [x] Auto-release de bloqueos al salir
+- [ ] useStoreSession gestiona sesión con timeout automático
+- [ ] useProductScanner maneja estados de escaneo
+- [ ] useStoreReservations con filtros y paginación
+- [ ] useStoreStats con polling cada 30 segundos
+- [ ] Optimistic updates en todas las acciones
+- [ ] Auto-cleanup de recursos al desmontar
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### GF-006: Páginas y Rutas
+#### SP-006: Páginas y Rutas
 **Prioridad:** Crítica
 **Tiempo:** 3-4 horas
 **Descripción:**
-- Página de wishlist de amigo (/gift/[friendId])
-- Página de checkout (/gift/[friendId]/checkout)
-- Página de historial de regalos (/gift/history)
-- Protección de rutas
+- Dashboard de tienda (/store)
+- Página de escaneo de usuario (/store/scan)
+- Página de sesión activa (/store/session/[sessionId])
+- Página de reservas (/store/reservations)
+- Página de estadísticas (/store/stats)
+- Protección de rutas (solo Comercial)
 
 **Archivos a crear:**
-- `src/app/(app)/gift/[friendId]/page.tsx`
-- `src/app/(app)/gift/[friendId]/checkout/page.tsx`
-- `src/app/(app)/gift/history/page.tsx`
+- `src/app/(app)/store/page.tsx`
+- `src/app/(app)/store/scan/page.tsx`
+- `src/app/(app)/store/session/[sessionId]/page.tsx`
+- `src/app/(app)/store/reservations/page.tsx`
+- `src/app/(app)/store/stats/page.tsx`
 
 **Criterio de aceptación:**
-- [x] /gift/[friendId] muestra wishlist del amigo
-- [x] Solo productos available/in_process visibles
-- [x] /gift/[friendId]/checkout muestra formulario de pago
-- [x] /gift/history muestra regalos enviados
-- [x] Protección con requireAuth()
-- [x] Verificar que sean amigos antes de mostrar wishlist
-- [x] Loading states y empty states
+- [ ] /store muestra dashboard con accesos rápidos
+- [ ] /store/scan permite escanear QR de usuario
+- [ ] /store/session/[sessionId] muestra sesión activa con escaneo de productos
+- [ ] /store/reservations muestra lista de reservas de la tienda
+- [ ] /store/stats muestra estadísticas y métricas
+- [ ] Protección con requireRole('Comercial')
+- [ ] Verificar que comercial pertenece a tienda correcta
+- [ ] Loading states y empty states
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### GF-007: README y Documentación
+#### SP-007: README y Documentación
 **Prioridad:** Crítica
 **Tiempo:** 1 hora
 **Descripción:**
 - README del módulo
-- Documentar flujo completo de regalo
-- Documentar sistema de bloqueo
-- Ejemplos de uso
+- Documentar flujo completo de escaneo
+- Documentar sistema de sesiones
+- Ejemplos de uso para comerciales
 
 **Archivos a crear:**
-- `features/gift-flow/README.md`
-- `features/gift-flow/index.ts`
+- `features/store-panel/README.md`
+- `features/store-panel/index.ts`
 
 **Criterio de aceptación:**
-- [x] README completo
-- [x] Flujo de regalo documentado paso a paso
-- [x] Sistema de bloqueo explicado
-- [x] Ejemplos de uso
-- [x] Exports organizados
+- [ ] README completo con descripción del módulo
+- [ ] Flujo de escaneo documentado paso a paso
+- [ ] Sistema de sesiones explicado
+- [ ] Ejemplos de uso para cada componente
+- [ ] Exports organizados en index.ts
+- [ ] Instrucciones para comerciales
 
-**Estado:** ✅ COMPLETADA (2025-01-17)
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
 ### 🟡 ALTA PRIORIDAD (Mejoran calidad pero no bloquean)
 
-#### GF-008: Notificaciones de Regalo
+#### SP-008: Notificaciones Push
 **Prioridad:** Alta
 **Tiempo:** 2 horas
 **Descripción:**
-- Notificar al receptor cuando alguien regala
-- Notificar al remitente cuando se entrega
-- Badge con productos en proceso
+- Notificar al comercial cuando hay nueva reserva
+- Notificar al usuario cuando se marca como enviado
+- Badge con reservas pendientes
 
 ---
 
-#### GF-009: Vaquitas (Crowdfunding)
+#### SP-009: Historial de Sesiones
 **Prioridad:** Alta
-**Tiempo:** 4-5 horas
+**Tiempo:** 2-3 horas
 **Descripción:**
-- Permitir contribuciones parciales
-- Pool de contribuyentes
-- Liberar pago cuando se completa objetivo
-- Refund si no se completa en tiempo
+- Ver historial de sesiones de escaneo
+- Estadísticas por comercial
+- Reporte de productos escaneados por día
 
 ---
 
 ## ARCHIVOS DE ESTE MÓDULO
 
 ```
-features/gift-flow/
+features/store-panel/
 ├── components/
-│   ├── GiftSelectionCard.tsx        # GF-002
-│   ├── FriendWishlistView.tsx       # GF-002
-│   ├── GiftCheckoutForm.tsx         # GF-003
-│   ├── GiftConfirmation.tsx         # GF-003
-│   ├── GiftSummary.tsx              # GF-003
-│   ├── DeliveryTracking.tsx         # GF-005
-│   └── GiftHistory.tsx              # GF-005
+│   ├── UserQRScanner.tsx         # SP-002
+│   ├── ProductScanner.tsx        # SP-002
+│   ├── SessionHeader.tsx         # SP-002
+│   ├── ActiveReservations.tsx    # SP-003
+│   ├── DeliveryMarker.tsx        # SP-003
+│   └── StoreStats.tsx            # SP-003
 ├── actions/
-│   └── gift-flow.actions.ts         # GF-004
+│   └── store-panel.actions.ts    # SP-004
 ├── hooks/
-│   └── use-gift-flow.ts             # GF-005
+│   ├── use-store-session.ts      # SP-005
+│   ├── use-product-scanner.ts    # SP-005
+│   └── use-store-reservations.ts # SP-005
 ├── lib/
-│   └── gift-utils.ts                # GF-001
+│   └── store-utils.ts            # SP-001
 ├── types/
-│   └── gift.types.ts                # GF-001
-├── README.md                         # GF-007
-└── index.ts                          # GF-007
+│   └── store.types.ts            # SP-001
+├── README.md                      # SP-007
+└── index.ts                       # SP-007
 
 src/app/
 └── (app)/
-    └── gift/
-        ├── [friendId]/
-        │   ├── page.tsx             # GF-006
-        │   └── checkout/
-        │       └── page.tsx         # GF-006
-        └── history/
-            └── page.tsx             # GF-006
+    └── store/
+        ├── page.tsx                           # SP-006
+        ├── scan/page.tsx                      # SP-006
+        ├── session/
+        │   └── [sessionId]/page.tsx          # SP-006
+        ├── reservations/
+        │   └── page.tsx                       # SP-006
+        └── stats/
+            └── page.tsx                       # SP-006
 ```
 
 ---
 
 ## NOTAS IMPORTANTES
 
-- **Orden sugerido:** GF-001 → GF-002 → GF-003 → GF-004 → GF-005 → GF-006 → GF-007
-- **Bloqueos:** GF-002 necesita GF-001, GF-003 necesita GF-001, etc.
-- **Estados de producto:** available, in_process, gifted, expired
-- **Bloqueo temporal:** 15 minutos para completar compra
-- **Tabla gift_locks:** Registra bloqueos temporales con expiración
-- **Tabla gifts:** Registra regalos completados (giver_id, receiver_id, product_id, status)
-- **Verificación:** Solo amigos pueden ver wishlists con visibilidad "friends"
+- **Orden sugerido:** SP-001 → SP-002 → SP-003 → SP-004 → SP-005 → SP-006 → SP-007
+- **Bloqueos:** SP-002 necesita SP-001, SP-003 necesita SP-001, etc.
+- **Rol requerido:** Comercial (verificar con requireRole)
+- **Multi-tenancy:** Comercial solo ve reservas de su tienda (filtrar por store_id)
+- **Sesiones:** Timeout de 10 minutos de inactividad
+- **QR de usuario:** Reutilizar QRGenerator del módulo product-reservation
+- **Estados de reserva:** pending, confirmed, shipped, delivered
 
 ---
 
 ## FLUJO COMPLETO
 
-### Flujo Principal: Regalar un Producto
+### Flujo Principal: Escaneo y Reserva
 
-1. Usuario va a /friends y selecciona un amigo
-2. Click en "Ver wishlist" → redirige a /gift/[friendId]
-3. Ve productos available e in_process del amigo
-4. Selecciona un producto → se bloquea temporalmente (15 min)
-5. Sistema verifica que producto está available
-6. Redirige a /gift/[friendId]/checkout
-7. Formulario de pago simulado con countdown de bloqueo
-8. Confirma pago → estado cambia a in_process
-9. Registro en tabla gifts (giver_id, receiver_id, product_id)
-10. Página de confirmación con número de orden
-11. Amigo ve producto como "in_process" en su wishlist
-12. Comercial marca como entregado
-13. Estado cambia a gifted
-14. Notificación al remitente y receptor
+1. Comercial abre /store/scan
+2. Escanea QR del usuario → crea sesión temporal
+3. Redirige a /store/session/[sessionId]
+4. Muestra info del usuario y botón "Escanear Producto"
+5. Escanea código de barras de productos
+6. Cada producto escaneado se vincula al usuario
+7. Confirma lista de productos → crea reserva
+8. Usuario ve productos en su wishlist
+9. Comercial puede marcar productos como enviados desde /store/reservations
 
-### Bloqueo Temporal
+### Gestión de Reservas
 
-- Duración: 15 minutos
-- Propósito: Evitar que varios amigos compren el mismo regalo
-- Liberación automática: Si no completa checkout en 15 min
-- Visible para otros: Badge "Alguien está regalando esto" en el producto
+1. Comercial va a /store/reservations
+2. Ve lista de reservas activas de su tienda
+3. Filtros por estado (pending, confirmed, shipped)
+4. Selecciona reserva y marca como shipped
+5. Estado se actualiza en tiempo real
+6. Usuario recibe notificación (opcional)
 
 ---
 
@@ -309,17 +318,17 @@ src/app/
 
 **Cuando todas las CRÍTICAS estén hechas:**
 
-1. [ ] Flujo completo funcionando (ver wishlist, seleccionar, pagar)
-2. [ ] Bloqueo temporal funcional con countdown
-3. [ ] Solo amigos pueden ver wishlists
-4. [ ] Checkout con pago simulado
-5. [ ] Confirmación de regalo funcional
-6. [ ] Historial de regalos enviados
-7. [ ] README.md escrito (GF-007)
-8. [ ] Actualizar PRD.md → estado Gift-Flow = READ-ONLY
-9. [ ] Mover a claude.md → features/gift-flow/* a PROHIBIDOS
-10. [ ] Cambiar MÓDULO ACTUAL en claude.md → Store-Panel
-11. [ ] Crear nuevo backlog en este archivo para Store-Panel
+1. [ ] Flujo completo de escaneo funcionando
+2. [ ] Sesiones con timeout automático
+3. [ ] Solo rol Comercial puede acceder
+4. [ ] Filtrado por tienda (multi-tenancy)
+5. [ ] Marcar como enviado funcional
+6. [ ] Estadísticas de tienda en tiempo real
+7. [ ] README.md escrito (SP-007)
+8. [ ] Actualizar PRD.md → estado Store-Panel = READ-ONLY
+9. [ ] Mover a claude.md → features/store-panel/* a PROHIBIDOS
+10. [ ] Cambiar MÓDULO ACTUAL en claude.md → Admin-Dashboard
+11. [ ] Crear nuevo backlog en este archivo para Admin-Dashboard
 
 ---
 
@@ -331,28 +340,31 @@ src/app/
 ✅ **Product-Reservation** - QR generator, scanners, reservas, pago simulado
 ✅ **Wishlist** - Grid, filtros, visibilidad, badges, páginas usuario
 ✅ **Friends-Network** - Solicitudes amistad, búsqueda usuarios, invitaciones email
+✅ **Gift-Flow** - Ver wishlist amigos, bloqueo temporal, checkout, confirmación, historial
 
 ---
 
-## MÓDULO ANTERIOR: Friends-Network ✅ COMPLETADO
+## MÓDULO ANTERIOR: Gift-Flow ✅ COMPLETADO
 
 **Fecha completado:** 2025-01-17
 
 **Tareas completadas:**
-- ✅ FN-001: Types y Utilidades Base
-- ✅ FN-002: Componentes de Solicitudes
-- ✅ FN-003: Componentes de Lista y Búsqueda
-- ✅ FN-004: Server Actions
-- ✅ FN-005: Hooks de Gestión
-- ✅ FN-006: Páginas y Rutas
-- ✅ FN-007: README y Documentación
+- ✅ GF-001: Types y Utilidades Base
+- ✅ GF-002: Componentes de Selección
+- ✅ GF-003: Componentes de Checkout
+- ✅ GF-004: Server Actions
+- ✅ GF-005: Hooks de Gestión
+- ✅ GF-006: Páginas y Rutas
+- ✅ GF-007: README y Documentación
 
 **Funcionalidad entregada:**
-- Solicitudes de amistad (enviar, aceptar, rechazar, cancelar)
-- Búsqueda de usuarios con estado de amistad
-- Invitaciones por email con tokens seguros (7 días expiración)
-- Gestión de red de amigos bidireccional
-- Páginas /friends, /friends/requests, /friends/invite
-- Hooks personalizados (useFriends, useFriendRequests, useUserSearch, useInvitation)
-- Validación de permisos y prevención de duplicados
-- Debounce personalizado sin dependencias externas
+- Ver wishlist de amigos con verificación de permisos
+- Selección de productos con bloqueo temporal (15 minutos)
+- Sistema de bloqueo automático con countdown
+- Checkout con pago simulado y validaciones
+- Confirmación de entrega y tracking
+- Historial de regalos enviados y recibidos
+- Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history
+- Hooks personalizados (useGiftFlow, useGiftLock, useDeliveryTracking, useGiftHistory)
+- Liberación automática de bloqueos expirados
+- Optimistic UI updates en todas las acciones

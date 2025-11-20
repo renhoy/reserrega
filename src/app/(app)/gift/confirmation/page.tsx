@@ -14,7 +14,7 @@ import { Loader2 } from 'lucide-react'
 import { Alert, AlertDescription } from '@/shared/common/components/ui/alert'
 import { Button } from '@/shared/common/components/ui/button'
 import { GiftConfirmation } from '@/features/gift-flow/components/GiftConfirmation'
-import { createClient } from '@/shared/database/supabase/client'
+import { supabase as createClient } from '@/lib/supabase/client'
 import type { GiftWithDetails } from '@/features/gift-flow/types/gift.types'
 
 export default function GiftConfirmationPage() {

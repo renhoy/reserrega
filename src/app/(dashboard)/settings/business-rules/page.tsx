@@ -254,7 +254,7 @@ export default function BusinessRulesPage() {
                 <div className="space-y-2">
                   <p className="font-semibold">✅ Validación:</p>
                   <p className="text-muted-foreground">
-                    Usa el botón "Validar" para probar las reglas antes de guardarlas. Esto verifica
+                    Usa el botón &quot;Validar&quot; para probar las reglas antes de guardarlas. Esto verifica
                     sintaxis y prueba con datos de ejemplo.
                   </p>
                 </div>

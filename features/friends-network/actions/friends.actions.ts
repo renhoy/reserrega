@@ -9,7 +9,7 @@
 'use server'
 
 import { getUser } from '@/shared/auth/server'
-import { createClient } from '@/shared/database/supabase/server'
+import { createServerActionClient as createClient } from '@/lib/supabase/helpers'
 import type {
   GetFriendsResponse,
   GetFriendRequestsResponse,

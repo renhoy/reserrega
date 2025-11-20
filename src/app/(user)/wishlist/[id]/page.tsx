@@ -22,9 +22,9 @@ import { isProductExpired, getExpirationInfo, formatDaysRemaining } from '@/feat
 import { WishlistDetailClient } from './WishlistDetailClient'
 
 interface WishlistDetailPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 /**
@@ -35,10 +35,12 @@ interface WishlistDetailPageProps {
 export default async function WishlistDetailPage({ params }: WishlistDetailPageProps) {
   await requireAuth()
 
+  const { id } = await params;
+
   // Fetch wishlist item
   let item
   try {
-    const response = await getWishlistItemAction(params.id)
+    const response = await getWishlistItemAction(id)
     item = response.item
   } catch (error) {
     console.error('[WishlistDetailPage] Error:', error)

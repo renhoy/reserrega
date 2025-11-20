@@ -1,18 +1,20 @@
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+// Temporarily disabled due to network issues
+// import { Geist, Geist_Mono } from "next/font/google"
 import { Toaster } from 'sonner'
 import { AuthProvider } from '@/shared/auth/components/AuthProvider'
 import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-})
+// Using system fonts temporarily due to network issues fetching Google Fonts
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-})
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// })
 
 export const metadata: Metadata = {
   title: {
@@ -40,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className="antialiased"
       >
         <AuthProvider>
           {children}

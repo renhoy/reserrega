@@ -2,22 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import {
-  Building2,
-  CircleUser,
   Gift,
   HelpCircle,
   Home,
   Heart,
   UserPlus,
-  Settings,
   Users,
   Camera,
   Package,
   QrCode,
 } from "lucide-react";
-import LogoutButton from "@/components/auth/LogoutButton";
 import { UserMenu } from "@/components/layout/UserMenu";
 import { Button } from "@/components/ui/button";
 
@@ -131,15 +126,15 @@ export function Header({
     }
   };
 
-  // Debug log
-  useEffect(() => {
-    console.log("[Header] userRole:", userRole);
-    console.log("[Header] userName:", userName);
-    console.log(
-      "[Header] navigation items:",
-      navigation.map((n) => n.name)
-    );
-  }, [userRole, userName, navigation]);
+  // Debug log - commented out to avoid hooks rules violation
+  // useEffect(() => {
+  //   console.log("[Header] userRole:", userRole);
+  //   console.log("[Header] userName:", userName);
+  //   console.log(
+  //     "[Header] navigation items:",
+  //     navigation.map((n) => n.name)
+  //   );
+  // }, [userRole, userName]);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-lime-100">
@@ -195,7 +190,6 @@ export function Header({
             issuerType={issuerType}
             currentPlan={currentPlan}
             showSubscriptions={showSubscriptions}
-            showSettings={isSuperadmin}
           />
         </div>
       </div>

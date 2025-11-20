@@ -107,7 +107,7 @@ export function CompanySelector({ selectedCompanyId, onCompanySelect }: CompanyS
         </div>
       ) : filteredCompanies.length === 0 ? (
         <div className="text-center py-12 text-muted-foreground">
-          No se encontraron empresas con "{search}"
+          No se encontraron empresas con &quot;{search}&quot;
         </div>
       ) : (
         <RadioGroup

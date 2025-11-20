@@ -8,7 +8,7 @@
  * =====================================================
  */
 
-import { createClient } from '@/shared/database/supabase/server'
+import { createServerActionClient as createClient } from '@/lib/supabase/helpers'
 import { requireAuth } from '@/shared/auth/server'
 import type { GetWishlistResponse, WishlistFilters } from '../types/wishlist.types'
 

@@ -87,7 +87,7 @@ export default function ScanPage() {
         />
 
         <div className="mt-8">
-          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as any)}>
+          <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'qr' | 'product' | 'confirm')}>
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="qr" disabled={!!(scannedUserId && (activeTab === 'product' || activeTab === 'confirm'))}>
                 <UserIcon className="mr-2 h-4 w-4" />

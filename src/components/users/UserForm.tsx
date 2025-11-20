@@ -590,7 +590,7 @@ export default function UserForm({
           {/* Línea 3: Descripción de roles */}
           <div className="p-4 bg-lime-50 border border-lime-200 rounded-lg">
             <p className="text-sm text-gray-700">
-              <strong>Superadmin:</strong> Acceso total al sistema. Siempre inicia en empresa "Demo".{" "}
+              <strong>Superadmin:</strong> Acceso total al sistema. Siempre inicia en empresa &quot;Demo&quot;.{" "}
               <strong>Admin:</strong> Gestión completa empresa y usuarios Admin
               y Comercial. <strong>Comercial:</strong> Solo crear/editar
               presupuestos.
@@ -601,7 +601,7 @@ export default function UserForm({
           {currentUserRole === "superadmin" && formData.role === "superadmin" && (
             <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-sm text-blue-800">
-                <strong>ℹ️ Nota:</strong> Los superadmins se crean automáticamente en la empresa <strong>"Demo" (ID: 1)</strong>.
+                <strong>ℹ️ Nota:</strong> Los superadmins se crean automáticamente en la empresa <strong>&quot;Demo&quot; (ID: 1)</strong>.
                 Podrás cambiar la empresa posteriormente desde el perfil del usuario.
               </p>
             </div>

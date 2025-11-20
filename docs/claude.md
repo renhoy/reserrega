@@ -1,39 +1,44 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Store-Panel 🔴
+## MÓDULO ACTUAL: Admin Dashboard 🔴
 
-**Objetivo:** Panel para comerciales/dependientas - escanear QR usuario, escanear productos, gestionar reservas activas, marcar envíos, dashboard de estadísticas
+**Objetivo:** Panel administrativo para superadmins - gestión de empresas, comerciales, estadísticas globales, configuración del sistema
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/store-panel/
+features/admin-dashboard/
 ├── components/
-│   ├── SessionScanner.tsx
-│   ├── ProductLinker.tsx
-│   ├── ActiveReservations.tsx
-│   ├── DeliveryManager.tsx
-│   └── StoreStats.tsx
+│   ├── CompanyManager.tsx
+│   ├── ComercialManager.tsx
+│   ├── GlobalStats.tsx
+│   ├── SystemConfig.tsx
+│   └── ActivityLog.tsx
 ├── actions/
-│   └── store-panel.actions.ts
+│   └── admin.actions.ts
 ├── hooks/
-│   └── use-store-session.ts
+│   ├── use-companies.ts
+│   ├── use-comercials.ts
+│   └── use-global-stats.ts
 ├── lib/
-│   └── store-utils.ts
+│   └── admin-utils.ts
 ├── types/
-│   └── store.types.ts
+│   └── admin.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
-├── (comercial)/
-│   └── store/
+├── (dashboard)/
+│   └── admin/
 │       ├── page.tsx
-│       └── session/
-│           └── [userId]/
-│               └── page.tsx
+│       ├── companies/
+│       │   └── page.tsx
+│       ├── comercials/
+│       │   └── page.tsx
+│       └── config/
+│           └── page.tsx
 ```
 
 ---
@@ -93,7 +98,19 @@ src/app/
   - Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history, /gift/confirmation
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados - excepto Store-Panel)
+✅ features/store-panel/* (READ-ONLY - Módulo completado)
+  - Escaneo de QR usuario y códigos de barras
+  - Gestión de sesiones de compra activas
+  - Vinculación de productos a usuarios
+  - Gestión de reservas y estados de entrega
+  - Dashboard de estadísticas de tienda
+  - Componentes (SessionScanner, ProductLinker, ActiveReservations, DeliveryManager, StoreStats)
+  - Hooks (useStoreSession, useStoreReservations, useStoreStats)
+  - Server Actions (startStoreSession, addProductToSession, endStoreSession, etc.)
+  - Páginas /store, /store/session/[userId]
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Admin Dashboard)
 ❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 
@@ -109,7 +126,7 @@ src/app/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Store-Panel
+- Solo trabajar en archivos del módulo Admin Dashboard
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
 - Puedes LEER shared/*, features/* (completados) pero NO MODIFICAR
@@ -149,6 +166,7 @@ src/app/
 - features/wishlist/* - Grid, filtros, visibilidad, badges de estado
 - features/friends-network/* - Red de amigos, solicitudes, invitaciones
 - features/gift-flow/* - Flujo completo de regalo, bloqueos, checkout
+- features/store-panel/* - Panel de tienda, sesiones, estadísticas
 
 **Herramientas:**
 - clsx / tailwind-merge
@@ -167,14 +185,14 @@ src/app/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Store-Panel module incluye:**
-- Escanear QR de usuario para abrir sesión de compra
-- Escanear códigos de barras de productos
-- Vincular productos escaneados al usuario
-- Ver reservas activas de la tienda
-- Marcar productos como enviados/entregados
-- Dashboard con estadísticas de la tienda
-- Gestión de sesiones de compra activas
+**Admin Dashboard module incluye:**
+- Panel administrativo para superadmins
+- Gestión de empresas/tiendas (CRUD completo)
+- Gestión de usuarios comerciales
+- Estadísticas globales del sistema
+- Configuración del sistema (tarifas, días de validez, etc.)
+- Log de actividad y auditoría
+- Métricas de todas las tiendas
 
 ---
 
@@ -185,8 +203,8 @@ src/app/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Store-Panel
-Solo puedes modificar archivos en features/store-panel/ y rutas en src/app/(comercial)/store
+Módulo activo: Admin Dashboard
+Solo puedes modificar archivos en features/admin-dashboard/ y rutas en src/app/(dashboard)/admin
 
 Tarea actual: [copiar de tareas.md]
 
@@ -255,15 +273,23 @@ Restricciones:
 - Checkout con pago simulado
 - Historial de regalos
 
+✅ **Store-Panel** - `features/store-panel/` (READ-ONLY)
+- Panel comercial completo
+- Escaneo QR y códigos de barras
+- Gestión de sesiones de compra
+- Reservas y estados de entrega
+- Dashboard de estadísticas
+- 7 componentes, 6 server actions, 3 hooks
+- Páginas /store y /store/session/[userId]
+
 ---
 
-## PRÓXIMO MÓDULO (después de completar Store-Panel)
+## MÓDULO ACTUAL EN DESARROLLO
 
-**Admin Dashboard** - Panel administrativo
-
-**Cuando Store-Panel esté READ-ONLY:**
-1. Actualizar PRD.md → estado Store-Panel = READ-ONLY
-2. Mover `features/store-panel/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Admin Dashboard
-4. Actualizar lista PERMITIDOS con archivos correspondientes
-5. Crear nuevo backlog en tareas.md
+**Admin Dashboard** - `features/admin-dashboard/` (ACTIVO)
+- Panel administrativo para superadmins
+- Gestión de empresas/tiendas
+- Gestión de usuarios comerciales
+- Estadísticas globales
+- Configuración del sistema
+- Log de actividad

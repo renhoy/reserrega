@@ -12,17 +12,17 @@ export * from './types/admin.types'
 // Utils
 export * from './lib/admin-utils'
 
-// Components (will be added progressively)
-// export * from './components/CompanyManager'
-// export * from './components/ComercialManager'
-// export * from './components/GlobalStats'
-// export * from './components/SystemConfig'
-// export * from './components/ActivityLog'
+// Components
+export * from './components/CompanyManager'
+export * from './components/ComercialManager'
+export * from './components/GlobalStats'
+export * from './components/StatsCard'
+export * from './components/SystemConfig'
 
-// Hooks (will be added progressively)
-// export * from './hooks/use-companies'
-// export * from './hooks/use-comercials'
-// export * from './hooks/use-global-stats'
+// Hooks
+export * from './hooks/use-companies'
+export * from './hooks/use-comercials'
+export * from './hooks/use-global-stats'
 
-// Actions (will be added progressively)
-// export * from './actions/admin.actions'
+// Actions
+export * from './actions/admin.actions'

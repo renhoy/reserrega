@@ -61,13 +61,14 @@ CREATE TABLE IF NOT EXISTS public.users (
   CONSTRAINT users_status_check CHECK (status IN ('active', 'inactive', 'pending'))
 );
 
-CREATE INDEX idx_users_email ON public.users(email);
-CREATE INDEX idx_users_company_id ON public.users(company_id);
-CREATE INDEX idx_users_role ON public.users(role);
-CREATE INDEX idx_users_status ON public.users(status);
+CREATE INDEX IF NOT EXISTS idx_users_email ON public.users(email);
+CREATE INDEX IF NOT EXISTS idx_users_company_id ON public.users(company_id);
+CREATE INDEX IF NOT EXISTS idx_users_role ON public.users(role);
+CREATE INDEX IF NOT EXISTS idx_users_status ON public.users(status);
 
 COMMENT ON TABLE public.users IS 'Usuarios del sistema';
 
+DROP TRIGGER IF EXISTS users_updated_at ON public.users CASCADE;
 CREATE TRIGGER users_updated_at
   BEFORE UPDATE ON public.users
   FOR EACH ROW
@@ -86,10 +87,11 @@ CREATE TABLE IF NOT EXISTS public.companies (
   CONSTRAINT companies_status_check CHECK (status IN ('active', 'inactive'))
 );
 
-CREATE INDEX idx_companies_status ON public.companies(status);
+CREATE INDEX IF NOT EXISTS idx_companies_status ON public.companies(status);
 
 COMMENT ON TABLE public.companies IS 'Empresas partner (tiendas)';
 
+DROP TRIGGER IF EXISTS companies_updated_at ON public.companies CASCADE;
 CREATE TRIGGER companies_updated_at
   BEFORE UPDATE ON public.companies
   FOR EACH ROW
@@ -130,12 +132,13 @@ CREATE TABLE IF NOT EXISTS public.issuers (
   CONSTRAINT issuers_type_check CHECK (type IN ('empresa', 'autonomo'))
 );
 
-CREATE INDEX idx_issuers_user_id ON public.issuers(user_id);
-CREATE INDEX idx_issuers_company_id ON public.issuers(company_id);
-CREATE INDEX idx_issuers_nif ON public.issuers(nif);
+CREATE INDEX IF NOT EXISTS idx_issuers_user_id ON public.issuers(user_id);
+CREATE INDEX IF NOT EXISTS idx_issuers_company_id ON public.issuers(company_id);
+CREATE INDEX IF NOT EXISTS idx_issuers_nif ON public.issuers(nif);
 
 COMMENT ON TABLE public.issuers IS 'Datos fiscales de emisores/tiendas';
 
+DROP TRIGGER IF EXISTS issuers_updated_at ON public.issuers CASCADE;
 CREATE TRIGGER issuers_updated_at
   BEFORE UPDATE ON public.issuers
   FOR EACH ROW
@@ -188,12 +191,13 @@ CREATE TABLE IF NOT EXISTS public.subscriptions (
   CONSTRAINT subscriptions_status_check CHECK (status IN ('active', 'canceled', 'past_due', 'trialing', 'inactive'))
 );
 
-CREATE INDEX idx_subscriptions_company_id ON public.subscriptions(company_id);
-CREATE INDEX idx_subscriptions_stripe_customer_id ON public.subscriptions(stripe_customer_id);
-CREATE INDEX idx_subscriptions_status ON public.subscriptions(status);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_company_id ON public.subscriptions(company_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_customer_id ON public.subscriptions(stripe_customer_id);
+CREATE INDEX IF NOT EXISTS idx_subscriptions_status ON public.subscriptions(status);
 
 COMMENT ON TABLE public.subscriptions IS 'Suscripciones Stripe de empresas';
 
+DROP TRIGGER IF EXISTS subscriptions_updated_at ON public.subscriptions CASCADE;
 CREATE TRIGGER subscriptions_updated_at
   BEFORE UPDATE ON public.subscriptions
   FOR EACH ROW
@@ -217,11 +221,12 @@ CREATE TABLE IF NOT EXISTS public.contact_messages (
   CONSTRAINT contact_messages_status_check CHECK (status IN ('nuevo', 'leido', 'respondido', 'archivado'))
 );
 
-CREATE INDEX idx_contact_messages_status ON public.contact_messages(status);
-CREATE INDEX idx_contact_messages_created_at ON public.contact_messages(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_contact_messages_status ON public.contact_messages(status);
+CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at ON public.contact_messages(created_at DESC);
 
 COMMENT ON TABLE public.contact_messages IS 'Mensajes de contacto';
 
+DROP TRIGGER IF EXISTS contact_messages_updated_at ON public.contact_messages CASCADE;
 CREATE TRIGGER contact_messages_updated_at
   BEFORE UPDATE ON public.contact_messages
   FOR EACH ROW
@@ -243,12 +248,13 @@ CREATE TABLE IF NOT EXISTS public.user_invitations (
   CONSTRAINT user_invitations_status_check CHECK (status IN ('pending', 'accepted', 'expired', 'cancelled'))
 );
 
-CREATE INDEX idx_user_invitations_token ON public.user_invitations(token);
-CREATE INDEX idx_user_invitations_email ON public.user_invitations(email);
-CREATE INDEX idx_user_invitations_status ON public.user_invitations(status);
+CREATE INDEX IF NOT EXISTS idx_user_invitations_token ON public.user_invitations(token);
+CREATE INDEX IF NOT EXISTS idx_user_invitations_email ON public.user_invitations(email);
+CREATE INDEX IF NOT EXISTS idx_user_invitations_status ON public.user_invitations(status);
 
 COMMENT ON TABLE public.user_invitations IS 'Invitaciones de usuarios';
 
+DROP TRIGGER IF EXISTS user_invitations_updated_at ON public.user_invitations CASCADE;
 CREATE TRIGGER user_invitations_updated_at
   BEFORE UPDATE ON public.user_invitations
   FOR EACH ROW
@@ -286,12 +292,13 @@ CREATE TABLE IF NOT EXISTS public.stores (
   CONSTRAINT stores_status_check CHECK (status IN ('active', 'inactive'))
 );
 
-CREATE INDEX idx_stores_company_id ON public.stores(company_id);
-CREATE INDEX idx_stores_manager_user_id ON public.stores(manager_user_id);
-CREATE INDEX idx_stores_status ON public.stores(status);
+CREATE INDEX IF NOT EXISTS idx_stores_company_id ON public.stores(company_id);
+CREATE INDEX IF NOT EXISTS idx_stores_manager_user_id ON public.stores(manager_user_id);
+CREATE INDEX IF NOT EXISTS idx_stores_status ON public.stores(status);
 
 COMMENT ON TABLE public.stores IS 'Tiendas físicas (ubicaciones)';
 
+DROP TRIGGER IF EXISTS stores_updated_at ON public.stores CASCADE;
 CREATE TRIGGER stores_updated_at
   BEFORE UPDATE ON public.stores
   FOR EACH ROW
@@ -327,12 +334,13 @@ CREATE TABLE IF NOT EXISTS public.products (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE INDEX idx_products_store_id ON public.products(store_id);
-CREATE INDEX idx_products_barcode ON public.products(barcode);
-CREATE INDEX idx_products_category ON public.products(category);
+CREATE INDEX IF NOT EXISTS idx_products_store_id ON public.products(store_id);
+CREATE INDEX IF NOT EXISTS idx_products_barcode ON public.products(barcode);
+CREATE INDEX IF NOT EXISTS idx_products_category ON public.products(category);
 
 COMMENT ON TABLE public.products IS 'Catálogo de productos (ropa)';
 
+DROP TRIGGER IF EXISTS products_updated_at ON public.products CASCADE;
 CREATE TRIGGER products_updated_at
   BEFORE UPDATE ON public.products
   FOR EACH ROW
@@ -363,14 +371,15 @@ CREATE TABLE IF NOT EXISTS public.reservations (
   CONSTRAINT reservations_status_check CHECK (status IN ('active', 'expired', 'completed', 'cancelled'))
 );
 
-CREATE INDEX idx_reservations_user_id ON public.reservations(user_id);
-CREATE INDEX idx_reservations_product_id ON public.reservations(product_id);
-CREATE INDEX idx_reservations_store_id ON public.reservations(store_id);
-CREATE INDEX idx_reservations_status ON public.reservations(status);
-CREATE INDEX idx_reservations_expires_at ON public.reservations(expires_at);
+CREATE INDEX IF NOT EXISTS idx_reservations_user_id ON public.reservations(user_id);
+CREATE INDEX IF NOT EXISTS idx_reservations_product_id ON public.reservations(product_id);
+CREATE INDEX IF NOT EXISTS idx_reservations_store_id ON public.reservations(store_id);
+CREATE INDEX IF NOT EXISTS idx_reservations_status ON public.reservations(status);
+CREATE INDEX IF NOT EXISTS idx_reservations_expires_at ON public.reservations(expires_at);
 
 COMMENT ON TABLE public.reservations IS 'Reservas de productos (€1, 15 días)';
 
+DROP TRIGGER IF EXISTS reservations_updated_at ON public.reservations CASCADE;
 CREATE TRIGGER reservations_updated_at
   BEFORE UPDATE ON public.reservations
   FOR EACH ROW
@@ -400,14 +409,15 @@ CREATE TABLE IF NOT EXISTS public.wishlists (
   CONSTRAINT unique_user_product UNIQUE (user_id, product_id)
 );
 
-CREATE INDEX idx_wishlists_user_id ON public.wishlists(user_id);
-CREATE INDEX idx_wishlists_product_id ON public.wishlists(product_id);
-CREATE INDEX idx_wishlists_reservation_id ON public.wishlists(reservation_id);
-CREATE INDEX idx_wishlists_visibility ON public.wishlists(visibility);
-CREATE INDEX idx_wishlists_status ON public.wishlists(status);
+CREATE INDEX IF NOT EXISTS idx_wishlists_user_id ON public.wishlists(user_id);
+CREATE INDEX IF NOT EXISTS idx_wishlists_product_id ON public.wishlists(product_id);
+CREATE INDEX IF NOT EXISTS idx_wishlists_reservation_id ON public.wishlists(reservation_id);
+CREATE INDEX IF NOT EXISTS idx_wishlists_visibility ON public.wishlists(visibility);
+CREATE INDEX IF NOT EXISTS idx_wishlists_status ON public.wishlists(status);
 
 COMMENT ON TABLE public.wishlists IS 'Listas de deseos de usuarias';
 
+DROP TRIGGER IF EXISTS wishlists_updated_at ON public.wishlists CASCADE;
 CREATE TRIGGER wishlists_updated_at
   BEFORE UPDATE ON public.wishlists
   FOR EACH ROW
@@ -444,16 +454,17 @@ CREATE TABLE IF NOT EXISTS public.gifts (
   CONSTRAINT gifts_shipping_status_check CHECK (shipping_status IN ('pending', 'shipped', 'delivered', 'cancelled'))
 );
 
-CREATE INDEX idx_gifts_wishlist_item_id ON public.gifts(wishlist_item_id);
-CREATE INDEX idx_gifts_buyer_id ON public.gifts(buyer_id);
-CREATE INDEX idx_gifts_recipient_id ON public.gifts(recipient_id);
-CREATE INDEX idx_gifts_product_id ON public.gifts(product_id);
-CREATE INDEX idx_gifts_store_id ON public.gifts(store_id);
-CREATE INDEX idx_gifts_payment_status ON public.gifts(payment_status);
-CREATE INDEX idx_gifts_shipping_status ON public.gifts(shipping_status);
+CREATE INDEX IF NOT EXISTS idx_gifts_wishlist_item_id ON public.gifts(wishlist_item_id);
+CREATE INDEX IF NOT EXISTS idx_gifts_buyer_id ON public.gifts(buyer_id);
+CREATE INDEX IF NOT EXISTS idx_gifts_recipient_id ON public.gifts(recipient_id);
+CREATE INDEX IF NOT EXISTS idx_gifts_product_id ON public.gifts(product_id);
+CREATE INDEX IF NOT EXISTS idx_gifts_store_id ON public.gifts(store_id);
+CREATE INDEX IF NOT EXISTS idx_gifts_payment_status ON public.gifts(payment_status);
+CREATE INDEX IF NOT EXISTS idx_gifts_shipping_status ON public.gifts(shipping_status);
 
 COMMENT ON TABLE public.gifts IS 'Regalos realizados entre usuarios';
 
+DROP TRIGGER IF EXISTS gifts_updated_at ON public.gifts CASCADE;
 CREATE TRIGGER gifts_updated_at
   BEFORE UPDATE ON public.gifts
   FOR EACH ROW
@@ -481,13 +492,14 @@ CREATE TABLE IF NOT EXISTS public.friend_requests (
   CONSTRAINT no_self_request CHECK (sender_id != recipient_id)
 );
 
-CREATE INDEX idx_friend_requests_sender_id ON public.friend_requests(sender_id);
-CREATE INDEX idx_friend_requests_recipient_id ON public.friend_requests(recipient_id);
-CREATE INDEX idx_friend_requests_status ON public.friend_requests(status);
-CREATE INDEX idx_friend_requests_token ON public.friend_requests(invitation_token);
+CREATE INDEX IF NOT EXISTS idx_friend_requests_sender_id ON public.friend_requests(sender_id);
+CREATE INDEX IF NOT EXISTS idx_friend_requests_recipient_id ON public.friend_requests(recipient_id);
+CREATE INDEX IF NOT EXISTS idx_friend_requests_status ON public.friend_requests(status);
+CREATE INDEX IF NOT EXISTS idx_friend_requests_token ON public.friend_requests(invitation_token);
 
 COMMENT ON TABLE public.friend_requests IS 'Solicitudes de amistad';
 
+DROP TRIGGER IF EXISTS friend_requests_updated_at ON public.friend_requests CASCADE;
 CREATE TRIGGER friend_requests_updated_at
   BEFORE UPDATE ON public.friend_requests
   FOR EACH ROW
@@ -507,8 +519,8 @@ CREATE TABLE IF NOT EXISTS public.friendships (
   CONSTRAINT no_self_friendship CHECK (user_id != friend_id)
 );
 
-CREATE INDEX idx_friendships_user_id ON public.friendships(user_id);
-CREATE INDEX idx_friendships_friend_id ON public.friendships(friend_id);
+CREATE INDEX IF NOT EXISTS idx_friendships_user_id ON public.friendships(user_id);
+CREATE INDEX IF NOT EXISTS idx_friendships_friend_id ON public.friendships(friend_id);
 
 COMMENT ON TABLE public.friendships IS 'Amistades confirmadas';
 
@@ -554,10 +566,12 @@ ALTER TABLE public.contact_messages ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.user_invitations ENABLE ROW LEVEL SECURITY;
 
 -- =====================================================
--- RLS POLICIES BÁSICAS
+-- RLS POLICIES BÁSICAS (IDEMPOTENTES)
 -- =====================================================
 
 -- Superadmin: acceso total
+DROP POLICY IF EXISTS "superadmin_all_users" ON public.users;
+DROP POLICY IF EXISTS "superadmin_all_users" ON public.users;
 CREATE POLICY "superadmin_all_users" ON public.users
   FOR ALL TO authenticated
   USING (
@@ -565,20 +579,24 @@ CREATE POLICY "superadmin_all_users" ON public.users
   );
 
 -- Usuario: su propio perfil
+DROP POLICY IF EXISTS "user_own_profile" ON public.users;
 CREATE POLICY "user_own_profile" ON public.users
   FOR SELECT TO authenticated
   USING (id = auth.uid());
 
+DROP POLICY IF EXISTS "user_update_profile" ON public.users;
 CREATE POLICY "user_update_profile" ON public.users
   FOR UPDATE TO authenticated
   USING (id = auth.uid())
   WITH CHECK (id = auth.uid());
 
 -- Config: todos leen, solo superadmin modifica
+DROP POLICY IF EXISTS "read_config" ON public.config;
 CREATE POLICY "read_config" ON public.config
   FOR SELECT TO authenticated
   USING (true);
 
+DROP POLICY IF EXISTS "superadmin_modify_config" ON public.config;
 CREATE POLICY "superadmin_modify_config" ON public.config
   FOR ALL TO authenticated
   USING (
@@ -586,12 +604,14 @@ CREATE POLICY "superadmin_modify_config" ON public.config
   );
 
 -- Wishlists: usuario ve sus listas
+DROP POLICY IF EXISTS "user_own_wishlists" ON public.wishlists;
 CREATE POLICY "user_own_wishlists" ON public.wishlists
   FOR ALL TO authenticated
   USING (user_id = auth.uid())
   WITH CHECK (user_id = auth.uid());
 
 -- Wishlists: amigos según visibilidad
+DROP POLICY IF EXISTS "friends_wishlists" ON public.wishlists;
 CREATE POLICY "friends_wishlists" ON public.wishlists
   FOR SELECT TO authenticated
   USING (
@@ -601,42 +621,50 @@ CREATE POLICY "friends_wishlists" ON public.wishlists
   );
 
 -- Wishlists: públicas
+DROP POLICY IF EXISTS "public_wishlists" ON public.wishlists;
 CREATE POLICY "public_wishlists" ON public.wishlists
   FOR SELECT TO authenticated
   USING (visibility = 'public');
 
 -- Gifts: comprador y receptor
+DROP POLICY IF EXISTS "buyer_own_gifts" ON public.gifts;
 CREATE POLICY "buyer_own_gifts" ON public.gifts
   FOR ALL TO authenticated
   USING (buyer_id = auth.uid());
 
+DROP POLICY IF EXISTS "recipient_gifts" ON public.gifts;
 CREATE POLICY "recipient_gifts" ON public.gifts
   FOR SELECT TO authenticated
   USING (recipient_id = auth.uid());
 
 -- Reservations: usuario ve sus reservas
+DROP POLICY IF EXISTS "user_own_reservations" ON public.reservations;
 CREATE POLICY "user_own_reservations" ON public.reservations
   FOR ALL TO authenticated
   USING (user_id = auth.uid())
   WITH CHECK (user_id = auth.uid());
 
 -- Products: todos pueden ver
+DROP POLICY IF EXISTS "public_read_products" ON public.products;
 CREATE POLICY "public_read_products" ON public.products
   FOR SELECT TO authenticated
   USING (true);
 
 -- Stores: todos pueden ver
+DROP POLICY IF EXISTS "public_read_stores" ON public.stores;
 CREATE POLICY "public_read_stores" ON public.stores
   FOR SELECT TO authenticated
   USING (true);
 
 -- Friends: solicitudes propias
+DROP POLICY IF EXISTS "user_own_friend_requests" ON public.friend_requests;
 CREATE POLICY "user_own_friend_requests" ON public.friend_requests
   FOR ALL TO authenticated
   USING (sender_id = auth.uid() OR recipient_id = auth.uid())
   WITH CHECK (sender_id = auth.uid());
 
 -- Friendships: amistades propias
+DROP POLICY IF EXISTS "user_own_friendships" ON public.friendships;
 CREATE POLICY "user_own_friendships" ON public.friendships
   FOR ALL TO authenticated
   USING (user_id = auth.uid() OR friend_id = auth.uid())

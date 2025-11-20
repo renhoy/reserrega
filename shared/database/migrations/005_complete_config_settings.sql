@@ -6,7 +6,95 @@
 -- =====================================================
 
 -- =====================================================
--- CONFIGURACIONES GENERALES
+-- PASO 1: CREAR TABLA CONFIG SI NO EXISTE
+-- =====================================================
+
+CREATE TABLE IF NOT EXISTS public.config (
+  key TEXT PRIMARY KEY,
+  value JSONB NOT NULL,
+  description TEXT,
+  category TEXT NOT NULL DEFAULT 'general',
+  is_system BOOLEAN NOT NULL DEFAULT FALSE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+-- Trigger para actualizar updated_at automáticamente
+CREATE OR REPLACE FUNCTION update_config_updated_at()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+DROP TRIGGER IF EXISTS config_updated_at ON public.config;
+CREATE TRIGGER config_updated_at
+  BEFORE UPDATE ON public.config
+  FOR EACH ROW
+  EXECUTE FUNCTION update_config_updated_at();
+
+-- Índices para mejorar rendimiento
+CREATE INDEX IF NOT EXISTS idx_config_category ON public.config(category);
+CREATE INDEX IF NOT EXISTS idx_config_is_system ON public.config(is_system);
+
+-- Comentarios
+COMMENT ON TABLE public.config IS 'Configuración global del sistema. Clave-valor con descripción y categoría.';
+COMMENT ON COLUMN public.config.key IS 'Identificador único de la configuración';
+COMMENT ON COLUMN public.config.value IS 'Valor en formato JSONB (permite cualquier tipo de dato)';
+COMMENT ON COLUMN public.config.description IS 'Descripción legible de qué hace esta configuración';
+COMMENT ON COLUMN public.config.category IS 'Categoría para agrupar configuraciones (aplicacion, reserrega, email, features, etc.)';
+COMMENT ON COLUMN public.config.is_system IS 'Si true, solo superadmin puede modificar. Si false, admin puede modificar.';
+
+-- =====================================================
+-- PASO 2: POLÍTICAS RLS (Row Level Security)
+-- =====================================================
+-- NOTA: Si la tabla reserrega.users no existe aún, comenta esta sección
+-- y ejecútala después de crear la tabla users
+
+-- Habilitar RLS
+ALTER TABLE public.config ENABLE ROW LEVEL SECURITY;
+
+-- Política de lectura: cualquier usuario autenticado puede leer configuraciones
+DROP POLICY IF EXISTS "read_config" ON public.config;
+CREATE POLICY "read_config" ON public.config
+  FOR SELECT
+  USING (true);
+
+-- Política de modificación: solo usuarios con rol superadmin o admin pueden modificar
+-- IMPORTANTE: Requiere que exista la tabla reserrega.users
+DO $$
+BEGIN
+  -- Verificar si existe la tabla reserrega.users
+  IF EXISTS (
+    SELECT FROM pg_tables
+    WHERE schemaname = 'reserrega'
+    AND tablename = 'users'
+  ) THEN
+    -- Crear política solo si existe la tabla
+    DROP POLICY IF EXISTS "superadmin_modify_config" ON public.config;
+    EXECUTE '
+      CREATE POLICY "superadmin_modify_config" ON public.config
+        FOR ALL
+        USING (
+          EXISTS (
+            SELECT 1 FROM reserrega.users
+            WHERE users.id = auth.uid()
+            AND (
+              users.role = ''superadmin''
+              OR (users.role = ''admin'' AND public.config.is_system = false)
+            )
+          )
+        )
+    ';
+    RAISE NOTICE 'Política RLS creada correctamente';
+  ELSE
+    RAISE NOTICE 'Tabla reserrega.users no existe. Política RLS omitida. Ejecuta esta sección después de crear la tabla users.';
+  END IF;
+END $$;
+
+-- =====================================================
+-- PASO 3: CONFIGURACIONES GENERALES
 -- =====================================================
 
 INSERT INTO public.config (key, value, description, category, is_system) VALUES
@@ -217,18 +305,7 @@ ON CONFLICT (key) DO UPDATE SET
   updated_at = NOW();
 
 -- =====================================================
--- COMENTARIOS DE AYUDA
--- =====================================================
-
-COMMENT ON TABLE public.config IS 'Configuración global del sistema. Clave-valor con descripción y categoría.';
-COMMENT ON COLUMN public.config.key IS 'Identificador único de la configuración';
-COMMENT ON COLUMN public.config.value IS 'Valor en formato JSONB (permite cualquier tipo de dato)';
-COMMENT ON COLUMN public.config.description IS 'Descripción legible de qué hace esta configuración';
-COMMENT ON COLUMN public.config.category IS 'Categoría para agrupar configuraciones (aplicacion, reserrega, email, features, etc.)';
-COMMENT ON COLUMN public.config.is_system IS 'Si true, solo superadmin puede modificar. Si false, admin puede modificar.';
-
--- =====================================================
--- RESULTADO
+-- PASO 4: VERIFICACIÓN
 -- =====================================================
 
 -- Verificar configuraciones insertadas

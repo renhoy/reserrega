@@ -39,13 +39,13 @@ export function ActionButtons({
         return {
           text: primaryText || "Guardar",
           icon: Save,
-          className: "bg-lime-500 hover:bg-lime-600",
+          className: "bg-pink-500 hover:bg-pink-600",
         };
       case "create":
         return {
           text: primaryText || "Nuevo Usuario",
           icon: Plus,
-          className: "bg-lime-500 hover:bg-lime-600",
+          className: "bg-pink-500 hover:bg-pink-600",
         };
     }
   };
@@ -77,7 +77,7 @@ export function ActionButtons({
         variant="outline"
         onClick={handleCancel}
         disabled={isLoading}
-        className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+        className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
       >
         <X className="mr-2 h-4 w-4" />
         Cancelar

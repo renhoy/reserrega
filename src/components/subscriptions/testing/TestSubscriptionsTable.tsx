@@ -175,7 +175,7 @@ export function TestSubscriptionsTable({ subscriptions, currentTime }: TestSubsc
 
   const planColors = {
     free: "bg-gray-100 text-gray-800",
-    pro: "bg-lime-100 text-lime-800",
+    pro: "bg-pink-100 text-pink-800",
     enterprise: "bg-yellow-100 text-yellow-800",
   };
 
@@ -223,7 +223,7 @@ export function TestSubscriptionsTable({ subscriptions, currentTime }: TestSubsc
                 const isLoading = loadingId === sub.id;
 
                 return (
-                  <TableRow key={sub.id} className="bg-white border-t hover:bg-lime-100/100">
+                  <TableRow key={sub.id} className="bg-white border-t hover:bg-pink-100/100">
                     {/* Empresa */}
                     <TableCell className="font-medium">
                       <div className="flex flex-col">
@@ -251,7 +251,7 @@ export function TestSubscriptionsTable({ subscriptions, currentTime }: TestSubsc
                             <Badge className="bg-gray-100 text-gray-800">FREE</Badge>
                           </SelectItem>
                           <SelectItem value="pro">
-                            <Badge className="bg-lime-100 text-lime-800">PRO</Badge>
+                            <Badge className="bg-pink-100 text-pink-800">PRO</Badge>
                           </SelectItem>
                           <SelectItem value="enterprise">
                             <Badge className="bg-yellow-100 text-yellow-800">ENTERPRISE</Badge>
@@ -330,7 +330,7 @@ export function TestSubscriptionsTable({ subscriptions, currentTime }: TestSubsc
                           onClick={() => handleExpire(sub.id)}
                           disabled={isLoading || sub.plan === 'free'}
                           title="Marcar como expirada (hace 10 días)"
-                          className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white h-9 px-2 min-w-[44px] touch-manipulation"
+                          className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white h-9 px-2 min-w-[44px] touch-manipulation"
                         >
                           <AlertCircle className="h-4 w-4" />
                         </Button>
@@ -342,7 +342,7 @@ export function TestSubscriptionsTable({ subscriptions, currentTime }: TestSubsc
                           onClick={() => handleExtend(sub.id, 30)}
                           disabled={isLoading || sub.plan === 'free'}
                           title="Extender 30 días"
-                          className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white h-9 px-2 min-w-[44px] touch-manipulation"
+                          className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white h-9 px-2 min-w-[44px] touch-manipulation"
                         >
                           <FastForward className="h-4 w-4" />
                         </Button>

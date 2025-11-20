@@ -17,7 +17,7 @@ import { Input } from '@/shared/common/components/ui/input'
 import { Label } from '@/shared/common/components/ui/label'
 import { Switch } from '@/shared/common/components/ui/switch'
 import { Separator } from '@/shared/common/components/ui/separator'
-import { useToast } from '@/shared/common/hooks/use-toast'
+import { useToast } from '@/shared/common/hooks/useToast'
 import { SystemConfig as SystemConfigType, UpdateSystemConfigData } from '../types/admin.types'
 
 // =====================================================

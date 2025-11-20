@@ -1,9 +1,51 @@
-# Tareas - MÓDULO: Admin Dashboard
+# Tareas - FASE 3: Integración y Pulido
 
-## MÓDULO ACTIVO: Admin Dashboard 🔴
+## ESTADO FASE 3: 🟡 En Progreso
 
-**Tareas Activas:** 0/10
-**Progreso:** 0%
+**Módulos:** 3/3
+**Progreso General:** 33% (1/3 completados)
+
+---
+
+## MÓDULOS DE FASE 3
+
+### ✅ Módulo 9: Admin Dashboard (COMPLETADO)
+**Estado:** ✅ READ-ONLY
+**Fecha completado:** 2025-11-20
+**Tiempo:** ~8 horas
+
+**Tareas completadas:**
+- ✅ AD-001: Types y utilidades base
+- ✅ AD-002: Componentes de gestión de empresas
+- ✅ AD-003: Componentes de gestión de comerciales
+- ✅ AD-004: Componentes de estadísticas globales
+- ✅ AD-005: Componentes de configuración del sistema
+- ✅ AD-007: Server actions (12 funciones)
+- ✅ AD-008: Custom hooks (3 hooks)
+- ✅ AD-009: Páginas y rutas (/admin, /companies, /comercials, /config)
+- ✅ AD-010: Documentación y exports
+
+**Funcionalidad entregada:**
+- Panel administrativo completo para superadmins
+- Gestión de empresas (CRUD)
+- Gestión de comerciales (CRUD)
+- Dashboard con 16 métricas globales
+- Configuración del sistema
+- Auto-refresh de estadísticas
+- Validación de permisos (requireRole superadmin)
+
+---
+
+### 🔴 Módulo 10: Testing & Bug Fixes (ACTIVO)
+**Estado:** 🔴 En progreso
+**Tiempo estimado:** 2 días
+**Prioridad:** Crítica
+
+#### Objetivos:
+- Validar flujos críticos end-to-end
+- Corregir bugs descubiertos
+- Asegurar estabilidad del sistema
+- Preparar para producción
 
 ---
 
@@ -23,338 +65,268 @@
 
 ---
 
-## BACKLOG
+## BACKLOG - MÓDULO 10: Testing & Bug Fixes
 
 ### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-#### AD-001: Types y Utilidades Base
-**Prioridad:** Crítica
-**Tiempo:** 1-2 horas
-**Descripción:**
-- Definir types para Company, Comercial, GlobalStats, SystemConfig
-- Utilidades para formateo y validación
-- Helpers para permisos de admin
-- Utils para cálculos de estadísticas globales
-
-**Archivos a crear:**
-- `features/admin-dashboard/types/admin.types.ts`
-- `features/admin-dashboard/lib/admin-utils.ts`
-
-**Criterio de aceptación:**
-- [ ] Types completos con JSDoc
-- [ ] Company, Comercial, GlobalStats, SystemConfig types
-- [ ] Request/Response types para server actions
-- [ ] Helpers de formateo (fechas, números, porcentajes)
-- [ ] Validadores para formularios
-- [ ] Utils de permisos (isSuperadmin, canManageCompany, etc.)
-- [ ] Funciones de cálculo para stats globales
-
----
-
-#### AD-002: Componentes de Gestión de Empresas
+#### TB-001: Testing de Flujos Críticos
 **Prioridad:** Crítica
 **Tiempo:** 3-4 horas
 **Descripción:**
-- Tabla/Grid de empresas con búsqueda y filtros
-- Dialog para crear/editar empresa
-- Card de detalles de empresa
-- Confirmación de eliminación
-
-**Archivos a crear:**
-- `features/admin-dashboard/components/CompanyManager.tsx`
-- `features/admin-dashboard/components/CompanyDialog.tsx`
-- `features/admin-dashboard/components/CompanyCard.tsx`
+- Test flujo de registro y login
+- Test flujo de reserva de producto
+- Test flujo de regalo completo
+- Test flujo de comercial (escaneo, reservas)
+- Test de permisos por rol
 
 **Criterio de aceptación:**
-- [ ] Lista de empresas con paginación
-- [ ] Búsqueda por nombre
-- [ ] Filtro por estado (activa/inactiva)
-- [ ] Dialog para crear empresa con validación
-- [ ] Dialog para editar empresa
-- [ ] Confirmación antes de eliminar
-- [ ] Toast notifications
-- [ ] Loading y error states
+- [ ] Flujo auth funcionando (register, login, logout)
+- [ ] Flujo reserva funcionando (QR, escaneo, pago 1€)
+- [ ] Flujo wishlist funcionando (visibilidad, estados)
+- [ ] Flujo gift funcionando (bloqueo, checkout, confirmación)
+- [ ] Flujo store-panel funcionando (sesiones, reservas)
+- [ ] Verificar permisos por rol (superadmin, admin, comercial, usuario)
+
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### AD-003: Componentes de Gestión de Comerciales
+#### TB-002: Bug Fixes Críticos
 **Prioridad:** Crítica
-**Tiempo:** 3-4 horas
-**Descripción:**
-- Tabla de usuarios comerciales
-- Dialog para crear/editar comercial
-- Asignación de tienda
-- Activar/Desactivar comercial
-
-**Archivos a crear:**
-- `features/admin-dashboard/components/ComercialManager.tsx`
-- `features/admin-dashboard/components/ComercialDialog.tsx`
-- `features/admin-dashboard/components/ComercialCard.tsx`
-
-**Criterio de aceptación:**
-- [ ] Lista de comerciales con filtros
-- [ ] Filtro por empresa/tienda
-- [ ] Filtro por estado (activo/inactivo)
-- [ ] Dialog para crear comercial
-- [ ] Dialog para editar comercial
-- [ ] Asignar/reasignar tienda
-- [ ] Cambiar estado (activo/inactivo)
-- [ ] Validación de email y datos
-- [ ] Toast notifications
-
----
-
-#### AD-004: Componentes de Estadísticas Globales
-**Prioridad:** Alta
 **Tiempo:** 2-3 horas
 **Descripción:**
-- Dashboard con métricas globales del sistema
-- Gráficos y visualizaciones
-- Filtros por fecha y empresa
-
-**Archivos a crear:**
-- `features/admin-dashboard/components/GlobalStats.tsx`
-- `features/admin-dashboard/components/StatsCard.tsx`
-- `features/admin-dashboard/components/StatsChart.tsx`
+- Revisar y corregir errores de compilación TypeScript
+- Revisar y corregir errores de runtime
+- Validar manejo de errores en server actions
+- Corregir problemas de UI/UX detectados
+- Verificar responsive design
 
 **Criterio de aceptación:**
-- [ ] Dashboard con 8-10 métricas principales
-- [ ] Total de empresas activas
-- [ ] Total de usuarios por rol
-- [ ] Total de reservas (activas/completadas)
-- [ ] Ingresos totales del sistema
-- [ ] Métricas por empresa
-- [ ] Filtros de fecha (última semana, mes, año)
-- [ ] Cards responsivos
-- [ ] Loading states
+- [ ] Sin errores de TypeScript
+- [ ] Sin errores en consola del navegador
+- [ ] Manejo correcto de errores (try/catch, toasts)
+- [ ] UI responsive en mobile y desktop
+- [ ] Loading states correctos
+- [ ] Empty states correctos
+
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### AD-005: Componentes de Configuración del Sistema
-**Prioridad:** Media
-**Tiempo:** 2-3 horas
-**Descripción:**
-- Panel de configuración global
-- Editar tarifas y tiempos
-- Configuración de emails
-- Configuración de features
-
-**Archivos a crear:**
-- `features/admin-dashboard/components/SystemConfig.tsx`
-- `features/admin-dashboard/components/ConfigForm.tsx`
-
-**Criterio de aceptación:**
-- [ ] Formulario de configuración general
-- [ ] Campo: tarifa de reserva (€)
-- [ ] Campo: días de validez de reserva
-- [ ] Campo: minutos de bloqueo temporal
-- [ ] Campo: porcentaje tienda/plataforma
-- [ ] Validación de valores
-- [ ] Guardar cambios
-- [ ] Restaurar valores por defecto
-- [ ] Toast de confirmación
-
----
-
-#### AD-006: Componentes de Log de Actividad
-**Prioridad:** Baja
+#### TB-003: Validación de Seguridad
+**Prioridad:** Crítica
 **Tiempo:** 2 horas
 **Descripción:**
-- Tabla de actividad reciente
-- Filtros por tipo de acción
-- Filtros por usuario
-
-**Archivos a crear:**
-- `features/admin-dashboard/components/ActivityLog.tsx`
-- `features/admin-dashboard/components/ActivityItem.tsx`
+- Verificar RLS policies en Supabase
+- Validar autenticación y autorización
+- Revisar permisos de server actions
+- Verificar protección de rutas
+- Revisar sanitización de inputs
 
 **Criterio de aceptación:**
-- [ ] Lista de actividades recientes
-- [ ] Filtro por tipo (create, update, delete)
-- [ ] Filtro por entidad (company, user, reservation)
-- [ ] Mostrar usuario y timestamp
-- [ ] Paginación
-- [ ] Loading states
+- [ ] RLS policies activas en todas las tablas
+- [ ] Server actions verifican permisos
+- [ ] Rutas protegidas con requireAuth/requireRole
+- [ ] Inputs validados y sanitizados
+- [ ] No hay acceso sin autenticación
+- [ ] Usuarios solo ven sus propios datos
+
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### AD-007: Server Actions
-**Prioridad:** Crítica
-**Tiempo:** 3-4 horas
-**Descripción:**
-- Actions para CRUD de empresas
-- Actions para gestión de comerciales
-- Actions para estadísticas
-- Actions para configuración
-
-**Archivos a crear:**
-- `features/admin-dashboard/actions/admin.actions.ts`
-
-**Acciones a implementar:**
-- [ ] getCompanies() - Obtener empresas con filtros
-- [ ] createCompany() - Crear nueva empresa
-- [ ] updateCompany() - Actualizar empresa
-- [ ] deleteCompany() - Eliminar empresa
-- [ ] getComercials() - Obtener comerciales con filtros
-- [ ] createComercial() - Crear nuevo comercial
-- [ ] updateComercial() - Actualizar comercial
-- [ ] toggleComercialStatus() - Activar/desactivar
-- [ ] getGlobalStats() - Obtener estadísticas globales
-- [ ] getSystemConfig() - Obtener configuración
-- [ ] updateSystemConfig() - Actualizar configuración
-- [ ] getActivityLog() - Obtener log de actividad
-
-**Criterio de aceptación:**
-- [ ] Validación de permisos (solo superadmin)
-- [ ] Manejo de errores completo
-- [ ] Revalidación de paths
-- [ ] TypeScript estricto
-- [ ] Validación de datos de entrada
-
----
-
-#### AD-008: Hooks de Gestión
+#### TB-004: Optimización de Performance
 **Prioridad:** Alta
 **Tiempo:** 2 horas
 **Descripción:**
-- Hook para gestión de empresas
-- Hook para gestión de comerciales
-- Hook para estadísticas globales
-
-**Archivos a crear:**
-- `features/admin-dashboard/hooks/use-companies.ts`
-- `features/admin-dashboard/hooks/use-comercials.ts`
-- `features/admin-dashboard/hooks/use-global-stats.ts`
+- Revisar queries a base de datos
+- Optimizar carga de imágenes
+- Revisar bundle size
+- Implementar lazy loading donde sea necesario
+- Optimizar re-renders innecesarios
 
 **Criterio de aceptación:**
-- [ ] useCompanies - CRUD de empresas
-- [ ] useComercials - CRUD de comerciales
-- [ ] useGlobalStats - Estadísticas con auto-refresh
-- [ ] Estados de loading y error
-- [ ] Toast notifications
-- [ ] Optimistic updates
-- [ ] Memoización con useMemo
+- [ ] Queries optimizadas (select específicos)
+- [ ] Imágenes optimizadas
+- [ ] Bundle size razonable
+- [ ] Lazy loading en componentes pesados
+- [ ] Memoización donde sea necesario
+- [ ] Lighthouse score > 80
+
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-#### AD-009: Páginas y Rutas
-**Prioridad:** Crítica
-**Tiempo:** 3 horas
-**Descripción:**
-- Página principal del admin dashboard
-- Página de gestión de empresas
-- Página de gestión de comerciales
-- Página de configuración
-
-**Archivos a crear:**
-- `src/app/(dashboard)/admin/page.tsx`
-- `src/app/(dashboard)/admin/companies/page.tsx`
-- `src/app/(dashboard)/admin/comercials/page.tsx`
-- `src/app/(dashboard)/admin/config/page.tsx`
-
-**Criterio de aceptación:**
-- [ ] /admin - Dashboard con resumen
-- [ ] /admin/companies - Gestión de empresas
-- [ ] /admin/comercials - Gestión de comerciales
-- [ ] /admin/config - Configuración del sistema
-- [ ] Navegación con tabs o sidebar
-- [ ] Layout responsivo
-- [ ] Protección por permisos (requireRole('superadmin'))
-- [ ] Breadcrumbs
-
----
-
-#### AD-010: README y Documentación
+#### TB-005: Documentación de Bugs y Fixes
 **Prioridad:** Media
 **Tiempo:** 1 hora
 **Descripción:**
-- Documentación completa del módulo
-- Ejemplos de uso
-- API documentation
-
-**Archivos a crear:**
-- `features/admin-dashboard/README.md`
+- Documentar bugs encontrados
+- Documentar soluciones aplicadas
+- Crear checklist de validación
+- Documentar casos edge conocidos
 
 **Criterio de aceptación:**
-- [ ] Descripción del módulo
-- [ ] Estructura de archivos
-- [ ] Guía de uso
-- [ ] Documentación de componentes
-- [ ] Documentación de server actions
-- [ ] Documentación de hooks
-- [ ] Tipos principales
-- [ ] Permisos y restricciones
-- [ ] Ejemplos de código
+- [ ] Lista de bugs documentada
+- [ ] Soluciones documentadas
+- [ ] Checklist de QA creada
+- [ ] Casos edge documentados
+
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-## DEPENDENCIAS
+## BACKLOG - MÓDULO 11: Deploy & Onboarding
 
-### Módulos requeridos (READ-ONLY):
-- ✅ shared/database - Schema de companies, users, config
-- ✅ shared/auth - Sistema de autenticación y permisos
-- ✅ shared/common - UI components y layouts
+### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-### Tablas de Base de Datos:
-- `reserrega.companies` - Empresas/tiendas
-- `reserrega.users` - Usuarios del sistema
-- `reserrega.config` - Configuración global
-- `reserrega.stores` - Tiendas físicas
-- `reserrega.reservations` - Para estadísticas
-- `reserrega.gifts` - Para estadísticas
+#### DO-001: Preparación para Deploy
+**Prioridad:** Crítica
+**Tiempo:** 2 horas
+**Descripción:**
+- Configurar variables de entorno para producción
+- Revisar configuración de Supabase Cloud
+- Configurar dominio y DNS
+- Preparar scripts de deploy
+- Revisar configuración de Next.js para producción
 
----
+**Criterio de aceptación:**
+- [ ] Variables de entorno configuradas (.env.production)
+- [ ] Supabase Cloud configurado
+- [ ] Dominio y DNS configurados (opcional)
+- [ ] Scripts de deploy listos
+- [ ] next.config.js optimizado para producción
 
-## ORDEN DE DESARROLLO RECOMENDADO
-
-1. **AD-001** - Types y Utilidades (base para todo)
-2. **AD-007** - Server Actions (lógica de backend)
-3. **AD-008** - Hooks (capa de abstracción)
-4. **AD-002** - Gestión de Empresas (funcionalidad principal)
-5. **AD-003** - Gestión de Comerciales
-6. **AD-004** - Estadísticas Globales
-7. **AD-005** - Configuración del Sistema
-8. **AD-006** - Log de Actividad (opcional)
-9. **AD-009** - Páginas y Rutas (integración)
-10. **AD-010** - Documentación
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-## NOTAS IMPORTANTES
+#### DO-002: Deploy a Vercel
+**Prioridad:** Crítica
+**Tiempo:** 2 horas
+**Descripción:**
+- Crear proyecto en Vercel
+- Configurar integración con GitHub
+- Configurar variables de entorno
+- Ejecutar deploy inicial
+- Verificar que todo funcione en producción
 
-### Permisos
-- **Solo superadmin** puede acceder a este módulo
-- Validar permisos en Server Actions
-- Proteger rutas con middleware
+**Criterio de aceptación:**
+- [ ] Proyecto creado en Vercel
+- [ ] Deploy automático configurado
+- [ ] Variables de entorno configuradas
+- [ ] Deploy exitoso
+- [ ] Aplicación funcionando en producción
+- [ ] URL de producción accesible
 
-### Multi-tenancy
-- Superadmin ve TODAS las empresas
-- Estadísticas globales incluyen todas las empresas
-- Filtrar por empresa en las vistas
-
-### Configuración
-- Valores en `reserrega.config` (JSONB)
-- Keys: reservation_fee, reservation_days, gift_lock_minutes, etc.
-- Cambios afectan a todo el sistema
-
-### Estadísticas
-- Cálculos en tiempo real desde BD
-- Agregar por empresa/tienda
-- Cachear con SWR o similar
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-## RESTRICCIONES
+#### DO-003: Onboarding de Empresa Demo
+**Prioridad:** Crítica
+**Tiempo:** 2 horas
+**Descripción:**
+- Crear empresa demo en producción
+- Crear tienda demo
+- Crear usuarios de prueba (superadmin, admin, comercial, usuarios)
+- Configurar datos de prueba
+- Validar flujo completo
 
-- NO modificar tablas de base de datos
-- NO modificar módulos completados (READ-ONLY)
-- Solo lectura de shared/* y features/* completados
-- Seguir patrones establecidos en módulos anteriores
-- TypeScript estricto
-- Validación completa de datos
+**Criterio de aceptación:**
+- [ ] Empresa demo creada
+- [ ] Tienda demo creada
+- [ ] Usuarios de prueba creados
+- [ ] Productos de prueba agregados
+- [ ] Flujo completo validado en producción
+
+**Estado:** ⏸️ PENDIENTE
 
 ---
 
-_Creado: 2025-11-20_
-_Módulo: Admin Dashboard_
-_Estado: Planificación_
+#### DO-004: Documentación para Comerciales
+**Prioridad:** Alta
+**Tiempo:** 2 horas
+**Descripción:**
+- Crear guía de uso para comerciales
+- Documentar flujo de escaneo
+- Documentar gestión de reservas
+- Crear FAQ básico
+- Preparar material de capacitación
+
+**Criterio de aceptación:**
+- [ ] Guía de uso creada (PDF o MD)
+- [ ] Flujo de escaneo documentado con screenshots
+- [ ] Gestión de reservas documentada
+- [ ] FAQ básico creado
+- [ ] Material de capacitación preparado
+
+**Estado:** ⏸️ PENDIENTE
+
+---
+
+#### DO-005: Documentación Técnica Final
+**Prioridad:** Alta
+**Tiempo:** 1 hora
+**Descripción:**
+- Actualizar README.md principal
+- Documentar arquitectura del sistema
+- Documentar stack tecnológico
+- Crear guía de desarrollo
+- Documentar procesos de deploy
+
+**Criterio de aceptación:**
+- [ ] README.md actualizado
+- [ ] Arquitectura documentada
+- [ ] Stack tecnológico documentado
+- [ ] Guía de desarrollo creada
+- [ ] Procesos de deploy documentados
+
+**Estado:** ⏸️ PENDIENTE
+
+---
+
+## COMPLETAR FASE 3
+
+**Cuando todos los módulos estén completados:**
+
+1. [ ] Todos los flujos críticos funcionando
+2. [ ] Bugs críticos corregidos
+3. [ ] Seguridad validada
+4. [ ] Deploy exitoso en Vercel
+5. [ ] Empresa demo configurada
+6. [ ] Documentación completa
+7. [ ] Actualizar PRD.md → FASE 3 completada
+8. [ ] Actualizar claude.md → Sistema en producción
+
+---
+
+## MÓDULOS COMPLETADOS
+
+### SHARED (FASE 1)
+✅ **Database** - Schema, types, RLS policies
+✅ **Auth** - Login, register, middleware, permisos
+✅ **Common** - UI components, layouts, hooks, utilidades
+
+### FEATURES (FASE 2)
+✅ **Product-Reservation** - QR generator, scanners, reservas, pago simulado
+✅ **Wishlist** - Grid, filtros, visibilidad, badges, páginas usuario
+✅ **Friends-Network** - Solicitudes amistad, búsqueda usuarios, invitaciones email
+✅ **Gift-Flow** - Ver wishlist amigos, bloqueo temporal, checkout, confirmación, historial
+✅ **Store-Panel** - Sesiones, escaneo productos, reservas, estadísticas
+
+### INTEGRACIÓN (FASE 3)
+✅ **Admin Dashboard** - Gestión empresas, comerciales, estadísticas, configuración
+⏸️ **Testing & Bug Fixes** - Validación, correcciones, optimización
+⏸️ **Deploy & Onboarding** - Vercel, empresa demo, documentación
+
+---
+
+## RESUMEN DE PROGRESO
+
+**MVP (Módulos 1-8):** ✅ 8/8 completados (100%)
+**FASE 3 (Módulos 9-11):** 🟡 1/3 completados (33%)
+**TOTAL:** 🟡 9/11 módulos completados (82%)
+
+**Estado del sistema:** Funcional, listo para testing y deploy
+**Próximo milestone:** Testing completo y deploy a producción

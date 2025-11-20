@@ -23,7 +23,7 @@ import type {
   ComercialFilters,
   PaginatedResponse,
 } from '../types/admin.types'
-import { useToast } from '@/shared/common/hooks/use-toast'
+import { useToast } from '@/shared/common/hooks/useToast'
 
 // =====================================================
 // HOOK

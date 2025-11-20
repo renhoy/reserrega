@@ -10,8 +10,8 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/shared/database/server'
-import { getServerUser, requireRole } from '@/shared/auth/server'
+import { createServerComponentClient } from '@/lib/supabase/helpers'
+import { requireRole } from '@/shared/auth/server'
 import type {
   Company,
   CompanyWithStats,
@@ -42,7 +42,7 @@ export async function getCompanies(
 ): Promise<ActionResult<PaginatedResponse<CompanyWithStats>>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     let query = supabase
       .from('companies')
@@ -124,7 +124,7 @@ export async function getCompanies(
 export async function createCompany(data: CreateCompanyData): Promise<ActionResult<Company>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     const { data: company, error } = await supabase
       .from('companies')
@@ -158,7 +158,7 @@ export async function updateCompany(
 ): Promise<ActionResult<Company>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     const { data: company, error } = await supabase
       .from('companies')
@@ -185,7 +185,7 @@ export async function updateCompany(
 export async function deleteCompany(id: number): Promise<ActionResult> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     // Check if company has associated data
     const [stores, users] = await Promise.all([
@@ -226,7 +226,7 @@ export async function getComercials(
 ): Promise<ActionResult<PaginatedResponse<ComercialWithDetails>>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     let query = supabase
       .from('users')
@@ -292,7 +292,7 @@ export async function getComercials(
 export async function createComercial(data: CreateComercialData): Promise<ActionResult<Comercial>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     // Create user with Supabase auth
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({
@@ -348,7 +348,7 @@ export async function updateComercial(
 ): Promise<ActionResult<Comercial>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     const { data: comercial, error } = await supabase
       .from('users')
@@ -376,7 +376,7 @@ export async function updateComercial(
 export async function toggleComercialStatus(id: string): Promise<ActionResult<Comercial>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     // Get current status
     const { data: current, error: fetchError } = await supabase
@@ -424,7 +424,7 @@ export async function toggleComercialStatus(id: string): Promise<ActionResult<Co
 export async function getGlobalStats(): Promise<ActionResult<GlobalStats>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     const now = new Date()
     const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
@@ -551,7 +551,7 @@ export async function getGlobalStats(): Promise<ActionResult<GlobalStats>> {
 export async function getSystemConfig(): Promise<ActionResult<SystemConfig>> {
   try {
     await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     const { data, error } = await supabase
       .from('config')
@@ -577,7 +577,7 @@ export async function updateSystemConfig(
 ): Promise<ActionResult<SystemConfig>> {
   try {
     const user = await requireRole('superadmin')
-    const supabase = await createClient()
+    const supabase = createServerComponentClient()
 
     const { data: config, error } = await supabase
       .from('config')

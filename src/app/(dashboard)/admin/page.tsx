@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 // SERVER COMPONENT
 // =====================================================
 
-export default async function AdminDashboard Page() {
+export default async function AdminDashboardPage() {
   await requireRole('superadmin')
 
   const statsResult = await getGlobalStats()

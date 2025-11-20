@@ -19,8 +19,8 @@ export function PublicFooter({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <div className="flex items-center justify-center space-x-2 mb-6">
-          <div className="w-6 h-6 bg-gradient-to-br from-pink-500 to-purple-500 rounded flex items-center justify-center">
-            <Gift className="h-4 w-4 text-white" />
+          <div className="w-6 h-6 bg-gradient-to-br from-pink-500 to-purple-500 rounded flex items-center justify-center text-white font-black text-xs">
+            RR
           </div>
           <span className="text-xl font-bold">{appName}</span>
         </div>

@@ -55,8 +55,8 @@ export function Header({
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
-                <Gift className="h-5 w-5 text-white" />
+              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md text-white font-black text-sm">
+                RR
               </div>
               <span className="text-xl font-bold text-gray-900">{appName}</span>
             </Link>
@@ -155,8 +155,8 @@ export function Header({
             href={isAdmin ? "/dashboard" : userRole === "comercial" ? "/scan" : "/wishlist"}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md">
-              <Gift className="h-5 w-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md text-white font-black text-sm">
+              RR
             </div>
             <span className="text-xl font-bold text-gray-900">{appName}</span>
             {testingMode && (

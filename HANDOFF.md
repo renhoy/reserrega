@@ -318,7 +318,7 @@ Estadísticas:
 **Comandos:**
 ```bash
 docker build -t reserrega .
-docker run -p 3000:3000 --env-file .env.production reserrega
+docker run -p 3434:3434 --env-file .env.production reserrega
 # O
 docker-compose up -d
 ```
@@ -529,7 +529,7 @@ Manual testing:     🟡 Parcial
 ### Comandos Útiles
 ```bash
 # Desarrollo
-npm run dev              # Iniciar en puerto 3000
+npm run dev              # Iniciar en puerto 3434
 npm run build            # Build producción
 npm run type-check       # Verificar tipos
 

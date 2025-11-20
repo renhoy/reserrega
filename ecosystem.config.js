@@ -14,7 +14,7 @@ module.exports = {
       // -----------------------------------------------------
       name: 'reserrega-app',
       script: 'node_modules/next/dist/bin/next',
-      args: 'start -p 3000',
+      args: 'start -p 3434',
       cwd: './',
       instances: 'max', // Use all CPU cores
       exec_mode: 'cluster', // Cluster mode for load balancing
@@ -24,7 +24,7 @@ module.exports = {
       // Environment variables
       env_production: {
         NODE_ENV: 'production',
-        PORT: 3000,
+        PORT: 3434,
         NEXT_TELEMETRY_DISABLED: 1,
         PUPPETEER_SKIP_DOWNLOAD: true,
       },
@@ -57,7 +57,7 @@ module.exports = {
       // health_check: {
       //   interval: 30000, // 30 seconds
       //   path: '/api/health',
-      //   port: 3000,
+      //   port: 3434,
       // },
     },
   ],

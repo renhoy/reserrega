@@ -62,7 +62,7 @@ supabase db push
 npm run dev
 
 # Abrir en navegador
-# → http://localhost:3000
+# → http://localhost:3434
 ```
 
 ✅ **¡Listo!** La aplicación está corriendo.
@@ -95,7 +95,7 @@ vercel --prod
 docker build -t reserrega .
 
 # Ejecutar
-docker run -p 3000:3000 --env-file .env.production reserrega
+docker run -p 3434:3434 --env-file .env.production reserrega
 
 # O con Docker Compose
 docker-compose up -d
@@ -142,7 +142,7 @@ openssl rand -base64 32
 ### 1. Health Check
 
 ```bash
-curl http://localhost:3000/api/health
+curl http://localhost:3434/api/health
 # → {"status":"healthy","database":"connected"}
 ```
 
@@ -233,7 +233,7 @@ rm -rf .next
 npm run build
 ```
 
-### Puerto 3000 ya en uso
+### Puerto 3434 ya en uso
 
 ```bash
 # Cambiar puerto (editar package.json)

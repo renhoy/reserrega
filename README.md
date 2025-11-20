@@ -70,7 +70,7 @@ Reserrega conecta tiendas físicas con usuarias que quieren evitar regalos dupli
 ### Deployment Status
 ```
 ✅ Build compilando correctamente
-✅ Package.json configurado con Turbopack (puerto 3000)
+✅ Package.json configurado con Turbopack (puerto 3434)
 ✅ Variables de entorno documentadas (.env.example)
 ✅ Next.js optimizado (standalone, security headers)
 ✅ Docker multi-stage ready
@@ -284,7 +284,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
 
 # App Configuration
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=http://localhost:3434
 ```
 
 ### 4. Setup Base de Datos
@@ -313,7 +313,7 @@ SETUP_INICIAL_COMPLETO.sql
 npm run dev
 ```
 
-Abrir [http://localhost:3000](http://localhost:3000)
+Abrir [http://localhost:3434](http://localhost:3434)
 
 ---
 

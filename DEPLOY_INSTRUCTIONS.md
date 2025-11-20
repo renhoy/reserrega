@@ -11,7 +11,7 @@
 Reserrega está **100% configurado** para deployment. Todos los archivos de configuración, variables de entorno, documentación y health checks están implementados.
 
 **Lo que está listo:**
-- ✅ Package.json configurado con Turbopack (puerto 3000)
+- ✅ Package.json configurado con Turbopack (puerto 3434)
 - ✅ Next.js optimizado (standalone output, security headers)
 - ✅ Variables de entorno documentadas
 - ✅ Docker multi-stage build
@@ -213,13 +213,13 @@ cp .env.production.example .env.production
 docker build -t reserrega:latest .
 
 # 3. Ejecutar
-docker run -p 3000:3000 --env-file .env.production reserrega:latest
+docker run -p 3434:3434 --env-file .env.production reserrega:latest
 
 # O con Docker Compose
 docker-compose up -d
 
 # 4. Verificar
-curl http://localhost:3000/api/health
+curl http://localhost:3434/api/health
 ```
 
 ---
@@ -259,7 +259,7 @@ pm2 save
 # 9. Verificar
 pm2 status
 pm2 logs reserrega-app
-curl http://localhost:3000/api/health
+curl http://localhost:3434/api/health
 ```
 
 ---

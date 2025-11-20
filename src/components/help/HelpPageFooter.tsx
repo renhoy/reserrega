@@ -13,7 +13,7 @@ export function HelpPageFooter() {
         type="button"
         variant="outline"
         onClick={() => router.back()}
-        className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white w-full md:w-auto"
+        className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white w-full md:w-auto"
       >
         <X className="mr-2 h-4 w-4" />
         Cancelar

@@ -165,7 +165,7 @@ export default function CompanyTable({
   };
 
   const tipoColors = {
-    empresa: "bg-lime-100 text-blue-800",
+    empresa: "bg-pink-100 text-blue-800",
     autonomo: "bg-purple-100 text-purple-800",
   };
 
@@ -201,8 +201,8 @@ export default function CompanyTable({
             }}
             className={
               typeFilter === "all" && search === ""
-                ? "bg-lime-500 hover:bg-lime-600"
-                : "border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             }
           >
             Todas ({companies.length})
@@ -214,8 +214,8 @@ export default function CompanyTable({
             disabled={!typeCounts["empresa"]}
             className={
               typeFilter === "empresa"
-                ? "bg-lime-500 hover:bg-lime-600"
-                : "border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             }
           >
             Empresas{typeCounts["empresa"] ? ` (${typeCounts["empresa"]})` : ""}
@@ -227,8 +227,8 @@ export default function CompanyTable({
             disabled={!typeCounts["autonomo"]}
             className={
               typeFilter === "autonomo"
-                ? "bg-lime-500 hover:bg-lime-600"
-                : "border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             }
           >
             Autónomos
@@ -245,7 +245,7 @@ export default function CompanyTable({
       )}
 
       {/* Vista Desktop - Tabla */}
-      <div className="hidden lg:block rounded-md border bg-lime-100">
+      <div className="hidden lg:block rounded-md border bg-pink-100">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-transparent">
@@ -274,7 +274,7 @@ export default function CompanyTable({
               filteredCompanies.map((company) => (
                 <TableRow
                   key={company.id}
-                  className="bg-white border-t hover:bg-lime-100/100"
+                  className="bg-white border-t hover:bg-pink-100/100"
                 >
                   {/* Columna Empresa */}
                   <TableCell className="p-4">
@@ -409,7 +409,7 @@ export default function CompanyTable({
                                 variant="outline"
                                 size="icon"
                                 asChild
-                                className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                                className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                               >
                                 <Link href={`/companies/create?id=${company.uuid}`}>
                                   <Pencil className="h-4 w-4" />
@@ -430,7 +430,7 @@ export default function CompanyTable({
                                 variant="outline"
                                 size="icon"
                                 asChild
-                                className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                                className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                               >
                                 <Link href={`/users/create?company_id=${company.uuid}`}>
                                   <UserPlus className="h-4 w-4" />
@@ -452,7 +452,7 @@ export default function CompanyTable({
                                 size="icon"
                                 onClick={() => handleDuplicate(company)}
                                 disabled={isDuplicating === company.uuid}
-                                className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                                className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                               >
                                 <Copy className="h-4 w-4" />
                               </Button>
@@ -589,7 +589,7 @@ export default function CompanyTable({
                   </ul>
                 </div>
 
-                <div className="bg-lime-50 border border-blue-200 rounded-md p-3">
+                <div className="bg-pink-50 border border-blue-200 rounded-md p-3">
                   <p className="text-sm text-blue-800">
                     ℹ️ <strong>Nota:</strong> Los datos se marcarán como
                     eliminados pero podrán ser recuperados por un superadmin si

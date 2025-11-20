@@ -167,11 +167,11 @@ export default function RegisterForm() {
   // Si el PASO 1 fue exitoso, mostrar mensaje de confirmación de email
   if (registrationSuccess && registeredEmail) {
     return (
-      <div className="fixed inset-0 bg-gradient-to-b from-lime-50 to-white flex items-center justify-center p-4 z-50">
+      <div className="fixed inset-0 bg-gradient-to-b from-pink-50 to-white flex items-center justify-center p-4 z-50">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 w-16 h-16 bg-lime-100 rounded-full flex items-center justify-center">
-              <User className="h-8 w-8 text-lime-600" />
+            <div className="mx-auto mb-4 w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
+              <User className="h-8 w-8 text-pink-600" />
             </div>
             <CardTitle className="text-2xl">Confirma tu email</CardTitle>
             <CardDescription>

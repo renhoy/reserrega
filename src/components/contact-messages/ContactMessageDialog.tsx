@@ -140,7 +140,7 @@ export function ContactMessageDialog({
                 <p className="font-medium text-gray-900">
                   <a
                     href={`mailto:${message.email}`}
-                    className="text-lime-600 hover:text-lime-700 underline"
+                    className="text-pink-600 hover:text-pink-700 underline"
                   >
                     {message.email}
                   </a>
@@ -204,7 +204,7 @@ export function ContactMessageDialog({
           <Button variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
             Cerrar
           </Button>
-          <Button onClick={handleSave} disabled={loading} className="bg-lime-600 hover:bg-lime-700">
+          <Button onClick={handleSave} disabled={loading} className="bg-pink-600 hover:bg-pink-700">
             {loading ? (
               "Actualizando..."
             ) : (

@@ -98,7 +98,7 @@ ${message.message}`;
               <span className="text-sm text-gray-600">Email: </span>
               <a
                 href={`mailto:${message.email}`}
-                className="text-lime-600 hover:text-lime-700 underline"
+                className="text-pink-600 hover:text-pink-700 underline"
               >
                 {message.email}
               </a>
@@ -127,14 +127,14 @@ ${message.message}`;
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
-            className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+            className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
           >
             <X className="mr-2 h-4 w-4" />
             Cancelar
           </Button>
           <Button
             onClick={handleCopy}
-            className="bg-lime-600 hover:bg-lime-700"
+            className="bg-pink-600 hover:bg-pink-700"
           >
             <Copy className="mr-2 h-4 w-4" />
             Copiar al portapapeles

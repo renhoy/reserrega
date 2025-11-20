@@ -23,7 +23,7 @@ export function ContactMessagesStats({
       <div
         className={`bg-white rounded-lg border-2 p-4 cursor-pointer transition-all ${
           !currentFilter
-            ? "border-lime-500 shadow-md"
+            ? "border-pink-500 shadow-md"
             : "border-gray-200 hover:border-gray-300"
         }`}
         onClick={() => router.push("/contact-messages")}
@@ -35,7 +35,7 @@ export function ContactMessagesStats({
       <div
         className={`bg-blue-50 rounded-lg border-2 p-4 cursor-pointer transition-all ${
           currentFilter === "nuevo"
-            ? "border-lime-500 shadow-md"
+            ? "border-pink-500 shadow-md"
             : "border-blue-200 hover:border-blue-300"
         }`}
         onClick={() => router.push("/contact-messages?status=nuevo")}
@@ -47,7 +47,7 @@ export function ContactMessagesStats({
       <div
         className={`bg-yellow-50 rounded-lg border-2 p-4 cursor-pointer transition-all ${
           currentFilter === "leido"
-            ? "border-lime-500 shadow-md"
+            ? "border-pink-500 shadow-md"
             : "border-yellow-200 hover:border-yellow-300"
         }`}
         onClick={() => router.push("/contact-messages?status=leido")}
@@ -59,7 +59,7 @@ export function ContactMessagesStats({
       <div
         className={`bg-green-50 rounded-lg border-2 p-4 cursor-pointer transition-all ${
           currentFilter === "respondido"
-            ? "border-lime-500 shadow-md"
+            ? "border-pink-500 shadow-md"
             : "border-green-200 hover:border-green-300"
         }`}
         onClick={() => router.push("/contact-messages?status=respondido")}

@@ -135,7 +135,7 @@ export function ContactMessageNotes({ messageId }: ContactMessageNotesProps) {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <MessageSquare className="h-5 w-5 text-lime-600" />
+        <MessageSquare className="h-5 w-5 text-pink-600" />
         <h3 className="text-lg font-semibold text-gray-900">
           Notas Internas
         </h3>
@@ -156,7 +156,7 @@ export function ContactMessageNotes({ messageId }: ContactMessageNotesProps) {
             onClick={handleAddNote}
             disabled={saving || !newNoteContent.trim()}
             size="sm"
-            className="bg-lime-600 hover:bg-lime-700"
+            className="bg-pink-600 hover:bg-pink-700"
           >
             <Plus className="h-4 w-4 mr-2" />
             Añadir Nota
@@ -249,7 +249,7 @@ export function ContactMessageNotes({ messageId }: ContactMessageNotesProps) {
                         size="sm"
                         onClick={() => handleSaveEdit(note.id)}
                         disabled={saving}
-                        className="bg-lime-600 hover:bg-lime-700"
+                        className="bg-pink-600 hover:bg-pink-700"
                       >
                         <Check className="h-4 w-4 mr-1" />
                         Guardar

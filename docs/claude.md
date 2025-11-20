@@ -1,45 +1,39 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Gift-Flow 🔴
+## MÓDULO ACTUAL: Store-Panel 🔴
 
-**Objetivo:** Flujo completo de regalo - ver wishlist de amigo, seleccionar producto, bloqueo temporal, pago simulado, confirmación de entrega
+**Objetivo:** Panel para comerciales/dependientas - escanear QR usuario, escanear productos, gestionar reservas activas, marcar envíos, dashboard de estadísticas
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/gift-flow/
+features/store-panel/
 ├── components/
-│   ├── GiftSelectionCard.tsx
-│   ├── GiftCheckoutForm.tsx
-│   ├── GiftConfirmation.tsx
-│   ├── DeliveryTracking.tsx
-│   └── GiftHistory.tsx
+│   ├── SessionScanner.tsx
+│   ├── ProductLinker.tsx
+│   ├── ActiveReservations.tsx
+│   ├── DeliveryManager.tsx
+│   └── StoreStats.tsx
 ├── actions/
-│   ├── lockGiftItem.ts
-│   ├── processGiftPayment.ts
-│   ├── confirmDelivery.ts
-│   └── getGiftHistory.ts
+│   └── store-panel.actions.ts
 ├── hooks/
-│   ├── useGiftFlow.ts
-│   └── useDeliveryTracking.ts
+│   └── use-store-session.ts
 ├── lib/
-│   └── gift-utils.ts
+│   └── store-utils.ts
 ├── types/
-│   └── gift.types.ts
+│   └── store.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
-├── (app)/
-│   ├── gift/
-│   │   ├── [friendId]/
-│   │   │   ├── page.tsx
-│   │   │   └── checkout/
-│   │   │       └── page.tsx
-│   │   └── history/
-│   │       └── page.tsx
+├── (comercial)/
+│   └── store/
+│       ├── page.tsx
+│       └── session/
+│           └── [userId]/
+│               └── page.tsx
 ```
 
 ---
@@ -89,7 +83,17 @@ src/app/
   - Páginas /friends, /friends/requests, /friends/invite
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados - excepto Gift-Flow)
+✅ features/gift-flow/* (READ-ONLY - Módulo completado)
+  - Ver wishlist de amigos según permisos
+  - Selección de productos con bloqueo temporal (15 min)
+  - Sistema de checkout con pago simulado
+  - Confirmación de entrega
+  - Historial de regalos enviados y recibidos
+  - Componentes (GiftSelectionCard, GiftCheckoutForm, GiftConfirmation, etc.)
+  - Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history, /gift/confirmation
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Store-Panel)
 ❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 
@@ -105,10 +109,10 @@ src/app/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Friends-Network
+- Solo trabajar en archivos del módulo Store-Panel
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/*, features/product-reservation/* y features/wishlist/* pero NO MODIFICAR
+- Puedes LEER shared/*, features/* (completados) pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -143,6 +147,8 @@ src/app/
 - shared/common/* - UI components, layouts, hooks, utilidades
 - features/product-reservation/* - QR, escaneo, reservas, pago simulado
 - features/wishlist/* - Grid, filtros, visibilidad, badges de estado
+- features/friends-network/* - Red de amigos, solicitudes, invitaciones
+- features/gift-flow/* - Flujo completo de regalo, bloqueos, checkout
 
 **Herramientas:**
 - clsx / tailwind-merge
@@ -161,13 +167,14 @@ src/app/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Friends-Network module incluye:**
-- Invitar amigos por email con token único
-- Generar/escanear QR para añadir amigos
-- Búsqueda de usuarios por username/email
-- Enviar/aprobar/rechazar solicitudes de amistad
-- Ver lista de amigos
-- Gestionar red de regaladores
+**Store-Panel module incluye:**
+- Escanear QR de usuario para abrir sesión de compra
+- Escanear códigos de barras de productos
+- Vincular productos escaneados al usuario
+- Ver reservas activas de la tienda
+- Marcar productos como enviados/entregados
+- Dashboard con estadísticas de la tienda
+- Gestión de sesiones de compra activas
 
 ---
 
@@ -178,15 +185,14 @@ src/app/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Friends-Network
-Solo puedes modificar archivos en features/friends-network/ y rutas en src/app/(user)/friends
+Módulo activo: Store-Panel
+Solo puedes modificar archivos en features/store-panel/ y rutas en src/app/(comercial)/store
 
 Tarea actual: [copiar de tareas.md]
 
 Restricciones:
 - NO modificar shared/* (READ-ONLY)
-- NO modificar features/product-reservation/* (READ-ONLY)
-- NO modificar features/wishlist/* (READ-ONLY)
+- NO modificar features/* completados (READ-ONLY)
 - Puedes LEER módulos completados para uso
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
@@ -237,15 +243,27 @@ Restricciones:
 - Hook useWishlist
 - Server actions completas
 
+✅ **Friends-Network** - `features/friends-network/` (READ-ONLY)
+- Solicitudes de amistad completas
+- Búsqueda de usuarios
+- Invitaciones por email
+- Gestión de red de amigos
+
+✅ **Gift-Flow** - `features/gift-flow/` (READ-ONLY)
+- Ver wishlist de amigos
+- Bloqueo temporal de productos
+- Checkout con pago simulado
+- Historial de regalos
+
 ---
 
-## PRÓXIMO MÓDULO (después de completar Friends-Network)
+## PRÓXIMO MÓDULO (después de completar Store-Panel)
 
-**Gift-Flow** - `features/gift-flow/`
+**Admin Dashboard** - Panel administrativo
 
-**Cuando Friends-Network esté READ-ONLY:**
-1. Actualizar PRD.md → estado Friends-Network = READ-ONLY
-2. Mover `features/friends-network/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Gift-Flow
-4. Actualizar lista PERMITIDOS con archivos de Gift-Flow
-5. Crear nuevo backlog en tareas.md para Gift-Flow
+**Cuando Store-Panel esté READ-ONLY:**
+1. Actualizar PRD.md → estado Store-Panel = READ-ONLY
+2. Mover `features/store-panel/*` a ARCHIVOS PROHIBIDOS
+3. Cambiar MÓDULO ACTUAL a: Admin Dashboard
+4. Actualizar lista PERMITIDOS con archivos correspondientes
+5. Crear nuevo backlog en tareas.md

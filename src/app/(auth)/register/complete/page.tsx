@@ -26,7 +26,7 @@ function LoadingFallback() {
   return (
     <Card className="w-full max-w-2xl mx-auto">
       <CardContent className="flex flex-col items-center justify-center py-12">
-        <Loader2 className="h-8 w-8 animate-spin text-lime-600 mb-4" />
+        <Loader2 className="h-8 w-8 animate-spin text-pink-600 mb-4" />
         <p className="text-muted-foreground">Cargando...</p>
       </CardContent>
     </Card>
@@ -39,7 +39,7 @@ export default function CompleteRegistrationPage({
   searchParams: Promise<{ token?: string }>;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-lime-50 to-white flex items-center justify-center p-4 py-8">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center p-4 py-8">
       <Suspense fallback={<LoadingFallback />}>
         <CompleteRegistrationContent searchParams={searchParams} />
       </Suspense>

@@ -89,8 +89,8 @@ export default async function ReservationDetailPage({
                       </p>
                     </div>
                   ) : (
-                    <div className="bg-lime-50 dark:bg-lime-900/20 border border-lime-200 dark:border-lime-800 rounded-lg p-4">
-                      <p className="font-semibold text-lime-800 dark:text-lime-200">
+                    <div className="bg-pink-50 dark:bg-pink-900/20 border border-pink-200 dark:border-pink-800 rounded-lg p-4">
+                      <p className="font-semibold text-pink-800 dark:text-pink-200">
                         ✓ Reserva activa
                       </p>
                       <p className="text-sm text-muted-foreground mt-1">
@@ -215,7 +215,7 @@ export default async function ReservationDetailPage({
                   <span className="font-semibold">{formatCurrency(product.price)}</span>
                 </div>
 
-                <div className="flex justify-between items-center text-lime-600">
+                <div className="flex justify-between items-center text-pink-600">
                   <span>Pagado (reserva):</span>
                   <span className="font-semibold">-{formatCurrency(reservation.amount_paid)}</span>
                 </div>

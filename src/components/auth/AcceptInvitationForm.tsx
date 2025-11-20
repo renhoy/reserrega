@@ -204,7 +204,7 @@ export default function AcceptInvitationForm() {
     return (
       <Card className="w-full max-w-md mx-auto">
         <CardContent className="pt-6 pb-6 text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-lime-600 mx-auto mb-4" />
+          <Loader2 className="h-12 w-12 animate-spin text-pink-600 mx-auto mb-4" />
           <p className="text-muted-foreground">Validando invitación...</p>
         </CardContent>
       </Card>

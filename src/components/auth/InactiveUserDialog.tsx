@@ -53,7 +53,7 @@ export function InactiveUserDialog({ showDialog }: InactiveUserDialogProps) {
         <AlertDialogFooter>
           <AlertDialogAction
             onClick={handleClose}
-            className="bg-lime-500 hover:bg-lime-600"
+            className="bg-pink-500 hover:bg-pink-600"
           >
             Aceptar
           </AlertDialogAction>

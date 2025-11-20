@@ -108,7 +108,7 @@ export default async function ReservationsPage() {
                         </div>
                         <div className="text-right">
                           <p className="text-sm text-muted-foreground">Pagado</p>
-                          <p className="text-sm font-semibold text-lime-600">
+                          <p className="text-sm font-semibold text-pink-600">
                             {formatCurrency(reservation.amount_paid)}
                           </p>
                         </div>

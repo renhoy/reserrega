@@ -157,7 +157,7 @@ export default function GiftHistoryPage() {
                         <Calendar className="h-4 w-4" />
                         <span>{formatGiftDate(gift.created_at)}</span>
                       </div>
-                      <span className="font-bold text-lime-600 dark:text-lime-400">
+                      <span className="font-bold text-pink-600 dark:text-pink-400">
                         {formatGiftAmount(gift.amount)}
                       </span>
                     </div>
@@ -251,7 +251,7 @@ export default function GiftHistoryPage() {
                           className={cn(
                             'font-medium',
                             gift.shipping_status === 'delivered'
-                              ? 'bg-lime-100 text-lime-800 border-lime-300'
+                              ? 'bg-pink-100 text-pink-800 border-pink-300'
                               : 'bg-sky-100 text-sky-800 border-sky-300'
                           )}
                         >

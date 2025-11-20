@@ -80,7 +80,7 @@ export function UserCard({
                 {getRoleLabel(user.role)}
               </div>
               {/* Línea 4: Empresa */}
-              <div className="text-xs font-medium text-lime-700">
+              <div className="text-xs font-medium text-pink-700">
                 {user.company_name || "-"}
               </div>
             </div>
@@ -171,7 +171,7 @@ export function UserCard({
                     variant="outline"
                     size="sm"
                     onClick={() => onInviteUser(user)}
-                    className="min-w-[20%] h-7 px-2 gap-1.5 text-xs border-lime-500 text-lime-600 hover:bg-lime-50"
+                    className="min-w-[20%] h-7 px-2 gap-1.5 text-xs border-pink-500 text-pink-600 hover:bg-pink-50"
                   >
                     <Plus className="h-3.5 w-3.5 flex-shrink-0" />
                     <Mail className="h-3.5 w-3.5 flex-shrink-0" />

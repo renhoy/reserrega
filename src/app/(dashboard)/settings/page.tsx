@@ -95,7 +95,7 @@ export default async function SettingsPage() {
     .filter((category) => category.items.length > 0); // Solo categorías con items
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-pink-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header con botones */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
@@ -118,7 +118,7 @@ export default async function SettingsPage() {
           </div>
           <div className="flex flex-wrap gap-2 justify-center md:justify-end w-full md:w-auto">
             <Link href="/settings/business-rules">
-              <Button className="bg-lime-500 hover:bg-lime-600">
+              <Button className="bg-pink-500 hover:bg-pink-600">
                 <Shield className="mr-2 h-5 w-5" />
                 Reglas de Negocio
               </Button>

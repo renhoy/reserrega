@@ -62,7 +62,7 @@ export const STATUS_COLORS = {
   borrador: '#6b7280',   // gray-500
   pendiente: '#f59e0b',  // amber-500
   enviado: '#3b82f6',    // blue-500
-  aprobado: '#10b981',   // emerald-500
+  aprobado: '#10b981',   // pink-500
   rechazado: '#ef4444',  // red-500
   caducado: '#8b5cf6'    // violet-500
 } as const;
@@ -173,7 +173,7 @@ export type Priority = typeof PRIORITIES[keyof typeof PRIORITIES];
  * Colores para prioridades
  */
 export const PRIORITY_COLORS = {
-  baja: '#10b981',    // emerald-500
+  baja: '#10b981',    // pink-500
   media: '#f59e0b',   // amber-500
   alta: '#f97316',    // orange-500
   urgente: '#ef4444'  // red-500

@@ -369,7 +369,7 @@ export default function UnifiedUserEditForm({
                 variant="outline"
                 size="sm"
                 onClick={() => startTour("profile-page")}
-                className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white h-8 px-3 gap-1.5"
+                className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white h-8 px-3 gap-1.5"
               >
                 <Play className="h-3.5 w-3.5" />
                 Tour
@@ -397,7 +397,7 @@ export default function UnifiedUserEditForm({
       </div>
 
       {/* 1. Card: Información Básica */}
-      <Card id="card-info-basica" className="bg-lime-100">
+      <Card id="card-info-basica" className="bg-pink-100">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -533,7 +533,7 @@ export default function UnifiedUserEditForm({
 
       {/* Card: Seleccionar Empresa (Solo superadmin) */}
       {canEditCompany && (
-        <Card id="card-seleccionar-empresa" className="bg-lime-100">
+        <Card id="card-seleccionar-empresa" className="bg-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5" />
@@ -561,7 +561,7 @@ export default function UnifiedUserEditForm({
             {/* Tabla de empresas */}
             {loadingCompanies ? (
               <div className="flex items-center justify-center py-8">
-                <Loader2 className="h-6 w-6 animate-spin text-lime-600" />
+                <Loader2 className="h-6 w-6 animate-spin text-pink-600" />
                 <span className="ml-2 text-sm text-muted-foreground">
                   Cargando empresas...
                 </span>
@@ -610,8 +610,8 @@ export default function UnifiedUserEditForm({
                             key={company.id}
                             className={`cursor-pointer ${
                               formData.company_id === company.id
-                                ? "bg-lime-200 hover:bg-lime-200"
-                                : "bg-white hover:bg-lime-100"
+                                ? "bg-pink-200 hover:bg-pink-200"
+                                : "bg-white hover:bg-pink-100"
                             }`}
                           >
                             <TableCell>
@@ -701,7 +701,7 @@ export default function UnifiedUserEditForm({
 
       {/* 2. Card: Datos del Emisor */}
       {profile.emisor && canEditEmisor && (
-        <Card id="card-datos-emisor" className="bg-lime-100">
+        <Card id="card-datos-emisor" className="bg-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5" />
@@ -880,7 +880,7 @@ export default function UnifiedUserEditForm({
 
       {/* 3. Card: Cambiar Contraseña */}
       {canChangePassword && (
-        <Card id="card-cambiar-password" className="bg-lime-100">
+        <Card id="card-cambiar-password" className="bg-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Lock className="h-5 w-5" />
@@ -898,7 +898,7 @@ export default function UnifiedUserEditForm({
                 type="button"
                 variant="outline"
                 onClick={() => setShowPasswordSection(true)}
-                className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
               >
                 Cambiar Contraseña
               </Button>

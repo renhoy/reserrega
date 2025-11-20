@@ -269,7 +269,7 @@ export default function CompleteRegistrationForm({
     return (
       <Card className="w-full max-w-2xl mx-auto">
         <CardContent className="flex flex-col items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-lime-600 mb-4" />
+          <Loader2 className="h-8 w-8 animate-spin text-pink-600 mb-4" />
           <p className="text-muted-foreground">Validando enlace de registro...</p>
         </CardContent>
       </Card>
@@ -308,14 +308,14 @@ export default function CompleteRegistrationForm({
     return (
       <Card className="w-full max-w-2xl mx-auto">
         <CardContent className="flex flex-col items-center justify-center py-12 space-y-4">
-          <CheckCircle2 className="h-16 w-16 text-lime-600" />
+          <CheckCircle2 className="h-16 w-16 text-pink-600" />
           <h2 className="text-2xl font-semibold text-center">
             ¡Registro Completado!
           </h2>
           <p className="text-muted-foreground text-center">
             Tu cuenta ha sido creada exitosamente. Redirigiendo al dashboard...
           </p>
-          <Loader2 className="h-6 w-6 animate-spin text-lime-600" />
+          <Loader2 className="h-6 w-6 animate-spin text-pink-600" />
         </CardContent>
       </Card>
     );
@@ -344,9 +344,9 @@ export default function CompleteRegistrationForm({
             )}
 
             {/* Información sobre los datos fiscales */}
-            <Alert className="border-lime-200 bg-lime-50">
-              <Info className="h-4 w-4 text-lime-600" />
-              <AlertDescription className="text-sm text-lime-800">
+            <Alert className="border-pink-200 bg-pink-50">
+              <Info className="h-4 w-4 text-pink-600" />
+              <AlertDescription className="text-sm text-pink-800">
                 <span className="font-semibold">¿Por qué pedimos estos datos?</span> Esta información aparecerá en todos los presupuestos que generes. Podrás modificarla más tarde desde el menú Empresa.
               </AlertDescription>
             </Alert>

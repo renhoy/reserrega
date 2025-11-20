@@ -34,7 +34,7 @@ export default function WishlistPage() {
       <div className="flex items-center justify-between">
         <div className="space-y-1">
           <h1 className="text-3xl font-bold flex items-center gap-2">
-            <Heart className="h-8 w-8 text-lime-600" />
+            <Heart className="h-8 w-8 text-pink-600" />
             Mi Wishlist
           </h1>
           <p className="text-muted-foreground">

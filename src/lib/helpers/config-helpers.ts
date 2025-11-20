@@ -446,3 +446,163 @@ export async function getLegalPageContent(): Promise<string> {
   // Fallback por defecto (página legal básica)
   return '<h1>Aviso Legal</h1><p>En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), REDPRESU informa que es titular del sitio web.</p><p>Para más información, contacte con el administrador del sitio.</p>'
 }
+
+// =====================================================
+// RESERREGA SPECIFIC CONFIG GETTERS
+// =====================================================
+
+/**
+ * Obtiene el precio de reserva de productos
+ * @returns Precio en euros (default: 1.00)
+ */
+export async function getReservationFee(): Promise<number> {
+  const fee = await getConfigValue<number>('reservation_fee')
+  return fee ?? 1.00
+}
+
+/**
+ * Obtiene los días de validez de una reserva
+ * @returns Días (default: 15)
+ */
+export async function getReservationExpirationDays(): Promise<number> {
+  const days = await getConfigValue<number>('reservation_expiration_days')
+  return days ?? 15
+}
+
+/**
+ * Obtiene las horas de validez del QR de usuario
+ * @returns Horas (default: 24)
+ */
+export async function getQRExpirationHours(): Promise<number> {
+  const hours = await getConfigValue<number>('qr_user_expiration_hours')
+  return hours ?? 24
+}
+
+/**
+ * Obtiene los minutos de bloqueo temporal al regalar
+ * @returns Minutos (default: 15)
+ */
+export async function getGiftLockDurationMinutes(): Promise<number> {
+  const minutes = await getConfigValue<number>('gift_lock_duration_minutes')
+  return minutes ?? 15
+}
+
+/**
+ * Obtiene la visibilidad por defecto de productos en wishlist
+ * @returns 'private' | 'friends' | 'public' (default: 'friends')
+ */
+export async function getWishlistVisibilityDefault(): Promise<'private' | 'friends' | 'public'> {
+  const visibility = await getConfigValue<string>('wishlist_visibility_default')
+  return (visibility as 'private' | 'friends' | 'public') ?? 'friends'
+}
+
+/**
+ * Obtiene el máximo de productos en wishlist
+ * @returns Número máximo (default: 100)
+ */
+export async function getMaxWishlistProducts(): Promise<number> {
+  const max = await getConfigValue<number>('max_wishlist_products')
+  return max ?? 100
+}
+
+/**
+ * Obtiene el máximo de amigos por usuario
+ * @returns Número máximo (default: 500)
+ */
+export async function getMaxFriendsPerUser(): Promise<number> {
+  const max = await getConfigValue<number>('max_friends_per_user')
+  return max ?? 500
+}
+
+/**
+ * Obtiene los emails de notificación de contacto
+ * @returns Array de emails (default: ['admin@reserrega.com'])
+ */
+export async function getContactNotificationEmails(): Promise<string[]> {
+  const emails = await getConfigValue<string[]>('contact_notification_emails')
+  return emails ?? ['admin@reserrega.com']
+}
+
+/**
+ * Verifica si las notificaciones de regalo están habilitadas
+ * @returns true si están habilitadas (default: true)
+ */
+export async function areGiftNotificationsEnabled(): Promise<boolean> {
+  const enabled = await getConfigValue<boolean>('enable_gift_notifications')
+  return enabled ?? true
+}
+
+/**
+ * Verifica si las notificaciones de entrega están habilitadas
+ * @returns true si están habilitadas (default: true)
+ */
+export async function areDeliveryNotificationsEnabled(): Promise<boolean> {
+  const enabled = await getConfigValue<boolean>('enable_delivery_notifications')
+  return enabled ?? true
+}
+
+/**
+ * Verifica si el escaneo QR está habilitado
+ * @returns true si está habilitado (default: true)
+ */
+export async function isQRScanningEnabled(): Promise<boolean> {
+  const enabled = await getConfigValue<boolean>('enable_qr_scanning')
+  return enabled ?? true
+}
+
+/**
+ * Verifica si Stripe está habilitado (pagos reales)
+ * @returns true si está habilitado (default: false = simulación)
+ */
+export async function isStripeEnabled(): Promise<boolean> {
+  const enabled = await getConfigValue<boolean>('stripe_enabled')
+  return enabled ?? false
+}
+
+/**
+ * Obtiene el template de email de invitación
+ * @returns Template con subject, body_html, body_text
+ */
+export async function getInvitationEmailTemplate(): Promise<{
+  subject: string
+  body_html: string
+  body_text: string
+} | null> {
+  return await getConfigValue('invitation_email_template')
+}
+
+/**
+ * Obtiene el template de email de bienvenida
+ * @returns Template con subject, body_html, body_text
+ */
+export async function getWelcomeEmailTemplate(): Promise<{
+  subject: string
+  body_html: string
+  body_text: string
+} | null> {
+  return await getConfigValue('welcome_email_template')
+}
+
+/**
+ * Obtiene el template de email de regalo recibido
+ * @returns Template con subject, body_html, body_text
+ */
+export async function getGiftReceivedEmailTemplate(): Promise<{
+  subject: string
+  body_html: string
+  body_text: string
+} | null> {
+  return await getConfigValue('gift_received_email_template')
+}
+
+/**
+ * Obtiene el template de email de notificación de entrega
+ * @returns Template con subject, body_html, body_text
+ */
+export async function getDeliveryNotificationEmailTemplate(): Promise<{
+  subject: string
+  body_html: string
+  body_text: string
+} | null> {
+  return await getConfigValue('delivery_notification_email_template')
+}

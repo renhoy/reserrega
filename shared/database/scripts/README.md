@@ -82,7 +82,7 @@ psql -h db.xxxxx.supabase.co -U postgres \
    ```
 
 2. **Registrar primer usuario:**
-   - Ve a tu app en local: `http://localhost:3000/auth/signup`
+   - Ve a tu app en local: `http://localhost:3434/auth/signup`
    - Regístrate con tu email
 
 3. **Crear superadmin:**

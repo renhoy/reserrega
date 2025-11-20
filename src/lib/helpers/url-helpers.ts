@@ -34,7 +34,7 @@ export function getAppUrlSync(): string {
 
   // En servidor sin config: fallback a localhost (solo desarrollo)
   console.warn('[getAppUrlSync] Usando fallback localhost - configura NEXT_PUBLIC_APP_URL en producción')
-  return 'http://localhost:3000'
+  return 'http://localhost:3434'
 }
 
 /**

@@ -545,7 +545,7 @@ export async function buildPDFPayload(budget: Budget, tariff: Tariff): Promise<P
 
   // 6. Construir payload
   // Construir URL completa del logo para que Rapid-PDF pueda acceder
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3434'
   const logoUrl = tariff.logo_url
     ? tariff.logo_url.startsWith('http')
       ? tariff.logo_url // Ya es URL completa

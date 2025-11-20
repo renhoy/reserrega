@@ -106,7 +106,7 @@ export function QRGenerator({
         {!isExpired && timeRemaining && (
           <div className="text-center">
             <p className="text-sm text-muted-foreground">Válido por:</p>
-            <p className="text-2xl font-bold text-lime-600">{timeRemaining}</p>
+            <p className="text-2xl font-bold text-pink-600">{timeRemaining}</p>
           </div>
         )}
 
@@ -122,7 +122,7 @@ export function QRGenerator({
 
         {/* Instructions */}
         {showInstructions && !isExpired && (
-          <div className="bg-lime-50 dark:bg-lime-900/20 p-4 rounded-lg space-y-2">
+          <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg space-y-2">
             <h3 className="font-semibold text-sm">Instrucciones:</h3>
             <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
               <li>Muestra este código al personal de la tienda</li>

@@ -157,7 +157,7 @@ export function InviteFriendForm({
               >
                 {linkCopied ? (
                   <>
-                    <Check className="h-4 w-4 mr-1.5 text-lime-600" />
+                    <Check className="h-4 w-4 mr-1.5 text-pink-600" />
                     Copiado
                   </>
                 ) : (

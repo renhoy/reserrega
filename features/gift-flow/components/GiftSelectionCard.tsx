@@ -86,7 +86,7 @@ export function GiftSelectionCard({
           : 'gray'
 
   const statusColorClasses = {
-    lime: 'bg-lime-100 text-lime-800 border-lime-200 dark:bg-lime-900/20 dark:text-lime-400',
+    lime: 'bg-pink-100 text-pink-800 border-pink-200 dark:bg-pink-900/20 dark:text-pink-400',
     amber: 'bg-amber-100 text-amber-800 border-amber-200 dark:bg-amber-900/20 dark:text-amber-400',
     violet: 'bg-violet-100 text-violet-800 border-violet-200 dark:bg-violet-900/20 dark:text-violet-400',
     gray: 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-900/20 dark:text-gray-400',
@@ -166,7 +166,7 @@ export function GiftSelectionCard({
         </div>
 
         {/* Price */}
-        <div className="flex items-center gap-1 text-2xl font-bold text-lime-600 dark:text-lime-400">
+        <div className="flex items-center gap-1 text-2xl font-bold text-pink-600 dark:text-pink-400">
           <Euro className="h-5 w-5" />
           <span>{formatGiftAmount(product.price)}</span>
         </div>
@@ -213,7 +213,7 @@ export function GiftSelectionCard({
           <Button
             onClick={() => onSelectGift?.(item.id)}
             disabled={isLoading}
-            className="w-full bg-lime-600 hover:bg-lime-700 text-white"
+            className="w-full bg-pink-600 hover:bg-pink-700 text-white"
             size="lg"
           >
             <Gift className="mr-2 h-5 w-5" />

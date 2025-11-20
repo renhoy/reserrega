@@ -261,7 +261,7 @@ function UserResultItem({ user, onSendRequest, isSending }: UserResultItemProps)
       {/* Action/Status */}
       <div>
         {user.isFriend ? (
-          <Badge className="bg-lime-100 text-lime-700 hover:bg-lime-100">
+          <Badge className="bg-pink-100 text-pink-700 hover:bg-pink-100">
             <Check className="h-3 w-3 mr-1" />
             Amigo
           </Badge>

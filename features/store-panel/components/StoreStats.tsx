@@ -76,8 +76,8 @@ export function StoreStats({ stats, isLoading = false }: StoreStatsProps) {
       value: stats.deliveredToday.toString(),
       icon: CheckCircle,
       description: 'Completadas hoy',
-      color: 'text-emerald-600',
-      bgColor: 'bg-emerald-50',
+      color: 'text-pink-600',
+      bgColor: 'bg-pink-50',
     },
     {
       title: 'Ingresos Mes',

@@ -130,7 +130,7 @@ export default async function WishlistDetailPage({ params }: WishlistDetailPageP
           </div>
 
           {/* Price */}
-          <div className="flex items-center gap-2 text-4xl font-bold text-lime-600 dark:text-lime-400">
+          <div className="flex items-center gap-2 text-4xl font-bold text-pink-600 dark:text-pink-400">
             <Euro className="h-8 w-8" />
             <span>{product.price.toFixed(2)}</span>
           </div>

@@ -122,12 +122,12 @@ export function GiftSummary({
           <Separator />
 
           {/* Price */}
-          <div className="flex items-center justify-between p-4 bg-lime-50 dark:bg-lime-950/20 rounded-lg border border-lime-200 dark:border-lime-800">
+          <div className="flex items-center justify-between p-4 bg-pink-50 dark:bg-pink-950/20 rounded-lg border border-pink-200 dark:border-pink-800">
             <div className="flex items-center gap-2">
-              <Euro className="h-5 w-5 text-lime-600 dark:text-lime-400" />
+              <Euro className="h-5 w-5 text-pink-600 dark:text-pink-400" />
               <span className="font-medium">Total a pagar</span>
             </div>
-            <span className="text-2xl font-bold text-lime-600 dark:text-lime-400">
+            <span className="text-2xl font-bold text-pink-600 dark:text-pink-400">
               {formatGiftAmount(amount)}
             </span>
           </div>
@@ -164,7 +164,7 @@ export function GiftSummaryCompact({
           <p className="font-semibold line-clamp-1">{product.name}</p>
           <p className="text-sm text-muted-foreground">Para {recipient.name}</p>
         </div>
-        <p className="text-lg font-bold text-lime-600 dark:text-lime-400 ml-4">
+        <p className="text-lg font-bold text-pink-600 dark:text-pink-400 ml-4">
           {formatGiftAmount(amount)}
         </p>
       </div>

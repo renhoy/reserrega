@@ -57,12 +57,12 @@ export function GiftConfirmation({ gift, orderNumber, className }: GiftConfirmat
   return (
     <div className={cn('space-y-6 max-w-2xl mx-auto', className)}>
       {/* Success Alert */}
-      <Alert className="bg-lime-50 dark:bg-lime-950/20 border-lime-200 dark:border-lime-800">
-        <CheckCircle className="h-5 w-5 text-lime-600 dark:text-lime-400" />
-        <AlertTitle className="text-lime-900 dark:text-lime-100 text-lg font-semibold">
+      <Alert className="bg-pink-50 dark:bg-pink-950/20 border-pink-200 dark:border-pink-800">
+        <CheckCircle className="h-5 w-5 text-pink-600 dark:text-pink-400" />
+        <AlertTitle className="text-pink-900 dark:text-pink-100 text-lg font-semibold">
           ¡Regalo Confirmado!
         </AlertTitle>
-        <AlertDescription className="text-lime-800 dark:text-lime-300 mt-2">
+        <AlertDescription className="text-pink-800 dark:text-pink-300 mt-2">
           Tu regalo ha sido procesado exitosamente. {recipient.name} será notificado cuando el
           producto esté listo para entrega.
         </AlertDescription>
@@ -72,7 +72,7 @@ export function GiftConfirmation({ gift, orderNumber, className }: GiftConfirmat
       <Card>
         <CardHeader className="text-center bg-gradient-to-r from-violet-50 to-fuchsia-50 dark:from-violet-950/20 dark:to-fuchsia-950/20">
           <div className="flex justify-center mb-4">
-            <div className="h-16 w-16 rounded-full bg-lime-600 dark:bg-lime-500 flex items-center justify-center">
+            <div className="h-16 w-16 rounded-full bg-pink-600 dark:bg-pink-500 flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-white" />
             </div>
           </div>
@@ -124,7 +124,7 @@ export function GiftConfirmation({ gift, orderNumber, className }: GiftConfirmat
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-2xl font-bold text-lime-600 dark:text-lime-400">
+                <p className="text-2xl font-bold text-pink-600 dark:text-pink-400">
                   {formatGiftAmount(amount)}
                 </p>
               </div>
@@ -172,7 +172,7 @@ export function GiftConfirmation({ gift, orderNumber, className }: GiftConfirmat
               variant="outline"
               className={cn(
                 payment_status === 'completed'
-                  ? 'bg-lime-100 text-lime-800 border-lime-300 dark:bg-lime-900/30 dark:text-lime-400'
+                  ? 'bg-pink-100 text-pink-800 border-pink-300 dark:bg-pink-900/30 dark:text-pink-400'
                   : 'bg-amber-100 text-amber-800 border-amber-300 dark:bg-amber-900/30 dark:text-amber-400'
               )}
             >
@@ -196,7 +196,7 @@ export function GiftConfirmation({ gift, orderNumber, className }: GiftConfirmat
                 Ver Historial
               </Link>
             </Button>
-            <Button asChild className="flex-1 bg-lime-600 hover:bg-lime-700 text-white">
+            <Button asChild className="flex-1 bg-pink-600 hover:bg-pink-700 text-white">
               <Link href="/friends">
                 <Home className="mr-2 h-4 w-4" />
                 Volver a Amigos

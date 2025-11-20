@@ -136,7 +136,7 @@ export function FriendRequestCard({
               variant={request.status === 'accepted' ? 'default' : 'secondary'}
               className={
                 request.status === 'accepted'
-                  ? 'bg-lime-100 text-lime-700 hover:bg-lime-100'
+                  ? 'bg-pink-100 text-pink-700 hover:bg-pink-100'
                   : request.status === 'pending'
                   ? 'bg-amber-100 text-amber-700 hover:bg-amber-100'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-100'
@@ -224,7 +224,7 @@ export function FriendRequestCard({
 
           {/* Accepted Message */}
           {request.status === 'accepted' && (
-            <div className="flex items-center gap-2 text-sm text-lime-600 bg-lime-50 px-3 py-2 rounded-lg">
+            <div className="flex items-center gap-2 text-sm text-pink-600 bg-pink-50 px-3 py-2 rounded-lg">
               <Check className="h-4 w-4" />
               <span className="font-medium">
                 {direction === 'received'

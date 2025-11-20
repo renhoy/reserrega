@@ -35,7 +35,7 @@ export default function BusinessRulesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-pink-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header con botón volver */}
         <div className="mb-6 text-center md:text-left">
@@ -48,7 +48,7 @@ export default function BusinessRulesPage() {
             </Link>
           </div>
           <h1 className="text-3xl font-bold flex items-center justify-center md:justify-start gap-2">
-            <Shield className="h-7 w-7 text-lime-600" />
+            <Shield className="h-7 w-7 text-pink-600" />
             Reglas de Negocio
           </h1>
           <p className="text-sm text-muted-foreground">
@@ -57,10 +57,10 @@ export default function BusinessRulesPage() {
         </div>
 
         {/* Card: Seleccionar Alcance */}
-        <Card className="mb-6 bg-lime-100">
+        <Card className="mb-6 bg-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-lime-600" />
+              <Shield className="h-5 w-5 text-pink-600" />
               1. Seleccionar Alcance
             </CardTitle>
             <CardDescription>
@@ -74,11 +74,11 @@ export default function BusinessRulesPage() {
               onValueChange={(value) => handleScopeChange(value as ScopeType)}
               className="space-y-3"
             >
-              <div className="flex items-center space-x-3 p-4 border rounded-lg bg-white hover:bg-lime-50 transition-colors">
+              <div className="flex items-center space-x-3 p-4 border rounded-lg bg-white hover:bg-pink-50 transition-colors">
                 <RadioGroupItem value="global" id="scope-global" />
                 <Label htmlFor="scope-global" className="flex-1 cursor-pointer">
                   <div className="flex items-center gap-2">
-                    <Globe className="h-5 w-5 text-lime-600" />
+                    <Globe className="h-5 w-5 text-pink-600" />
                     <div>
                       <p className="font-semibold">Todas las empresas</p>
                       <p className="text-sm text-muted-foreground">
@@ -89,11 +89,11 @@ export default function BusinessRulesPage() {
                 </Label>
               </div>
 
-              <div className="flex items-center space-x-3 p-4 border rounded-lg bg-white hover:bg-lime-50 transition-colors">
+              <div className="flex items-center space-x-3 p-4 border rounded-lg bg-white hover:bg-pink-50 transition-colors">
                 <RadioGroupItem value="specific" id="scope-specific" />
                 <Label htmlFor="scope-specific" className="flex-1 cursor-pointer">
                   <div className="flex items-center gap-2">
-                    <Shield className="h-5 w-5 text-lime-600" />
+                    <Shield className="h-5 w-5 text-pink-600" />
                     <div>
                       <p className="font-semibold">Empresa específica</p>
                       <p className="text-sm text-muted-foreground">
@@ -137,10 +137,10 @@ export default function BusinessRulesPage() {
             <Card className="mb-6">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5 text-lime-600" />
+                  <FileText className="h-5 w-5 text-pink-600" />
                   2. Gestionar Reglas
                   {scope === 'global' && (
-                    <span className="ml-2 text-xs font-normal px-2 py-1 bg-lime-600 text-white rounded-full">
+                    <span className="ml-2 text-xs font-normal px-2 py-1 bg-pink-600 text-white rounded-full">
                       Global
                     </span>
                   )}

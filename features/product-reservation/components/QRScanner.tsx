@@ -161,14 +161,14 @@ export function QRScanner({
 
           {/* Scanning indicator */}
           {isScanning && !scannedData && (
-            <div className="absolute inset-0 border-4 border-lime-500 animate-pulse" />
+            <div className="absolute inset-0 border-4 border-pink-500 animate-pulse" />
           )}
         </div>
 
         {/* Success State */}
         {scannedData && (
-          <Alert className="border-lime-500 bg-lime-50 dark:bg-lime-900/20">
-            <CheckCircle2 className="h-4 w-4 text-lime-600" />
+          <Alert className="border-pink-500 bg-pink-50 dark:bg-pink-900/20">
+            <CheckCircle2 className="h-4 w-4 text-pink-600" />
             <AlertDescription>
               <p className="font-semibold">QR escaneado correctamente</p>
               {scannedData.username && (

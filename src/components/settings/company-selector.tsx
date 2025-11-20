@@ -96,7 +96,7 @@ export function CompanySelector({ selectedCompanyId, onCompanySelect }: CompanyS
       {/* Tabla de empresas */}
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <Loader2 className="h-8 w-8 animate-spin text-lime-600" />
+          <Loader2 className="h-8 w-8 animate-spin text-pink-600" />
           <span className="ml-3 text-sm text-muted-foreground">
             Cargando empresas...
           </span>
@@ -131,8 +131,8 @@ export function CompanySelector({ selectedCompanyId, onCompanySelect }: CompanyS
                     key={company.id}
                     className={`cursor-pointer ${
                       selectedCompanyId === company.id.toString()
-                        ? 'bg-lime-200 hover:bg-lime-200'
-                        : 'bg-white hover:bg-lime-100'
+                        ? 'bg-pink-200 hover:bg-pink-200'
+                        : 'bg-white hover:bg-pink-100'
                     }`}
                     onClick={() => onCompanySelect(company.id.toString())}
                   >

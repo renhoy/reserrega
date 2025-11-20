@@ -92,12 +92,12 @@ export default function ScanPage() {
               <TabsTrigger value="qr" disabled={!!(scannedUserId && (activeTab === 'product' || activeTab === 'confirm'))}>
                 <UserIcon className="mr-2 h-4 w-4" />
                 1. Usuario
-                {scannedUserId && <CheckCircle2 className="ml-2 h-4 w-4 text-lime-600" />}
+                {scannedUserId && <CheckCircle2 className="ml-2 h-4 w-4 text-pink-600" />}
               </TabsTrigger>
               <TabsTrigger value="product" disabled={!scannedUserId || activeTab === 'confirm'}>
                 <Package className="mr-2 h-4 w-4" />
                 2. Producto
-                {scannedProduct && <CheckCircle2 className="ml-2 h-4 w-4 text-lime-600" />}
+                {scannedProduct && <CheckCircle2 className="ml-2 h-4 w-4 text-pink-600" />}
               </TabsTrigger>
               <TabsTrigger value="confirm" disabled={!scannedProduct}>
                 <CheckCircle2 className="mr-2 h-4 w-4" />
@@ -115,8 +115,8 @@ export default function ScanPage() {
             {/* Product Scanner Tab */}
             <TabsContent value="product" className="mt-6 space-y-4">
               {scannedUserId && (
-                <Alert className="border-lime-500 bg-lime-50 dark:bg-lime-900/20">
-                  <CheckCircle2 className="h-4 w-4 text-lime-600" />
+                <Alert className="border-pink-500 bg-pink-50 dark:bg-pink-900/20">
+                  <CheckCircle2 className="h-4 w-4 text-pink-600" />
                   <AlertDescription>
                     <span className="font-semibold">Usuario identificado:</span>{' '}
                     {scannedUsername || scannedUserId}
@@ -158,7 +158,7 @@ export default function ScanPage() {
           <CardContent>
             <ol className="space-y-3 text-sm">
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-lime-500 text-white text-xs font-bold">
+                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-pink-500 text-white text-xs font-bold">
                   1
                 </span>
                 <div>
@@ -169,7 +169,7 @@ export default function ScanPage() {
                 </div>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-lime-500 text-white text-xs font-bold">
+                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-pink-500 text-white text-xs font-bold">
                   2
                 </span>
                 <div>
@@ -180,7 +180,7 @@ export default function ScanPage() {
                 </div>
               </li>
               <li className="flex gap-3">
-                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-lime-500 text-white text-xs font-bold">
+                <span className="flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-pink-500 text-white text-xs font-bold">
                   3
                 </span>
                 <div>

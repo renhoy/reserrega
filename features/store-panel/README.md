@@ -543,11 +543,11 @@ Los usuarios con rol `comercial` tienen acceso a:
 
 ### Tablas de Base de Datos
 
-- `reserrega.stores` - Tiendas físicas
-- `reserrega.products` - Catálogo de productos
-- `reserrega.reservations` - Reservas de usuarios
-- `reserrega.wishlists` - Listas de deseos
-- `reserrega.users` - Usuarios del sistema
+- `public.stores` - Tiendas físicas
+- `public.products` - Catálogo de productos
+- `public.reservations` - Reservas de usuarios
+- `public.wishlists` - Listas de deseos
+- `public.users` - Usuarios del sistema
 
 ---
 

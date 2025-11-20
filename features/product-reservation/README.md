@@ -402,10 +402,10 @@ Las siguientes constantes se usan desde `shared/common/constants/ui.ts`:
 ### Base de Datos
 
 **Tablas utilizadas:**
-- `reserrega.users` - Usuarios del sistema
-- `reserrega.products` - Productos escaneables
-- `reserrega.stores` - Tiendas físicas
-- `reserrega.reservations` - Reservas de productos
+- `public.users` - Usuarios del sistema
+- `public.products` - Productos escaneables
+- `public.stores` - Tiendas físicas
+- `public.reservations` - Reservas de productos
 
 **RLS Policies:**
 - Usuarios solo ven sus propias reservas

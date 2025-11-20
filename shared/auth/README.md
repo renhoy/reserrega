@@ -188,7 +188,7 @@ const { user, loading, error, refetch } = useUser()
 ```
 
 **Returns:**
-- `user`: Datos del usuario de reserrega.users
+- `user`: Datos del usuario de public.users
 - `loading`: Estado de carga
 - `error`: Error
 - `refetch()`: Refetch datos
@@ -345,7 +345,7 @@ Usuario → /auth/register
   → RegisterForm (validación)
   → Supabase Auth (crea en auth.users)
   → /auth/callback
-  → Crea registro en reserrega.users
+  → Crea registro en public.users
   → Redirige a /dashboard
 ```
 
@@ -356,7 +356,7 @@ Usuario → /auth/login
   → LoginForm (validación)
   → Supabase Auth (verifica credenciales)
   → /auth/callback
-  → Obtiene datos de reserrega.users
+  → Obtiene datos de public.users
   → Redirige a /dashboard
 ```
 

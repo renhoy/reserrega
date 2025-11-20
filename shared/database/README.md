@@ -109,14 +109,14 @@ Si prefieres ejecutar por separado:
 
 ```sql
 -- Ver superadmin
-SELECT role, name, email FROM reserrega.users
+SELECT role, name, email FROM public.users
 WHERE email = 'josivela+super@gmail.com';
 
 -- Ver empresa demo
-SELECT * FROM reserrega.companies WHERE id = 1;
+SELECT * FROM public.companies WHERE id = 1;
 
 -- Ver issuer demo
-SELECT * FROM reserrega.issuers WHERE company_id = 1;
+SELECT * FROM public.issuers WHERE company_id = 1;
 ```
 
 ---
@@ -188,7 +188,7 @@ Marca reservas como `expired` cuando `expires_at < NOW()`.
 
 **Uso:**
 ```sql
-SELECT reserrega.expire_old_reservations();
+SELECT public.expire_old_reservations();
 ```
 
 **Retorna:** Número de reservas expiradas.
@@ -269,24 +269,24 @@ SET ROLE authenticated;
 SET request.jwt.claims.sub TO 'user-uuid-here';
 
 -- Intentar ver todas las wishlists (debería fallar)
-SELECT * FROM reserrega.wishlists;
+SELECT * FROM public.wishlists;
 
 -- Ver solo mis wishlists (debería funcionar)
-SELECT * FROM reserrega.wishlists WHERE user_id = 'user-uuid-here';
+SELECT * FROM public.wishlists WHERE user_id = 'user-uuid-here';
 ```
 
 ### Probar Auto-expiración
 
 ```sql
 -- Crear reserva con fecha pasada
-INSERT INTO reserrega.reservations (user_id, product_id, store_id, expires_at)
+INSERT INTO public.reservations (user_id, product_id, store_id, expires_at)
 VALUES ('uuid', 'uuid', 1, NOW() - INTERVAL '1 day');
 
 -- Ejecutar función
-SELECT reserrega.expire_old_reservations();
+SELECT public.expire_old_reservations();
 
 -- Verificar que cambió a expired
-SELECT status FROM reserrega.reservations WHERE id = 'uuid';
+SELECT status FROM public.reservations WHERE id = 'uuid';
 ```
 
 ---

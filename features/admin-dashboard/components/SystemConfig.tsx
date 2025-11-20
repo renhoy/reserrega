@@ -67,7 +67,7 @@ const DEFAULT_CONFIG: Partial<SystemConfigType> = {
   smtp_port: 587,
   smtp_user: '',
   smtp_from_name: 'Reserrega',
-  smtp_from_email: 'noreply@reserrega.com',
+  smtp_from_email: 'noreply@public.com',
   enable_subscriptions: false,
   enable_multiempresa: true,
   enable_testing_mode: false,

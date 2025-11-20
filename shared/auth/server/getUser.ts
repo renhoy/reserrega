@@ -47,7 +47,7 @@ export async function getUser(): Promise<AuthUser | null> {
       return null
     }
 
-    // Get user data from reserrega.users
+    // Get user data from public.users
     const { data: dbUser, error: dbError } = await supabaseAdmin
       .from('users')
       .select('*')
@@ -73,7 +73,7 @@ export async function getUser(): Promise<AuthUser | null> {
       emailConfirmed: !!authUser.email_confirmed_at,
       createdAt: authUser.created_at,
 
-      // From reserrega.users
+      // From public.users
       role: dbUser.role,
       name: dbUser.name,
       lastName: dbUser.last_name,

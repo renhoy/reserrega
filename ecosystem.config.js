@@ -70,7 +70,7 @@ module.exports = {
       user: 'deploy',
       host: 'your-server.com',
       ref: 'origin/main',
-      repo: 'git@github.com:your-username/reserrega.git',
+      repo: 'git@github.com:your-username/public.git',
       path: '/var/www/reserrega',
       'post-deploy': 'npm install --legacy-peer-deps && npm run build && pm2 reload ecosystem.config.js --env production',
       env: {
@@ -82,7 +82,7 @@ module.exports = {
       user: 'deploy',
       host: 'staging-server.com',
       ref: 'origin/develop',
-      repo: 'git@github.com:your-username/reserrega.git',
+      repo: 'git@github.com:your-username/public.git',
       path: '/var/www/reserrega-staging',
       'post-deploy': 'npm install --legacy-peer-deps && npm run build && pm2 reload ecosystem.config.js --env staging',
       env: {

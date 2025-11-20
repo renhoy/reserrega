@@ -25,7 +25,7 @@ WHERE email = 'tu-email@example.com';  -- ⚠️ CAMBIAR ESTE EMAIL
 
 -- PASO 2: Crear/Actualizar usuario como superadmin
 -- Reemplaza TU-UUID-AQUI con el UUID del paso anterior
-INSERT INTO reserrega.users (
+INSERT INTO public.users (
   id,
   role,
   company_id,
@@ -56,7 +56,7 @@ SELECT
   status,
   created_at,
   updated_at
-FROM reserrega.users
+FROM public.users
 WHERE email = 'tu-email@example.com';  -- ⚠️ CAMBIAR ESTE EMAIL
 
 -- PASO 4: Verificar permisos RLS

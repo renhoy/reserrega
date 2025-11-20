@@ -111,7 +111,7 @@ WHERE key = 'reservation_fee';
 
 | Key | Valor Default | Tipo | Descripción |
 |-----|---------------|------|-------------|
-| `contact_notification_emails` | `["admin@reserrega.com"]` | array | Emails que reciben notificaciones |
+| `contact_notification_emails` | `["admin@public.com"]` | array | Emails que reciben notificaciones |
 | `enable_gift_notifications` | `true` | boolean | Notificar cuando recibes regalo |
 | `enable_delivery_notifications` | `true` | boolean | Notificar estado de entrega |
 | `enable_friend_request_notifications` | `true` | boolean | Notificar solicitudes de amistad |
@@ -120,7 +120,7 @@ WHERE key = 'reservation_fee';
 ```sql
 -- Añadir más emails de notificación
 UPDATE public.config
-SET value = '["admin@reserrega.com", "support@reserrega.com", "sales@reserrega.com"]'
+SET value = '["admin@public.com", "support@public.com", "sales@public.com"]'
 WHERE key = 'contact_notification_emails';
 ```
 
@@ -528,11 +528,11 @@ CREATE POLICY "superadmin_modify_config" ON public.config
   FOR UPDATE
   USING (
     auth.uid() IN (
-      SELECT user_id FROM reserrega.user_profiles WHERE role = 'superadmin'
+      SELECT user_id FROM public.user_profiles WHERE role = 'superadmin'
     )
     OR (
       auth.uid() IN (
-        SELECT user_id FROM reserrega.user_profiles WHERE role = 'admin'
+        SELECT user_id FROM public.user_profiles WHERE role = 'admin'
       )
       AND is_system = false
     )

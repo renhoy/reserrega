@@ -14,7 +14,7 @@ import type { Tables } from '@/shared/database/types/database.types'
 // =====================================================
 
 /**
- * User from database (reserrega.users table)
+ * User from database (public.users table)
  */
 export type DatabaseUser = Tables<'users'>
 
@@ -38,7 +38,7 @@ export interface AuthUser {
   emailConfirmed: boolean
   createdAt: string
 
-  // From reserrega.users
+  // From public.users
   role: UserRole
   name: string
   lastName: string | null

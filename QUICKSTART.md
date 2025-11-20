@@ -19,7 +19,7 @@ Esta guía te ayudará a poner en marcha Reserrega en **menos de 10 minutos**.
 
 ```bash
 # Clonar repositorio
-git clone https://github.com/your-username/reserrega.git
+git clone https://github.com/your-username/public.git
 cd reserrega
 
 # Instalar dependencias

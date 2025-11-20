@@ -516,11 +516,11 @@ export async function getMaxFriendsPerUser(): Promise<number> {
 
 /**
  * Obtiene los emails de notificación de contacto
- * @returns Array de emails (default: ['admin@reserrega.com'])
+ * @returns Array de emails (default: ['admin@public.com'])
  */
 export async function getContactNotificationEmails(): Promise<string[]> {
   const emails = await getConfigValue<string[]>('contact_notification_emails')
-  return emails ?? ['admin@reserrega.com']
+  return emails ?? ['admin@public.com']
 }
 
 /**

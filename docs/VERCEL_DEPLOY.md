@@ -201,7 +201,7 @@ Ejecuta: npm install --legacy-peer-deps
   ↓
 Ejecuta: npm run build --turbopack
   ↓
-Deploy a: https://reserrega.vercel.app (production)
+Deploy a: https://public.vercel.app (production)
   ↓
 Ejecuta health checks
   ↓
@@ -393,7 +393,7 @@ Verifica `tsconfig.json`:
 
 1. Ve a Vercel Dashboard → Settings → Domains
 2. Click **"Add"**
-3. Escribe tu dominio: `reserrega.com`
+3. Escribe tu dominio: `public.com`
 
 ### Paso 2: Configurar DNS
 
@@ -417,7 +417,7 @@ Value: 76.76.21.21
 
 Espera 24-48 horas (propagación DNS) y verifica:
 ```bash
-dig reserrega.com
+dig public.com
 # Debe apuntar a Vercel
 ```
 
@@ -425,7 +425,7 @@ dig reserrega.com
 
 En Vercel Dashboard, actualiza:
 ```bash
-NEXT_PUBLIC_APP_URL=https://reserrega.com
+NEXT_PUBLIC_APP_URL=https://public.com
 ```
 
 Redeploy para aplicar cambios.

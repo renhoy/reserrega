@@ -39,8 +39,8 @@ BEGIN
   RAISE NOTICE '✅ Usuario encontrado en auth.users';
 END $$;
 
--- Insertar o actualizar usuario en reserrega.users como superadmin
-INSERT INTO reserrega.users (
+-- Insertar o actualizar usuario en public.users como superadmin
+INSERT INTO public.users (
   id,
   role,
   company_id,
@@ -70,7 +70,7 @@ SELECT
   email,
   status,
   created_at
-FROM reserrega.users
+FROM public.users
 WHERE id = :'SUPERADMIN_UUID';
 
 -- Mensaje de confirmación

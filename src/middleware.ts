@@ -56,7 +56,7 @@ export async function middleware(req: NextRequest) {
     const subscriptionsEnabled = await getSubscriptionsEnabled()
 
     // CRÍTICO: Verificar que el usuario existe en la base de datos y obtener rol/status
-    // Esto previene loops infinitos cuando hay sesión de Supabase Auth pero no registro en reserrega.users
+    // Esto previene loops infinitos cuando hay sesión de Supabase Auth pero no registro en public.users
     let userExistsInDB = false
     let userRole: string | undefined
     let userStatus: string | undefined

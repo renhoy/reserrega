@@ -70,7 +70,7 @@ supabase db push
 
 # Opción B: SQL Editor manual
 # 1. Ir a Supabase Dashboard → SQL Editor
-# 2. Copiar contenido de shared/database/schema/reserrega.sql
+# 2. Copiar contenido de shared/database/schema/public.sql
 # 3. Ejecutar query
 # 4. Verificar que se crearon las tablas
 ```
@@ -125,7 +125,7 @@ SUPABASE_SERVICE_ROLE_KEY=eyJhbGci...tu-service-role-key-aqui
 # ==========================================
 # APPLICATION (REQUERIDO)
 # ==========================================
-NEXT_PUBLIC_APP_URL=https://reserrega.vercel.app
+NEXT_PUBLIC_APP_URL=https://public.vercel.app
 NEXT_PUBLIC_API_URL=/api
 NODE_ENV=production
 
@@ -192,7 +192,7 @@ Project → Deployments → [tu deployment] → Logs
 1. **Abrir app:** `https://your-domain.vercel.app`
 2. **Ir a register:** `/register`
 3. **Crear usuario de prueba:**
-   - Email: test@reserrega.com
+   - Email: test@public.com
    - Password: Test1234!
    - Role: usuario (auto-asignado)
 4. **Login:** `/login`
@@ -233,7 +233,7 @@ curl http://localhost:3434/api/health
 ssh user@your-server.com
 
 # 2. Clonar repo
-git clone https://github.com/your-username/reserrega.git
+git clone https://github.com/your-username/public.git
 cd reserrega
 
 # 3. Configurar variables de entorno
@@ -331,7 +331,7 @@ https://your-domain.vercel.app/login
 # 4. Rellenar:
    Name: Empresa Demo
    NIF: B12345678
-   Email: demo@reserrega.com
+   Email: demo@public.com
    Status: active
 
 # 5. Click "Guardar"
@@ -514,9 +514,9 @@ Una vez completados todos los pasos:
 **URL de producción:** `https://your-domain.vercel.app`
 
 **Credenciales demo:**
-- Superadmin: admin@reserrega.com / [tu-password]
+- Superadmin: admin@public.com / [tu-password]
 - Comercial: comercial@demo.com / Comercial123!
-- Usuario: test@reserrega.com / Test1234!
+- Usuario: test@public.com / Test1234!
 
 **Siguiente paso:** Testing completo de flujos críticos (TB-001)
 

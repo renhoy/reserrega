@@ -49,7 +49,7 @@ COMMENT ON COLUMN public.config.is_system IS 'Si true, solo superadmin puede mod
 -- =====================================================
 -- PASO 2: POLÍTICAS RLS (Row Level Security)
 -- =====================================================
--- NOTA: Si la tabla reserrega.users no existe aún, comenta esta sección
+-- NOTA: Si la tabla public.users no existe aún, comenta esta sección
 -- y ejecútala después de crear la tabla users
 
 -- Habilitar RLS
@@ -62,13 +62,13 @@ CREATE POLICY "read_config" ON public.config
   USING (true);
 
 -- Política de modificación: solo usuarios con rol superadmin o admin pueden modificar
--- IMPORTANTE: Requiere que exista la tabla reserrega.users
+-- IMPORTANTE: Requiere que exista la tabla public.users
 DO $$
 BEGIN
-  -- Verificar si existe la tabla reserrega.users
+  -- Verificar si existe la tabla public.users
   IF EXISTS (
     SELECT FROM pg_tables
-    WHERE schemaname = 'reserrega'
+    WHERE schemaname = 'public'
     AND tablename = 'users'
   ) THEN
     -- Crear política solo si existe la tabla
@@ -78,7 +78,7 @@ BEGIN
         FOR ALL
         USING (
           EXISTS (
-            SELECT 1 FROM reserrega.users
+            SELECT 1 FROM public.users
             WHERE users.id = auth.uid()
             AND (
               users.role = ''superadmin''
@@ -89,7 +89,7 @@ BEGIN
     ';
     RAISE NOTICE 'Política RLS creada correctamente';
   ELSE
-    RAISE NOTICE 'Tabla reserrega.users no existe. Política RLS omitida. Ejecuta esta sección después de crear la tabla users.';
+    RAISE NOTICE 'Tabla public.users no existe. Política RLS omitida. Ejecuta esta sección después de crear la tabla users.';
   END IF;
 END $$;
 
@@ -116,7 +116,7 @@ ON CONFLICT (key) DO UPDATE SET
 -- =====================================================
 
 INSERT INTO public.config (key, value, description, category, is_system) VALUES
-  ('contact_notification_emails', '["admin@reserrega.com"]', 'Emails que reciben notificaciones de formularios de contacto', 'contacto', false),
+  ('contact_notification_emails', '["admin@public.com"]', 'Emails que reciben notificaciones de formularios de contacto', 'contacto', false),
   ('enable_gift_notifications', 'true', 'Activar notificaciones cuando se recibe un regalo', 'notificaciones', false),
   ('enable_delivery_notifications', 'true', 'Activar notificaciones de estado de entrega', 'notificaciones', false),
   ('enable_friend_request_notifications', 'true', 'Activar notificaciones de solicitudes de amistad', 'notificaciones', false)
@@ -280,7 +280,7 @@ ON CONFLICT (key) DO UPDATE SET
 INSERT INTO public.config (key, value, description, category, is_system) VALUES
   ('forms_legal_notice', '"<p><strong>Información legal</strong></p><ul><li><strong>Responsable:</strong> Reserrega</li><li><strong>Finalidad:</strong> Gestión de reservas, wishlists y regalos</li><li><strong>Derechos:</strong> Acceso, rectificación, cancelación en <a href=\"/legal\">política de privacidad</a></li></ul>"', 'Texto legal que aparece en formularios públicos (registro, contacto)', 'general', true),
 
-  ('legal_page_content', '"<h1>Aviso Legal y Política de Privacidad - Reserrega</h1><p>Última actualización: 2025-11-20</p><h2>1. Información General</h2><p>Titular: Reserrega<br>Web: https://reserrega.com<br>Email: legal@reserrega.com</p><h2>2. Política de Privacidad</h2><p>Reserrega es una plataforma que conecta tiendas físicas con usuarios para gestionar wishlists y regalos.</p><h3>Datos que recopilamos:</h3><ul><li>Información de cuenta (nombre, email)</li><li>Productos en wishlist</li><li>Red de amigos</li><li>Reservas y regalos</li></ul><h3>Uso de datos:</h3><ul><li>Gestión de reservas de productos</li><li>Facilitar regalos entre amigos</li><li>Comunicaciones del servicio</li></ul><h3>Tus derechos:</h3><p>Acceso, rectificación, supresión, oposición. Contacto: legal@reserrega.com</p><h2>3. Cookies</h2><p>Utilizamos cookies técnicas necesarias para el funcionamiento del sitio.</p><h2>4. Contacto</h2><p>Para cualquier consulta: legal@reserrega.com</p>"', 'Contenido de la página legal (/legal)', 'general', true)
+  ('legal_page_content', '"<h1>Aviso Legal y Política de Privacidad - Reserrega</h1><p>Última actualización: 2025-11-20</p><h2>1. Información General</h2><p>Titular: Reserrega<br>Web: https://public.com<br>Email: legal@public.com</p><h2>2. Política de Privacidad</h2><p>Reserrega es una plataforma que conecta tiendas físicas con usuarios para gestionar wishlists y regalos.</p><h3>Datos que recopilamos:</h3><ul><li>Información de cuenta (nombre, email)</li><li>Productos en wishlist</li><li>Red de amigos</li><li>Reservas y regalos</li></ul><h3>Uso de datos:</h3><ul><li>Gestión de reservas de productos</li><li>Facilitar regalos entre amigos</li><li>Comunicaciones del servicio</li></ul><h3>Tus derechos:</h3><p>Acceso, rectificación, supresión, oposición. Contacto: legal@public.com</p><h2>3. Cookies</h2><p>Utilizamos cookies técnicas necesarias para el funcionamiento del sitio.</p><h2>4. Contacto</h2><p>Para cualquier consulta: legal@public.com</p>"', 'Contenido de la página legal (/legal)', 'general', true)
 ON CONFLICT (key) DO UPDATE SET
   value = EXCLUDED.value,
   description = EXCLUDED.description,

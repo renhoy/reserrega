@@ -82,8 +82,8 @@ BEGIN
     FROM pg_tables
     WHERE schemaname = 'reserrega'
   LOOP
-    EXECUTE format('ALTER TABLE reserrega.%I ENABLE ROW LEVEL SECURITY', table_record.tablename);
-    RAISE NOTICE 'RLS habilitado en: reserrega.%', table_record.tablename;
+    EXECUTE format('ALTER TABLE public.%I ENABLE ROW LEVEL SECURITY', table_record.tablename);
+    RAISE NOTICE 'RLS habilitado en: public.%', table_record.tablename;
   END LOOP;
 END $$;
 

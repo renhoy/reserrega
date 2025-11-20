@@ -32,10 +32,10 @@ ON CONFLICT (key) DO UPDATE SET
 -- =====================================================
 
 -- Primero eliminar suscripción existente si hay alguna (para evitar duplicados)
-DELETE FROM reserrega.subscriptions WHERE company_id = 1;
+DELETE FROM public.subscriptions WHERE company_id = 1;
 
 -- Crear nueva suscripción
-INSERT INTO reserrega.subscriptions (
+INSERT INTO public.subscriptions (
   id,
   company_id,
   plan,
@@ -58,7 +58,7 @@ VALUES (
 -- PASO 3: ASEGURAR QUE SUPERADMIN ESTÁ EN EMPRESA DEMO
 -- =====================================================
 
-UPDATE reserrega.users
+UPDATE public.users
 SET company_id = 1
 WHERE email = 'josivela+super@gmail.com'
   AND (company_id IS NULL OR company_id != 1);
@@ -84,7 +84,7 @@ SELECT
   plan,
   status,
   current_period_end
-FROM reserrega.subscriptions
+FROM public.subscriptions
 WHERE company_id = 1;
 
 -- Ver superadmin
@@ -95,7 +95,7 @@ SELECT
   role,
   company_id,
   status
-FROM reserrega.users
+FROM public.users
 WHERE email = 'josivela+super@gmail.com';
 
 -- =====================================================

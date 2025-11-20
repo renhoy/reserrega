@@ -262,7 +262,7 @@ El sistema soporta múltiples empresas (multi-tenant) mediante:
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/renhoy/reserrega.git
+git clone https://github.com/renhoy/public.git
 cd reserrega
 
 # Instalar dependencias

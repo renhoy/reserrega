@@ -49,7 +49,7 @@ Scripts útiles para gestionar la base de datos de Reserrega.
 
 **Verificación:**
 ```sql
-SELECT role FROM reserrega.users WHERE email = 'tu-email';
+SELECT role FROM public.users WHERE email = 'tu-email';
 -- Debería devolver: 'superadmin'
 ```
 

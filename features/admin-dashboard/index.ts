@@ -1,28 +1,28 @@
 /**
  * =====================================================
- * ADMIN-DASHBOARD MODULE - Main Export
+ * ADMIN DASHBOARD MODULE - Main Exports
  * =====================================================
- * Central export point for all Admin Dashboard functionality
+ * Módulo para gestión administrativa del sistema
  * =====================================================
  */
 
 // Types
 export * from './types/admin.types'
 
-// Utilities
+// Utils
 export * from './lib/admin-utils'
 
-// Components (will be added as they're created)
+// Components (will be added progressively)
 // export * from './components/CompanyManager'
 // export * from './components/ComercialManager'
 // export * from './components/GlobalStats'
 // export * from './components/SystemConfig'
 // export * from './components/ActivityLog'
 
-// Actions (will be added when created)
-// export * from './actions/admin.actions'
-
-// Hooks (will be added when created)
+// Hooks (will be added progressively)
 // export * from './hooks/use-companies'
 // export * from './hooks/use-comercials'
 // export * from './hooks/use-global-stats'
+
+// Actions (will be added progressively)
+// export * from './actions/admin.actions'

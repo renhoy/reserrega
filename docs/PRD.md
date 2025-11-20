@@ -62,12 +62,13 @@
 **Estado:** ✅ READ-ONLY (Completado)
 **Propósito:** Flujo completo de regalo: ver lista amigo, bloqueo temporal, pago simulado, confirmación entrega
 **Archivos:** `features/gift-flow/`
-**Completado:** Ver wishlist de amigos, selección de productos, bloqueo temporal (15 min), checkout con pago simulado, confirmación de entrega, historial de regalos, hooks personalizados (useGiftFlow, useGiftLock), páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history
+**Completado:** Ver wishlist de amigos, bloqueo temporal (15 min), pago simulado, confirmación entrega, historial de regalos, notificaciones in-app
 
 #### 8. Store-Panel
-**Estado:** Pendiente  
-**Propósito:** Panel comercial: escanear QR usuario, escanear productos, gestionar reservas, marcar envíos  
-**Archivos:** `features/store-panel/`  
+**Estado:** ✅ READ-ONLY (Completado)
+**Propósito:** Panel comercial: escanear QR usuario, escanear productos, gestionar reservas, marcar envíos
+**Archivos:** `features/store-panel/`
+**Completado:** Componentes de escaneo (QR/barcode), gestión de reservas, estados de entrega, estadísticas, hooks personalizados, páginas /store
 **Depende de:** Database, Auth, Product-Reservation
 
 ---
@@ -131,18 +132,25 @@
 - [x] Bloqueo temporal producto (15 min)
 - [x] Pago simulado (Stripe placeholder)
 - [x] Notificación in-app al receptor
+- [x] Historial de regalos enviados
+- [x] Confirmación de entrega
 
 **Store-Panel:**
-- [ ] Escanear QR usuario → abrir sesión
-- [ ] Escanear productos → vincular
-- [ ] Ver reservas activas de tienda
-- [ ] Marcar como enviado
+- [x] Escanear QR usuario → abrir sesión
+- [x] Escanear productos → vincular
+- [x] Ver reservas activas de tienda
+- [x] Marcar como enviado
+- [x] Dashboard con estadísticas
+- [x] Filtros y búsqueda de reservas
+- [x] Gestión de estados de entrega (pending/ready/delivered/cancelled)
 
 ---
 
 ## Notas Importantes
 
-- **Primer módulo activo:** Database
+- **Estado del MVP:** ✅ COMPLETADO - Todos los módulos (8/8) finalizados
 - **No saltar orden:** SHARED → FEATURES secuencialmente
-- **MVP = primeros 8 módulos completos**
+- **MVP = primeros 8 módulos completos** ✅
+- **Módulos completados:** 8/8 (Database, Auth, Common, Product-Reservation, Wishlist, Friends-Network, Gift-Flow, Store-Panel)
+- **Próximo paso:** Admin Dashboard (módulo 9)
 - **Fase 2 (marketplace competitivo) NO está en este PRD**

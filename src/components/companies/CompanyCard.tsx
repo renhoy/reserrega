@@ -25,7 +25,7 @@ interface CompanyCardProps {
 }
 
 const tipoColors = {
-  empresa: "bg-lime-50 text-blue-800",
+  empresa: "bg-pink-50 text-blue-800",
   autonomo: "bg-purple-50 text-purple-800",
 };
 
@@ -197,7 +197,7 @@ export function CompanyCard({ company }: CompanyCardProps) {
                 </ul>
               </div>
 
-              <div className="bg-lime-50 border border-blue-200 rounded-md p-3">
+              <div className="bg-pink-50 border border-blue-200 rounded-md p-3">
                 <p className="text-sm text-blue-800">
                   ℹ️ <strong>Nota:</strong> Los datos se marcarán como
                   eliminados pero podrán ser recuperados por un superadmin si

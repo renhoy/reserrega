@@ -450,7 +450,7 @@ export default function UserForm({
       )}
 
       {/* Card con formulario */}
-      <Card className="bg-lime-100">
+      <Card className="bg-pink-100">
         <CardContent className="pt-6 space-y-6">
           {/* Línea 1: Email + Rol (25%) + Estado (25%) */}
           <div className="flex gap-4">
@@ -588,9 +588,9 @@ export default function UserForm({
           </div>
 
           {/* Línea 3: Descripción de roles */}
-          <div className="p-4 bg-lime-50 border border-lime-200 rounded-lg">
+          <div className="p-4 bg-pink-50 border border-pink-200 rounded-lg">
             <p className="text-sm text-gray-700">
-              <strong>Superadmin:</strong> Acceso total al sistema. Siempre inicia en empresa "Demo".{" "}
+              <strong>Superadmin:</strong> Acceso total al sistema. Siempre inicia en empresa &quot;Demo&quot;.{" "}
               <strong>Admin:</strong> Gestión completa empresa y usuarios Admin
               y Comercial. <strong>Comercial:</strong> Solo crear/editar
               presupuestos.
@@ -601,7 +601,7 @@ export default function UserForm({
           {currentUserRole === "superadmin" && formData.role === "superadmin" && (
             <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-sm text-blue-800">
-                <strong>ℹ️ Nota:</strong> Los superadmins se crean automáticamente en la empresa <strong>"Demo" (ID: 1)</strong>.
+                <strong>ℹ️ Nota:</strong> Los superadmins se crean automáticamente en la empresa <strong>&quot;Demo&quot; (ID: 1)</strong>.
                 Podrás cambiar la empresa posteriormente desde el perfil del usuario.
               </p>
             </div>
@@ -639,7 +639,7 @@ export default function UserForm({
                       onClick={() => setFilterType("all")}
                       className={
                         filterType === "all"
-                          ? "bg-lime-600 hover:bg-lime-700 text-white"
+                          ? "bg-pink-600 hover:bg-pink-700 text-white"
                           : ""
                       }
                     >
@@ -691,7 +691,7 @@ export default function UserForm({
               <div className="space-y-3">
                 {loadingIssuers ? (
                   <div className="p-8 bg-white rounded-lg border flex items-center justify-center gap-2">
-                    <Loader2 className="h-5 w-5 animate-spin text-lime-600" />
+                    <Loader2 className="h-5 w-5 animate-spin text-pink-600" />
                     <span className="text-muted-foreground">
                       Cargando empresas...
                     </span>
@@ -722,7 +722,7 @@ export default function UserForm({
                         key={issuer.id}
                         className={`relative flex items-start space-x-3 p-4 rounded-lg border-2 transition-colors ${
                           formData.issuer_id === issuer.id
-                            ? "border-lime-500 bg-lime-50"
+                            ? "border-pink-500 bg-pink-50"
                             : "border-gray-200 bg-white hover:border-gray-300"
                         }`}
                       >

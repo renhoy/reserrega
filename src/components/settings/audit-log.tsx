@@ -85,7 +85,7 @@ export function AuditLog({ selectedCompanyId, onCompanyChange }: AuditLogProps) 
       created: 'bg-green-100 text-green-800',
       updated: 'bg-blue-100 text-blue-800',
       rollback: 'bg-orange-100 text-orange-800',
-      activated: 'bg-emerald-100 text-emerald-800',
+      activated: 'bg-pink-100 text-pink-800',
       deactivated: 'bg-gray-100 text-gray-800',
     };
 

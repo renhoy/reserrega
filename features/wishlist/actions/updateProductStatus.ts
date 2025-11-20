@@ -9,7 +9,7 @@
  */
 
 import { revalidatePath } from 'next/cache'
-import { createClient } from '@/shared/database/supabase/server'
+import { createServerActionClient as createClient } from '@/lib/supabase/helpers'
 import { requireAuth } from '@/shared/auth/server'
 import type { WishlistStatus, UpdateStatusResponse } from '../types/wishlist.types'
 import { isValidWishlistStatus } from '../lib/wishlist-utils'

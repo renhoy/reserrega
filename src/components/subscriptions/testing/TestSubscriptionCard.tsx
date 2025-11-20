@@ -166,7 +166,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
 
   const planColors = {
     free: "bg-gray-100 text-gray-800",
-    pro: "bg-lime-100 text-lime-800",
+    pro: "bg-pink-100 text-pink-800",
     enterprise: "bg-yellow-100 text-yellow-800",
   };
 
@@ -210,7 +210,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
                     <Badge className="bg-gray-100 text-gray-800">FREE</Badge>
                   </SelectItem>
                   <SelectItem value="pro">
-                    <Badge className="bg-lime-100 text-lime-800">PRO</Badge>
+                    <Badge className="bg-pink-100 text-pink-800">PRO</Badge>
                   </SelectItem>
                   <SelectItem value="enterprise">
                     <Badge className="bg-yellow-100 text-yellow-800">ENTERPRISE</Badge>
@@ -293,7 +293,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
               onClick={handleExpire}
               disabled={isLoading || sub.plan === 'free'}
               title="Expirar"
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
             >
               <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
               <span>Expirar</span>
@@ -305,7 +305,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
               onClick={handleExtend}
               disabled={isLoading || sub.plan === 'free'}
               title="Extender"
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
             >
               <FastForward className="h-3.5 w-3.5 flex-shrink-0" />
               <span>+30d</span>
@@ -356,7 +356,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
                     <Badge className="bg-gray-100 text-gray-800">FREE</Badge>
                   </SelectItem>
                   <SelectItem value="pro">
-                    <Badge className="bg-lime-100 text-lime-800">PRO</Badge>
+                    <Badge className="bg-pink-100 text-pink-800">PRO</Badge>
                   </SelectItem>
                   <SelectItem value="enterprise">
                     <Badge className="bg-yellow-100 text-yellow-800">ENTERPRISE</Badge>
@@ -435,7 +435,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
               onClick={handleExpire}
               disabled={isLoading || sub.plan === 'free'}
               title="Expirar"
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
             >
               <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
               <span>Expirar</span>
@@ -447,7 +447,7 @@ export function TestSubscriptionCard({ subscription: sub, currentTime }: TestSub
               onClick={handleExtend}
               disabled={isLoading || sub.plan === 'free'}
               title="Extender"
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white min-w-[20%] h-7 px-2 gap-1.5 text-xs"
             >
               <FastForward className="h-3.5 w-3.5 flex-shrink-0" />
               <span>+30 días</span>

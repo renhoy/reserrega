@@ -7,11 +7,9 @@
  * =====================================================
  */
 
-import { cookies } from 'next/headers'
-import { createServerClient } from '@supabase/ssr'
+import { createServerComponentClient } from '@/lib/supabase/helpers'
 import { supabaseAdmin } from '@/lib/supabase/server'
 import type { AuthUser, AuthError } from '../types/auth.types'
-import type { Database } from '@/shared/database/types/database.types'
 
 /**
  * Get current authenticated user (server-side)
@@ -36,43 +34,18 @@ import type { Database } from '@/shared/database/types/database.types'
  */
 export async function getUser(): Promise<AuthUser | null> {
   try {
-    const cookieStore = await cookies()
+    // Create Supabase client with proper session restoration
+    const supabase = await createServerComponentClient()
 
-    // Create Supabase client with cookies
-    const supabase = createServerClient<Database>(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return cookieStore.getAll()
-          },
-          setAll(cookiesToSet) {
-            try {
-              cookiesToSet.forEach(({ name, value, options }) =>
-                cookieStore.set(name, value, options)
-              )
-            } catch {
-              // The `setAll` method was called from a Server Component.
-              // This can be ignored if you have middleware refreshing
-              // user sessions.
-            }
-          },
-        },
-      }
-    )
-
-    // Get session from Supabase Auth
+    // Get user from Supabase Auth (validates token)
     const {
-      data: { session },
+      data: { user: authUser },
       error: sessionError,
-    } = await supabase.auth.getSession()
+    } = await supabase.auth.getUser()
 
-    if (sessionError || !session) {
+    if (sessionError || !authUser) {
       return null
     }
-
-    const authUser = session.user
 
     // Get user data from reserrega.users
     const { data: dbUser, error: dbError } = await supabaseAdmin
@@ -83,6 +56,12 @@ export async function getUser(): Promise<AuthUser | null> {
 
     if (dbError || !dbUser) {
       console.error('[getUser] Error fetching user from database:', dbError)
+      return null
+    }
+
+    // Check if user is inactive
+    if (dbUser.status === 'inactive') {
+      console.warn('[getUser] User is inactive:', dbUser.email)
       return null
     }
 

@@ -138,7 +138,7 @@ export function ContactMessageNotesIcon({
                 <Button
                   variant="outline"
                   size={variant === 'icon' ? 'icon' : 'sm'}
-                  className={variant === 'icon' ? `relative h-9 w-9 border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white ${className}` : `relative h-7 px-2 gap-1.5 text-xs border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white ${className}`}
+                  className={variant === 'icon' ? `relative h-9 w-9 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white ${className}` : `relative h-7 px-2 gap-1.5 text-xs border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white ${className}`}
                   onClick={(e) => {
                     console.log('[ContactMessageNotesIcon] Button clicked')
                     e.stopPropagation()
@@ -150,7 +150,7 @@ export function ContactMessageNotesIcon({
                   {notesCount > 0 && (
                     <Badge
                       variant="secondary"
-                      className="absolute -top-1 -right-1 h-4 min-w-4 px-1 text-[10px] bg-lime-500 text-white"
+                      className="absolute -top-1 -right-1 h-4 min-w-4 px-1 text-[10px] bg-pink-500 text-white"
                     >
                       {notesCount}
                     </Badge>
@@ -196,7 +196,7 @@ export function ContactMessageNotesIcon({
                     {notes.map((note) => (
                       <div
                         key={note.id}
-                        className="border-l-2 border-lime-600 pl-3 py-1"
+                        className="border-l-2 border-pink-600 pl-3 py-1"
                       >
                         <p className="text-sm whitespace-pre-wrap break-words">
                           {note.content}

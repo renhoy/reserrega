@@ -154,14 +154,14 @@ export function ReservationForm({
         </div>
 
         {/* Price Summary */}
-        <div className="bg-lime-50 dark:bg-lime-900/20 p-4 rounded-lg space-y-2">
+        <div className="bg-pink-50 dark:bg-pink-900/20 p-4 rounded-lg space-y-2">
           <div className="flex justify-between items-center">
             <span className="text-sm">Precio del producto:</span>
             <span className="font-semibold">{formatCurrency(product.price)}</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-sm">Pago de reserva:</span>
-            <span className="font-semibold text-lime-600">
+            <span className="font-semibold text-pink-600">
               {formatCurrency(reservationAmount)}
             </span>
           </div>

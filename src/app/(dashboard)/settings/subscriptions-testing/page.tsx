@@ -92,7 +92,7 @@ export default async function SubscriptionsTestingPage() {
   // ============================================
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-pink-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header con indicador Testing */}
         <TestingHeader

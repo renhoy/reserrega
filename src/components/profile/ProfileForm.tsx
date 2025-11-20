@@ -315,7 +315,7 @@ export default function ProfileForm({ profile, userId }: ProfileFormProps) {
               variant="outline"
               size="sm"
               onClick={() => startTour("profile-page")}
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white h-8 px-3 gap-1.5"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white h-8 px-3 gap-1.5"
             >
               <Play className="h-3.5 w-3.5" />
               <span className="text-xs font-medium">Guía</span>
@@ -345,7 +345,7 @@ export default function ProfileForm({ profile, userId }: ProfileFormProps) {
       )}
 
       {/* Sección: Información Personal (Solo lectura) */}
-      <Card id="card-info-personal" className="bg-lime-100">
+      <Card id="card-info-personal" className="bg-pink-100">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div>
@@ -361,7 +361,7 @@ export default function ProfileForm({ profile, userId }: ProfileFormProps) {
               onClick={() =>
                 (window.location.href = `/users/create?id=${profile.id}`)
               }
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             >
               Editar usuario
             </Button>
@@ -706,7 +706,7 @@ export default function ProfileForm({ profile, userId }: ProfileFormProps) {
       )}
 
       {/* Sección: Cambiar Contraseña (Opcional) */}
-      <Card id="card-cambiar-password" className="bg-lime-100">
+      <Card id="card-cambiar-password" className="bg-pink-100">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Lock className="h-5 w-5" />
@@ -722,7 +722,7 @@ export default function ProfileForm({ profile, userId }: ProfileFormProps) {
               type="button"
               variant="outline"
               onClick={() => setShowPasswordSection(true)}
-              className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+              className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             >
               Cambiar Contraseña
             </Button>

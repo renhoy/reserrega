@@ -223,7 +223,7 @@ export function ConfigTable({ config }: ConfigTableProps) {
                   return (
                     <TableRow
                       key={item.key}
-                      className="bg-white hover:bg-lime-50/50"
+                      className="bg-white hover:bg-pink-50/50"
                     >
                       <TableCell>
                         <div className="flex items-center justify-center gap-1">
@@ -233,7 +233,7 @@ export function ConfigTable({ config }: ConfigTableProps) {
                               size="icon"
                               onClick={() => handleEdit(item)}
                               title="Editar valor"
-                              className="border bg-white shadow-xs dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9 border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                              className="border bg-white shadow-xs dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                             >
                               <Pencil className="h-4 w-4" />
                             </Button>
@@ -247,7 +247,7 @@ export function ConfigTable({ config }: ConfigTableProps) {
                               }
                               disabled={isLoadingIssuer}
                               title="Ver datos de la empresa"
-                              className="border bg-white shadow-xs dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9 border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                              className="border bg-white shadow-xs dark:bg-input/30 dark:border-input dark:hover:bg-input/50 size-9 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                             >
                               <Eye className="h-4 w-4" />
                             </Button>

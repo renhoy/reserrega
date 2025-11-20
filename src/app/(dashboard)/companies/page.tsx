@@ -44,7 +44,7 @@ export default async function CompaniesPage() {
   const companies = Array.isArray(result.data) ? result.data : [];
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-pink-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <CompaniesPageHeader />
@@ -52,12 +52,12 @@ export default async function CompaniesPage() {
         {/* Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="bg-white rounded-lg border p-4">
-            <div className="text-2xl font-bold text-lime-600">
+            <div className="text-2xl font-bold text-pink-600">
               {companies.length}
             </div>
-            <div className="text-sm text-lime-600">Total Empresas</div>
+            <div className="text-sm text-pink-600">Total Empresas</div>
           </div>
-          <div className="bg-lime-100 rounded-lg border p-4">
+          <div className="bg-pink-100 rounded-lg border p-4">
             <div className="text-2xl font-bold text-blue-800">
               {companies.filter((c) => c.type === "empresa").length}
             </div>

@@ -22,9 +22,9 @@ import { isProductExpired, getExpirationInfo, formatDaysRemaining } from '@/feat
 import { WishlistDetailClient } from './WishlistDetailClient'
 
 interface WishlistDetailPageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 /**
@@ -35,10 +35,12 @@ interface WishlistDetailPageProps {
 export default async function WishlistDetailPage({ params }: WishlistDetailPageProps) {
   await requireAuth()
 
+  const { id } = await params;
+
   // Fetch wishlist item
   let item
   try {
-    const response = await getWishlistItemAction(params.id)
+    const response = await getWishlistItemAction(id)
     item = response.item
   } catch (error) {
     console.error('[WishlistDetailPage] Error:', error)
@@ -128,7 +130,7 @@ export default async function WishlistDetailPage({ params }: WishlistDetailPageP
           </div>
 
           {/* Price */}
-          <div className="flex items-center gap-2 text-4xl font-bold text-lime-600 dark:text-lime-400">
+          <div className="flex items-center gap-2 text-4xl font-bold text-pink-600 dark:text-pink-400">
             <Euro className="h-8 w-8" />
             <span>{product.price.toFixed(2)}</span>
           </div>

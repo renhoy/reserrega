@@ -1,8 +1,8 @@
-# Tareas - MÓDULO: Store-Panel
+# Tareas - MÓDULO: Admin Dashboard
 
-## MÓDULO ACTIVO: Store-Panel 🔴
+## MÓDULO ACTIVO: Admin Dashboard 🔴
 
-**Tareas Activas:** 0/7
+**Tareas Activas:** 0/10
 **Progreso:** 0%
 
 ---
@@ -27,344 +27,334 @@
 
 ### 🔴 CRÍTICAS (Requeridas para completar módulo)
 
-#### SP-001: Types y Utilidades Base
+#### AD-001: Types y Utilidades Base
 **Prioridad:** Crítica
 **Tiempo:** 1-2 horas
 **Descripción:**
-- Definir types para StoreSession, ScanResult, StoreStats
-- Utilidades para manejo de sesiones de tienda
-- Helpers para validar códigos QR y códigos de barras
-- Utils para calcular estadísticas de tienda
+- Definir types para Company, Comercial, GlobalStats, SystemConfig
+- Utilidades para formateo y validación
+- Helpers para permisos de admin
+- Utils para cálculos de estadísticas globales
 
 **Archivos a crear:**
-- `features/store-panel/types/store.types.ts`
-- `features/store-panel/lib/store-utils.ts`
+- `features/admin-dashboard/types/admin.types.ts`
+- `features/admin-dashboard/lib/admin-utils.ts`
 
 **Criterio de aceptación:**
 - [ ] Types completos con JSDoc
-- [ ] StoreSession, ScanResult, StoreStats types
-- [ ] Función validateQRCode() para validar QR de usuario
-- [ ] Función validateBarcode() para validar códigos de producto
-- [ ] Función calculateSessionDuration()
-- [ ] Helpers para formatear stats de tienda
-
-**Estado:** ⏸️ PENDIENTE
-
----
-
-#### SP-002: Componentes de Escaneo
-**Prioridad:** Crítica
-**Tiempo:** 2-3 horas
-**Descripción:**
-- UserQRScanner para escanear QR de usuario
-- ProductScanner para escanear códigos de barras
-- SessionHeader con info de sesión activa
-- Feedback visual de escaneos exitosos/fallidos
-
-**Archivos a crear:**
-- `features/store-panel/components/UserQRScanner.tsx`
-- `features/store-panel/components/ProductScanner.tsx`
-- `features/store-panel/components/SessionHeader.tsx`
-
-**Criterio de aceptación:**
-- [ ] UserQRScanner abre cámara y lee QR de usuario
-- [ ] ProductScanner lee códigos de barras de productos
-- [ ] SessionHeader muestra usuario actual y duración de sesión
-- [ ] Feedback visual claro (success/error)
-- [ ] Manejo de errores de cámara
-- [ ] Responsive design
-
-**Estado:** ⏸️ PENDIENTE
+- [ ] Company, Comercial, GlobalStats, SystemConfig types
+- [ ] Request/Response types para server actions
+- [ ] Helpers de formateo (fechas, números, porcentajes)
+- [ ] Validadores para formularios
+- [ ] Utils de permisos (isSuperadmin, canManageCompany, etc.)
+- [ ] Funciones de cálculo para stats globales
 
 ---
 
-#### SP-003: Componentes de Gestión
+#### AD-002: Componentes de Gestión de Empresas
 **Prioridad:** Crítica
 **Tiempo:** 3-4 horas
 **Descripción:**
-- ActiveReservations para ver reservas de la tienda
-- DeliveryMarker para marcar productos como enviados
-- StoreStats con métricas de tienda
-- Filtros por estado de reserva
+- Tabla/Grid de empresas con búsqueda y filtros
+- Dialog para crear/editar empresa
+- Card de detalles de empresa
+- Confirmación de eliminación
 
 **Archivos a crear:**
-- `features/store-panel/components/ActiveReservations.tsx`
-- `features/store-panel/components/DeliveryMarker.tsx`
-- `features/store-panel/components/StoreStats.tsx`
+- `features/admin-dashboard/components/CompanyManager.tsx`
+- `features/admin-dashboard/components/CompanyDialog.tsx`
+- `features/admin-dashboard/components/CompanyCard.tsx`
 
 **Criterio de aceptación:**
-- [ ] ActiveReservations muestra lista de reservas activas
-- [ ] Filtros por estado (pending, confirmed, shipped)
-- [ ] DeliveryMarker permite marcar como enviado
-- [ ] StoreStats muestra métricas (total reservas, enviados, pendientes)
-- [ ] Actualización en tiempo real
-- [ ] Empty states cuando no hay datos
-
-**Estado:** ⏸️ PENDIENTE
+- [ ] Lista de empresas con paginación
+- [ ] Búsqueda por nombre
+- [ ] Filtro por estado (activa/inactiva)
+- [ ] Dialog para crear empresa con validación
+- [ ] Dialog para editar empresa
+- [ ] Confirmación antes de eliminar
+- [ ] Toast notifications
+- [ ] Loading y error states
 
 ---
 
-#### SP-004: Server Actions
-**Prioridad:** Crítica
-**Tiempo:** 4-5 horas
-**Descripción:**
-- scanUserQR - validar QR y crear sesión
-- scanProduct - vincular producto a sesión
-- getStoreReservations - obtener reservas de la tienda
-- markAsShipped - marcar producto como enviado
-- getStoreStats - obtener estadísticas de tienda
-- endSession - finalizar sesión de escaneo
-
-**Archivos a crear:**
-- `features/store-panel/actions/store-panel.actions.ts`
-
-**Criterio de aceptación:**
-- [ ] scanUserQR valida QR y crea sesión temporal
-- [ ] scanProduct vincula producto escaneado a usuario de sesión
-- [ ] getStoreReservations filtra por store_id del comercial
-- [ ] markAsShipped actualiza estado de reserva
-- [ ] getStoreStats calcula métricas en tiempo real
-- [ ] endSession limpia sesión y libera recursos
-- [ ] Validación de permisos (solo rol Comercial)
-- [ ] Manejo de errores robusto
-
-**Estado:** ⏸️ PENDIENTE
-
----
-
-#### SP-005: Hooks de Gestión
-**Prioridad:** Crítica
-**Tiempo:** 2-3 horas
-**Descripción:**
-- useStoreSession hook para gestionar sesión activa
-- useProductScanner para manejar escaneo de productos
-- useStoreReservations para listar reservas
-- useStoreStats para estadísticas con polling
-- Optimistic updates
-
-**Archivos a crear:**
-- `features/store-panel/hooks/use-store-session.ts`
-- `features/store-panel/hooks/use-product-scanner.ts`
-- `features/store-panel/hooks/use-store-reservations.ts`
-
-**Criterio de aceptación:**
-- [ ] useStoreSession gestiona sesión con timeout automático
-- [ ] useProductScanner maneja estados de escaneo
-- [ ] useStoreReservations con filtros y paginación
-- [ ] useStoreStats con polling cada 30 segundos
-- [ ] Optimistic updates en todas las acciones
-- [ ] Auto-cleanup de recursos al desmontar
-
-**Estado:** ⏸️ PENDIENTE
-
----
-
-#### SP-006: Páginas y Rutas
+#### AD-003: Componentes de Gestión de Comerciales
 **Prioridad:** Crítica
 **Tiempo:** 3-4 horas
 **Descripción:**
-- Dashboard de tienda (/store)
-- Página de escaneo de usuario (/store/scan)
-- Página de sesión activa (/store/session/[sessionId])
-- Página de reservas (/store/reservations)
-- Página de estadísticas (/store/stats)
-- Protección de rutas (solo Comercial)
+- Tabla de usuarios comerciales
+- Dialog para crear/editar comercial
+- Asignación de tienda
+- Activar/Desactivar comercial
 
 **Archivos a crear:**
-- `src/app/(app)/store/page.tsx`
-- `src/app/(app)/store/scan/page.tsx`
-- `src/app/(app)/store/session/[sessionId]/page.tsx`
-- `src/app/(app)/store/reservations/page.tsx`
-- `src/app/(app)/store/stats/page.tsx`
+- `features/admin-dashboard/components/ComercialManager.tsx`
+- `features/admin-dashboard/components/ComercialDialog.tsx`
+- `features/admin-dashboard/components/ComercialCard.tsx`
 
 **Criterio de aceptación:**
-- [ ] /store muestra dashboard con accesos rápidos
-- [ ] /store/scan permite escanear QR de usuario
-- [ ] /store/session/[sessionId] muestra sesión activa con escaneo de productos
-- [ ] /store/reservations muestra lista de reservas de la tienda
-- [ ] /store/stats muestra estadísticas y métricas
-- [ ] Protección con requireRole('Comercial')
-- [ ] Verificar que comercial pertenece a tienda correcta
-- [ ] Loading states y empty states
-
-**Estado:** ⏸️ PENDIENTE
+- [ ] Lista de comerciales con filtros
+- [ ] Filtro por empresa/tienda
+- [ ] Filtro por estado (activo/inactivo)
+- [ ] Dialog para crear comercial
+- [ ] Dialog para editar comercial
+- [ ] Asignar/reasignar tienda
+- [ ] Cambiar estado (activo/inactivo)
+- [ ] Validación de email y datos
+- [ ] Toast notifications
 
 ---
 
-#### SP-007: README y Documentación
-**Prioridad:** Crítica
-**Tiempo:** 1 hora
+#### AD-004: Componentes de Estadísticas Globales
+**Prioridad:** Alta
+**Tiempo:** 2-3 horas
 **Descripción:**
-- README del módulo
-- Documentar flujo completo de escaneo
-- Documentar sistema de sesiones
-- Ejemplos de uso para comerciales
+- Dashboard con métricas globales del sistema
+- Gráficos y visualizaciones
+- Filtros por fecha y empresa
 
 **Archivos a crear:**
-- `features/store-panel/README.md`
-- `features/store-panel/index.ts`
+- `features/admin-dashboard/components/GlobalStats.tsx`
+- `features/admin-dashboard/components/StatsCard.tsx`
+- `features/admin-dashboard/components/StatsChart.tsx`
 
 **Criterio de aceptación:**
-- [ ] README completo con descripción del módulo
-- [ ] Flujo de escaneo documentado paso a paso
-- [ ] Sistema de sesiones explicado
-- [ ] Ejemplos de uso para cada componente
-- [ ] Exports organizados en index.ts
-- [ ] Instrucciones para comerciales
-
-**Estado:** ⏸️ PENDIENTE
+- [ ] Dashboard con 8-10 métricas principales
+- [ ] Total de empresas activas
+- [ ] Total de usuarios por rol
+- [ ] Total de reservas (activas/completadas)
+- [ ] Ingresos totales del sistema
+- [ ] Métricas por empresa
+- [ ] Filtros de fecha (última semana, mes, año)
+- [ ] Cards responsivos
+- [ ] Loading states
 
 ---
 
-### 🟡 ALTA PRIORIDAD (Mejoran calidad pero no bloquean)
+#### AD-005: Componentes de Configuración del Sistema
+**Prioridad:** Media
+**Tiempo:** 2-3 horas
+**Descripción:**
+- Panel de configuración global
+- Editar tarifas y tiempos
+- Configuración de emails
+- Configuración de features
 
-#### SP-008: Notificaciones Push
+**Archivos a crear:**
+- `features/admin-dashboard/components/SystemConfig.tsx`
+- `features/admin-dashboard/components/ConfigForm.tsx`
+
+**Criterio de aceptación:**
+- [ ] Formulario de configuración general
+- [ ] Campo: tarifa de reserva (€)
+- [ ] Campo: días de validez de reserva
+- [ ] Campo: minutos de bloqueo temporal
+- [ ] Campo: porcentaje tienda/plataforma
+- [ ] Validación de valores
+- [ ] Guardar cambios
+- [ ] Restaurar valores por defecto
+- [ ] Toast de confirmación
+
+---
+
+#### AD-006: Componentes de Log de Actividad
+**Prioridad:** Baja
+**Tiempo:** 2 horas
+**Descripción:**
+- Tabla de actividad reciente
+- Filtros por tipo de acción
+- Filtros por usuario
+
+**Archivos a crear:**
+- `features/admin-dashboard/components/ActivityLog.tsx`
+- `features/admin-dashboard/components/ActivityItem.tsx`
+
+**Criterio de aceptación:**
+- [ ] Lista de actividades recientes
+- [ ] Filtro por tipo (create, update, delete)
+- [ ] Filtro por entidad (company, user, reservation)
+- [ ] Mostrar usuario y timestamp
+- [ ] Paginación
+- [ ] Loading states
+
+---
+
+#### AD-007: Server Actions
+**Prioridad:** Crítica
+**Tiempo:** 3-4 horas
+**Descripción:**
+- Actions para CRUD de empresas
+- Actions para gestión de comerciales
+- Actions para estadísticas
+- Actions para configuración
+
+**Archivos a crear:**
+- `features/admin-dashboard/actions/admin.actions.ts`
+
+**Acciones a implementar:**
+- [ ] getCompanies() - Obtener empresas con filtros
+- [ ] createCompany() - Crear nueva empresa
+- [ ] updateCompany() - Actualizar empresa
+- [ ] deleteCompany() - Eliminar empresa
+- [ ] getComercials() - Obtener comerciales con filtros
+- [ ] createComercial() - Crear nuevo comercial
+- [ ] updateComercial() - Actualizar comercial
+- [ ] toggleComercialStatus() - Activar/desactivar
+- [ ] getGlobalStats() - Obtener estadísticas globales
+- [ ] getSystemConfig() - Obtener configuración
+- [ ] updateSystemConfig() - Actualizar configuración
+- [ ] getActivityLog() - Obtener log de actividad
+
+**Criterio de aceptación:**
+- [ ] Validación de permisos (solo superadmin)
+- [ ] Manejo de errores completo
+- [ ] Revalidación de paths
+- [ ] TypeScript estricto
+- [ ] Validación de datos de entrada
+
+---
+
+#### AD-008: Hooks de Gestión
 **Prioridad:** Alta
 **Tiempo:** 2 horas
 **Descripción:**
-- Notificar al comercial cuando hay nueva reserva
-- Notificar al usuario cuando se marca como enviado
-- Badge con reservas pendientes
+- Hook para gestión de empresas
+- Hook para gestión de comerciales
+- Hook para estadísticas globales
+
+**Archivos a crear:**
+- `features/admin-dashboard/hooks/use-companies.ts`
+- `features/admin-dashboard/hooks/use-comercials.ts`
+- `features/admin-dashboard/hooks/use-global-stats.ts`
+
+**Criterio de aceptación:**
+- [ ] useCompanies - CRUD de empresas
+- [ ] useComercials - CRUD de comerciales
+- [ ] useGlobalStats - Estadísticas con auto-refresh
+- [ ] Estados de loading y error
+- [ ] Toast notifications
+- [ ] Optimistic updates
+- [ ] Memoización con useMemo
 
 ---
 
-#### SP-009: Historial de Sesiones
-**Prioridad:** Alta
-**Tiempo:** 2-3 horas
+#### AD-009: Páginas y Rutas
+**Prioridad:** Crítica
+**Tiempo:** 3 horas
 **Descripción:**
-- Ver historial de sesiones de escaneo
-- Estadísticas por comercial
-- Reporte de productos escaneados por día
+- Página principal del admin dashboard
+- Página de gestión de empresas
+- Página de gestión de comerciales
+- Página de configuración
+
+**Archivos a crear:**
+- `src/app/(dashboard)/admin/page.tsx`
+- `src/app/(dashboard)/admin/companies/page.tsx`
+- `src/app/(dashboard)/admin/comercials/page.tsx`
+- `src/app/(dashboard)/admin/config/page.tsx`
+
+**Criterio de aceptación:**
+- [ ] /admin - Dashboard con resumen
+- [ ] /admin/companies - Gestión de empresas
+- [ ] /admin/comercials - Gestión de comerciales
+- [ ] /admin/config - Configuración del sistema
+- [ ] Navegación con tabs o sidebar
+- [ ] Layout responsivo
+- [ ] Protección por permisos (requireRole('superadmin'))
+- [ ] Breadcrumbs
 
 ---
 
-## ARCHIVOS DE ESTE MÓDULO
+#### AD-010: README y Documentación
+**Prioridad:** Media
+**Tiempo:** 1 hora
+**Descripción:**
+- Documentación completa del módulo
+- Ejemplos de uso
+- API documentation
 
-```
-features/store-panel/
-├── components/
-│   ├── UserQRScanner.tsx         # SP-002
-│   ├── ProductScanner.tsx        # SP-002
-│   ├── SessionHeader.tsx         # SP-002
-│   ├── ActiveReservations.tsx    # SP-003
-│   ├── DeliveryMarker.tsx        # SP-003
-│   └── StoreStats.tsx            # SP-003
-├── actions/
-│   └── store-panel.actions.ts    # SP-004
-├── hooks/
-│   ├── use-store-session.ts      # SP-005
-│   ├── use-product-scanner.ts    # SP-005
-│   └── use-store-reservations.ts # SP-005
-├── lib/
-│   └── store-utils.ts            # SP-001
-├── types/
-│   └── store.types.ts            # SP-001
-├── README.md                      # SP-007
-└── index.ts                       # SP-007
+**Archivos a crear:**
+- `features/admin-dashboard/README.md`
 
-src/app/
-└── (app)/
-    └── store/
-        ├── page.tsx                           # SP-006
-        ├── scan/page.tsx                      # SP-006
-        ├── session/
-        │   └── [sessionId]/page.tsx          # SP-006
-        ├── reservations/
-        │   └── page.tsx                       # SP-006
-        └── stats/
-            └── page.tsx                       # SP-006
-```
+**Criterio de aceptación:**
+- [ ] Descripción del módulo
+- [ ] Estructura de archivos
+- [ ] Guía de uso
+- [ ] Documentación de componentes
+- [ ] Documentación de server actions
+- [ ] Documentación de hooks
+- [ ] Tipos principales
+- [ ] Permisos y restricciones
+- [ ] Ejemplos de código
+
+---
+
+## DEPENDENCIAS
+
+### Módulos requeridos (READ-ONLY):
+- ✅ shared/database - Schema de companies, users, config
+- ✅ shared/auth - Sistema de autenticación y permisos
+- ✅ shared/common - UI components y layouts
+
+### Tablas de Base de Datos:
+- `reserrega.companies` - Empresas/tiendas
+- `reserrega.users` - Usuarios del sistema
+- `reserrega.config` - Configuración global
+- `reserrega.stores` - Tiendas físicas
+- `reserrega.reservations` - Para estadísticas
+- `reserrega.gifts` - Para estadísticas
+
+---
+
+## ORDEN DE DESARROLLO RECOMENDADO
+
+1. **AD-001** - Types y Utilidades (base para todo)
+2. **AD-007** - Server Actions (lógica de backend)
+3. **AD-008** - Hooks (capa de abstracción)
+4. **AD-002** - Gestión de Empresas (funcionalidad principal)
+5. **AD-003** - Gestión de Comerciales
+6. **AD-004** - Estadísticas Globales
+7. **AD-005** - Configuración del Sistema
+8. **AD-006** - Log de Actividad (opcional)
+9. **AD-009** - Páginas y Rutas (integración)
+10. **AD-010** - Documentación
 
 ---
 
 ## NOTAS IMPORTANTES
 
-- **Orden sugerido:** SP-001 → SP-002 → SP-003 → SP-004 → SP-005 → SP-006 → SP-007
-- **Bloqueos:** SP-002 necesita SP-001, SP-003 necesita SP-001, etc.
-- **Rol requerido:** Comercial (verificar con requireRole)
-- **Multi-tenancy:** Comercial solo ve reservas de su tienda (filtrar por store_id)
-- **Sesiones:** Timeout de 10 minutos de inactividad
-- **QR de usuario:** Reutilizar QRGenerator del módulo product-reservation
-- **Estados de reserva:** pending, confirmed, shipped, delivered
+### Permisos
+- **Solo superadmin** puede acceder a este módulo
+- Validar permisos en Server Actions
+- Proteger rutas con middleware
+
+### Multi-tenancy
+- Superadmin ve TODAS las empresas
+- Estadísticas globales incluyen todas las empresas
+- Filtrar por empresa en las vistas
+
+### Configuración
+- Valores en `reserrega.config` (JSONB)
+- Keys: reservation_fee, reservation_days, gift_lock_minutes, etc.
+- Cambios afectan a todo el sistema
+
+### Estadísticas
+- Cálculos en tiempo real desde BD
+- Agregar por empresa/tienda
+- Cachear con SWR o similar
 
 ---
 
-## FLUJO COMPLETO
+## RESTRICCIONES
 
-### Flujo Principal: Escaneo y Reserva
-
-1. Comercial abre /store/scan
-2. Escanea QR del usuario → crea sesión temporal
-3. Redirige a /store/session/[sessionId]
-4. Muestra info del usuario y botón "Escanear Producto"
-5. Escanea código de barras de productos
-6. Cada producto escaneado se vincula al usuario
-7. Confirma lista de productos → crea reserva
-8. Usuario ve productos en su wishlist
-9. Comercial puede marcar productos como enviados desde /store/reservations
-
-### Gestión de Reservas
-
-1. Comercial va a /store/reservations
-2. Ve lista de reservas activas de su tienda
-3. Filtros por estado (pending, confirmed, shipped)
-4. Selecciona reserva y marca como shipped
-5. Estado se actualiza en tiempo real
-6. Usuario recibe notificación (opcional)
+- NO modificar tablas de base de datos
+- NO modificar módulos completados (READ-ONLY)
+- Solo lectura de shared/* y features/* completados
+- Seguir patrones establecidos en módulos anteriores
+- TypeScript estricto
+- Validación completa de datos
 
 ---
 
-## COMPLETAR MÓDULO
-
-**Cuando todas las CRÍTICAS estén hechas:**
-
-1. [ ] Flujo completo de escaneo funcionando
-2. [ ] Sesiones con timeout automático
-3. [ ] Solo rol Comercial puede acceder
-4. [ ] Filtrado por tienda (multi-tenancy)
-5. [ ] Marcar como enviado funcional
-6. [ ] Estadísticas de tienda en tiempo real
-7. [ ] README.md escrito (SP-007)
-8. [ ] Actualizar PRD.md → estado Store-Panel = READ-ONLY
-9. [ ] Mover a claude.md → features/store-panel/* a PROHIBIDOS
-10. [ ] Cambiar MÓDULO ACTUAL en claude.md → Admin-Dashboard
-11. [ ] Crear nuevo backlog en este archivo para Admin-Dashboard
-
----
-
-## MÓDULOS COMPLETADOS
-
-✅ **Database** - Schema, types, RLS policies
-✅ **Auth** - Login, register, middleware, permisos
-✅ **Common** - UI components, layouts, hooks, utilidades
-✅ **Product-Reservation** - QR generator, scanners, reservas, pago simulado
-✅ **Wishlist** - Grid, filtros, visibilidad, badges, páginas usuario
-✅ **Friends-Network** - Solicitudes amistad, búsqueda usuarios, invitaciones email
-✅ **Gift-Flow** - Ver wishlist amigos, bloqueo temporal, checkout, confirmación, historial
-
----
-
-## MÓDULO ANTERIOR: Gift-Flow ✅ COMPLETADO
-
-**Fecha completado:** 2025-01-17
-
-**Tareas completadas:**
-- ✅ GF-001: Types y Utilidades Base
-- ✅ GF-002: Componentes de Selección
-- ✅ GF-003: Componentes de Checkout
-- ✅ GF-004: Server Actions
-- ✅ GF-005: Hooks de Gestión
-- ✅ GF-006: Páginas y Rutas
-- ✅ GF-007: README y Documentación
-
-**Funcionalidad entregada:**
-- Ver wishlist de amigos con verificación de permisos
-- Selección de productos con bloqueo temporal (15 minutos)
-- Sistema de bloqueo automático con countdown
-- Checkout con pago simulado y validaciones
-- Confirmación de entrega y tracking
-- Historial de regalos enviados y recibidos
-- Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history
-- Hooks personalizados (useGiftFlow, useGiftLock, useDeliveryTracking, useGiftHistory)
-- Liberación automática de bloqueos expirados
-- Optimistic UI updates en todas las acciones
+_Creado: 2025-11-20_
+_Módulo: Admin Dashboard_
+_Estado: Planificación_

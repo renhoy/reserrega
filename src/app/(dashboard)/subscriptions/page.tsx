@@ -41,9 +41,9 @@ export default async function SubscriptionsPage() {
 
   if (!subscriptionResult.success || !subscriptionResult.data) {
     return (
-      <div className="min-h-screen bg-lime-50">
+      <div className="min-h-screen bg-pink-50">
         <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-lime-600 mb-4">
+          <h1 className="text-3xl font-bold text-pink-600 mb-4">
             Suscripciones
           </h1>
           <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center">

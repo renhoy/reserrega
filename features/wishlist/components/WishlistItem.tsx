@@ -121,7 +121,7 @@ export function WishlistItem({
         </div>
 
         {/* Price */}
-        <div className="flex items-center gap-1 text-2xl font-bold text-lime-600 dark:text-lime-400">
+        <div className="flex items-center gap-1 text-2xl font-bold text-pink-600 dark:text-pink-400">
           <Euro className="h-5 w-5" />
           <span>{product.price.toFixed(2)}</span>
         </div>

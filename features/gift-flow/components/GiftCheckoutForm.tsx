@@ -299,7 +299,7 @@ export function GiftCheckoutForm({
         <Button
           type="submit"
           disabled={isProcessing}
-          className="flex-1 bg-lime-600 hover:bg-lime-700 text-white"
+          className="flex-1 bg-pink-600 hover:bg-pink-700 text-white"
         >
           {isProcessing ? (
             <>

@@ -47,7 +47,7 @@ export function RegisterClosedDialog() {
           </Button>
           <Button
             onClick={handleContact}
-            className="w-full sm:w-auto bg-lime-500 hover:bg-lime-600"
+            className="w-full sm:w-auto bg-pink-500 hover:bg-pink-600"
           >
             Contactar
           </Button>

@@ -79,7 +79,7 @@ export function Header({ user, onMenuClick }: HeaderProps) {
               <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                 <Avatar className="h-10 w-10">
                   <AvatarImage src={user.avatarUrl || undefined} alt={user.name} />
-                  <AvatarFallback className="bg-lime-500 text-white">
+                  <AvatarFallback className="bg-pink-500 text-white">
                     {initials}
                   </AvatarFallback>
                 </Avatar>

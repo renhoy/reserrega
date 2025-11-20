@@ -9,7 +9,7 @@
  */
 
 import { requireAuth } from '@/shared/auth/server'
-import { createClient } from '@/shared/database/server'
+import { createServerActionClient as createClient } from '@/lib/supabase/helpers'
 import { calculateExpiration, calculatePaymentSplit } from '../lib/product-utils'
 import { simulatePaymentAction } from './simulatePayment'
 import type {

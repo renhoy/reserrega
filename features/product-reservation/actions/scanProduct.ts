@@ -9,7 +9,7 @@
  */
 
 import { requireRole } from '@/shared/auth/server'
-import { createClient } from '@/shared/database/server'
+import { createServerActionClient as createClient } from '@/lib/supabase/helpers'
 import { validateQRCode } from '../lib/qr-utils'
 import { normalizeBarcode, validateProductData, calculatePaymentSplit } from '../lib/product-utils'
 import type {

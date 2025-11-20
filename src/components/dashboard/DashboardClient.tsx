@@ -72,7 +72,7 @@ interface DashboardClientProps {
 }
 
 const statusColors: Record<string, string> = {
-  active: "bg-lime-100 text-lime-800",
+  active: "bg-pink-100 text-pink-800",
   expired: "bg-gray-100 text-gray-800",
   completed: "bg-violet-100 text-violet-800",
   cancelled: "bg-rose-100 text-rose-800",
@@ -81,7 +81,7 @@ const statusColors: Record<string, string> = {
 const shippingStatusColors: Record<string, string> = {
   pending: "bg-amber-100 text-amber-800",
   shipped: "bg-sky-100 text-sky-800",
-  delivered: "bg-lime-100 text-lime-800",
+  delivered: "bg-pink-100 text-pink-800",
   cancelled: "bg-gray-100 text-gray-800",
 };
 
@@ -117,7 +117,7 @@ export function DashboardClient({
   };
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
       <div className="container mx-auto px-4 py-6 space-y-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -192,10 +192,10 @@ export function DashboardClient({
               <CardTitle className="text-sm font-medium text-muted-foreground">
                 Mis Reservas
               </CardTitle>
-              <Package className="h-5 w-5 text-lime-600" />
+              <Package className="h-5 w-5 text-pink-600" />
             </CardHeader>
             <CardContent>
-              <div className="text-3xl font-bold text-lime-600">
+              <div className="text-3xl font-bold text-pink-600">
                 {stats.activeReservations}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
@@ -260,7 +260,7 @@ export function DashboardClient({
         </div>
 
         {/* Accesos rápidos */}
-        <Card data-tour="accesos-rapidos" className="bg-lime-100">
+        <Card data-tour="accesos-rapidos" className="bg-pink-100">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Zap className="w-5 h-5" />
@@ -282,7 +282,7 @@ export function DashboardClient({
 
               <Link href="/qr">
                 <Button
-                  className="w-full h-16 flex items-center gap-2 justify-center border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                  className="w-full h-16 flex items-center gap-2 justify-center border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                   variant="outline"
                 >
                   <QrCode className="w-5 h-5" />
@@ -315,7 +315,7 @@ export function DashboardClient({
 
         {/* Primeros Pasos - Solo si hay artículos */}
         {helpArticles.length > 0 && (
-          <Card data-tour="primeros-pasos" className="bg-lime-100">
+          <Card data-tour="primeros-pasos" className="bg-pink-100">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5" />
@@ -330,7 +330,7 @@ export function DashboardClient({
                 {helpArticles.map((article) => (
                   <Link key={article.id} href={`/help/${article.id}`}>
                     <Button
-                      className="w-full h-16 flex items-center gap-2 justify-center bg-lime-500 hover:bg-lime-600 text-white hover:text-white"
+                      className="w-full h-16 flex items-center gap-2 justify-center bg-pink-500 hover:bg-pink-600 text-white hover:text-white"
                       variant="outline"
                     >
                       <BookOpen className="w-5 h-5" />
@@ -363,7 +363,7 @@ export function DashboardClient({
                     <Link
                       key={reservation.id}
                       href={`/reservations/${reservation.id}`}
-                      className="block p-3 rounded-lg border bg-lime-50 hover:bg-lime-100 transition-colors"
+                      className="block p-3 rounded-lg border bg-pink-50 hover:bg-pink-100 transition-colors"
                     >
                       <div className="flex gap-3">
                         <div className="w-16 h-16 flex-shrink-0 bg-gray-100 rounded overflow-hidden">
@@ -402,7 +402,7 @@ export function DashboardClient({
                                   ? "Completada"
                                   : "Cancelada"}
                           </Badge>
-                          <span className="text-sm font-medium text-lime-600">
+                          <span className="text-sm font-medium text-pink-600">
                             {formatCurrency(reservation.product.price)}
                           </span>
                         </div>

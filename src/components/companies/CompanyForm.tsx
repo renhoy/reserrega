@@ -271,7 +271,7 @@ export default function CompanyForm({
         )}
 
         {/* Datos Fiscales */}
-        <Card className="bg-lime-100">
+        <Card className="bg-pink-100">
           <CardHeader>
             <CardTitle>Datos Fiscales</CardTitle>
             <CardDescription>Información fiscal de la empresa</CardDescription>
@@ -288,7 +288,7 @@ export default function CompanyForm({
                   <TabsTrigger
                     value="empresa"
                     disabled={isLoading}
-                    className="bg-lime-500 text-white hover:bg-lime-600 data-[state=active]:bg-white data-[state=active]:text-lime-600"
+                    className="bg-pink-500 text-white hover:bg-pink-600 data-[state=active]:bg-white data-[state=active]:text-pink-600"
                   >
                     <Building2 className="h-4 w-4 mr-2" />
                     Empresa
@@ -296,7 +296,7 @@ export default function CompanyForm({
                   <TabsTrigger
                     value="autonomo"
                     disabled={isLoading}
-                    className="bg-lime-500 text-white hover:bg-lime-600 data-[state=active]:bg-white data-[state=active]:text-lime-600"
+                    className="bg-pink-500 text-white hover:bg-pink-600 data-[state=active]:bg-white data-[state=active]:text-pink-600"
                   >
                     <User className="h-4 w-4 mr-2" />
                     Autónomo
@@ -560,7 +560,7 @@ export default function CompanyForm({
         </Card>
 
         {/* Datos de Contacto */}
-        <Card className="bg-lime-100">
+        <Card className="bg-pink-100">
           <CardHeader>
             <CardTitle>Datos de Contacto</CardTitle>
             <CardDescription>
@@ -651,7 +651,7 @@ export default function CompanyForm({
         {/* Información de empresa */}
         {/* Información Adicional - Solo en modo edición */}
         {mode === "edit" && company && (
-          <Card className="bg-lime-100">
+          <Card className="bg-pink-100">
             <CardHeader>
               <CardTitle>Información Adicional</CardTitle>
             </CardHeader>

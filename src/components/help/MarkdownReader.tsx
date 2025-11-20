@@ -67,8 +67,8 @@ export function MarkdownReader({
         prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
         prose-pre:border prose-pre:border-gray-700
         [&_pre_code]:bg-transparent [&_pre_code]:text-gray-100 [&_pre_code]:p-0
-        prose-a:text-lime-600 prose-a:no-underline hover:prose-a:underline
-        prose-blockquote:border-l-4 prose-blockquote:border-lime-500 prose-blockquote:pl-4 prose-blockquote:italic
+        prose-a:text-pink-600 prose-a:no-underline hover:prose-a:underline
+        prose-blockquote:border-l-4 prose-blockquote:border-pink-500 prose-blockquote:pl-4 prose-blockquote:italic
         ${className}
       `}
       dangerouslySetInnerHTML={{ __html: cleanHtml }}

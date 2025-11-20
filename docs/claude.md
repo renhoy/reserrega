@@ -1,51 +1,44 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Store-Panel 🔴
+## MÓDULO ACTUAL: Admin Dashboard 🔴
 
-**Objetivo:** Panel para comerciales - escanear QR usuario, escanear productos, gestionar reservas, marcar envíos
+**Objetivo:** Panel administrativo para superadmins - gestión de empresas, comerciales, estadísticas globales, configuración del sistema
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/store-panel/
+features/admin-dashboard/
 ├── components/
-│   ├── UserQRScanner.tsx
-│   ├── SessionHeader.tsx
-│   ├── ProductScanner.tsx
-│   ├── ActiveReservations.tsx
-│   ├── DeliveryMarker.tsx
-│   └── StoreStats.tsx
+│   ├── CompanyManager.tsx
+│   ├── ComercialManager.tsx
+│   ├── GlobalStats.tsx
+│   ├── SystemConfig.tsx
+│   └── ActivityLog.tsx
 ├── actions/
-│   ├── scanUserQR.ts
-│   ├── scanProduct.ts
-│   ├── getStoreReservations.ts
-│   ├── markAsShipped.ts
-│   └── getStoreStats.ts
+│   └── admin.actions.ts
 ├── hooks/
-│   ├── useStoreSession.ts
-│   ├── useProductScanner.ts
-│   └── useStoreReservations.ts
+│   ├── use-companies.ts
+│   ├── use-comercials.ts
+│   └── use-global-stats.ts
 ├── lib/
-│   └── store-utils.ts
+│   └── admin-utils.ts
 ├── types/
-│   └── store.types.ts
+│   └── admin.types.ts
 ├── README.md
 └── index.ts
 
 src/app/
-└── (app)/
-    └── store/
-        ├── page.tsx              # Dashboard tienda
-        ├── scan/page.tsx         # Escanear QR usuario
-        ├── session/
-        │   └── [sessionId]/
-        │       └── page.tsx      # Sesión activa
-        ├── reservations/
-        │   └── page.tsx          # Ver reservas
-        └── stats/
-            └── page.tsx          # Estadísticas
+├── (dashboard)/
+│   └── admin/
+│       ├── page.tsx
+│       ├── companies/
+│       │   └── page.tsx
+│       ├── comercials/
+│       │   └── page.tsx
+│       └── config/
+│           └── page.tsx
 ```
 
 ---
@@ -96,16 +89,28 @@ src/app/
   - Solo lectura para uso
 
 ✅ features/gift-flow/* (READ-ONLY - Módulo completado)
-  - Ver wishlist de amigos con permisos
+  - Ver wishlist de amigos según permisos
   - Selección de productos con bloqueo temporal (15 min)
-  - Checkout con pago simulado
+  - Sistema de checkout con pago simulado
   - Confirmación de entrega
   - Historial de regalos enviados y recibidos
-  - Hooks personalizados (useGiftFlow, useGiftLock, useDeliveryTracking, useGiftHistory)
-  - Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history
+  - Componentes (GiftSelectionCard, GiftCheckoutForm, GiftConfirmation, etc.)
+  - Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history, /gift/confirmation
   - Solo lectura para uso
 
-❌ features/* (Todavía no iniciados - excepto Store-Panel)
+✅ features/store-panel/* (READ-ONLY - Módulo completado)
+  - Escaneo de QR usuario y códigos de barras
+  - Gestión de sesiones de compra activas
+  - Vinculación de productos a usuarios
+  - Gestión de reservas y estados de entrega
+  - Dashboard de estadísticas de tienda
+  - Componentes (SessionScanner, ProductLinker, ActiveReservations, DeliveryManager, StoreStats)
+  - Hooks (useStoreSession, useStoreReservations, useStoreStats)
+  - Server Actions (startStoreSession, addProductToSession, endStoreSession, etc.)
+  - Páginas /store, /store/session/[userId]
+  - Solo lectura para uso
+
+❌ features/* (Todavía no iniciados - excepto Admin Dashboard)
 ❌ src/app/(routes)/* (excepto rutas permitidas)
 ```
 
@@ -121,10 +126,10 @@ src/app/
 
 ### ✅ Durante desarrollo:
 
-- Solo trabajar en archivos del módulo Store-Panel
+- Solo trabajar en archivos del módulo Admin Dashboard
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/*, features/* (READ-ONLY) pero NO MODIFICAR
+- Puedes LEER shared/*, features/* (completados) pero NO MODIFICAR
 - Si necesitas tocar otro módulo → PARAR y reportar
 
 ### 🚨 Si algo sale mal:
@@ -159,8 +164,9 @@ src/app/
 - shared/common/* - UI components, layouts, hooks, utilidades
 - features/product-reservation/* - QR, escaneo, reservas, pago simulado
 - features/wishlist/* - Grid, filtros, visibilidad, badges de estado
-- features/friends-network/* - Solicitudes amistad, búsqueda, invitaciones
-- features/gift-flow/* - Flujo completo de regalo, bloqueo temporal, pago simulado
+- features/friends-network/* - Red de amigos, solicitudes, invitaciones
+- features/gift-flow/* - Flujo completo de regalo, bloqueos, checkout
+- features/store-panel/* - Panel de tienda, sesiones, estadísticas
 
 **Herramientas:**
 - clsx / tailwind-merge
@@ -179,13 +185,14 @@ src/app/
 **Roles:** Superadmin, Admin, Comercial, Usuario
 **Multi-tenancy:** Por `company_id` en tabla `companies`
 
-**Store-Panel module incluye:**
-- Escanear QR de usuario para iniciar sesión de reserva
-- Escanear productos (código de barras) durante sesión
-- Ver reservas activas de la tienda
-- Marcar productos como enviados
-- Dashboard con estadísticas de tienda
-- Panel exclusivo para rol Comercial
+**Admin Dashboard module incluye:**
+- Panel administrativo para superadmins
+- Gestión de empresas/tiendas (CRUD completo)
+- Gestión de usuarios comerciales
+- Estadísticas globales del sistema
+- Configuración del sistema (tarifas, días de validez, etc.)
+- Log de actividad y auditoría
+- Métricas de todas las tiendas
 
 ---
 
@@ -196,14 +203,14 @@ src/app/
 ```
 "Lee PRD.md, claude.md y tareas.md.
 
-Módulo activo: Store-Panel
-Solo puedes modificar archivos en features/store-panel/ y rutas en src/app/(app)/store
+Módulo activo: Admin Dashboard
+Solo puedes modificar archivos en features/admin-dashboard/ y rutas en src/app/(dashboard)/admin
 
 Tarea actual: [copiar de tareas.md]
 
 Restricciones:
 - NO modificar shared/* (READ-ONLY)
-- NO modificar features/* excepto store-panel (READ-ONLY)
+- NO modificar features/* completados (READ-ONLY)
 - Puedes LEER módulos completados para uso
 - Una tarea a la vez
 - Actualizar tareas.md al completar"
@@ -255,35 +262,34 @@ Restricciones:
 - Server actions completas
 
 ✅ **Friends-Network** - `features/friends-network/` (READ-ONLY)
-- Solicitudes de amistad (enviar, aceptar, rechazar, cancelar)
-- Búsqueda de usuarios con estado de amistad
-- Invitaciones por email con tokens seguros (7 días expiración)
-- Gestión de red de amigos bidireccional
-- Páginas /friends, /friends/requests, /friends/invite
-- Hooks personalizados (useFriends, useFriendRequests, useUserSearch, useInvitation)
-- Validación de permisos y prevención de duplicados
-- Debounce personalizado sin dependencias externas
+- Solicitudes de amistad completas
+- Búsqueda de usuarios
+- Invitaciones por email
+- Gestión de red de amigos
 
 ✅ **Gift-Flow** - `features/gift-flow/` (READ-ONLY)
-- Ver wishlist de amigos con verificación de permisos
-- Selección de productos con bloqueo temporal (15 minutos)
-- Checkout con pago simulado y countdown de bloqueo
-- Confirmación de entrega y tracking
-- Historial de regalos enviados y recibidos
-- Páginas /gift/[friendId], /gift/[friendId]/checkout, /gift/history
-- Hooks personalizados (useGiftFlow, useGiftLock, useDeliveryTracking, useGiftHistory)
-- Sistema de liberación automática de bloqueos
-- Optimistic UI updates
+- Ver wishlist de amigos
+- Bloqueo temporal de productos
+- Checkout con pago simulado
+- Historial de regalos
+
+✅ **Store-Panel** - `features/store-panel/` (READ-ONLY)
+- Panel comercial completo
+- Escaneo QR y códigos de barras
+- Gestión de sesiones de compra
+- Reservas y estados de entrega
+- Dashboard de estadísticas
+- 7 componentes, 6 server actions, 3 hooks
+- Páginas /store y /store/session/[userId]
 
 ---
 
-## PRÓXIMO MÓDULO (después de completar Store-Panel)
+## MÓDULO ACTUAL EN DESARROLLO
 
-**Admin-Dashboard** - `features/admin-dashboard/`
-
-**Cuando Store-Panel esté READ-ONLY:**
-1. Actualizar PRD.md → estado Store-Panel = READ-ONLY
-2. Mover `features/store-panel/*` a ARCHIVOS PROHIBIDOS
-3. Cambiar MÓDULO ACTUAL a: Admin-Dashboard
-4. Actualizar lista PERMITIDOS con archivos de Admin-Dashboard
-5. Crear nuevo backlog en tareas.md para Admin-Dashboard
+**Admin Dashboard** - `features/admin-dashboard/` (ACTIVO)
+- Panel administrativo para superadmins
+- Gestión de empresas/tiendas
+- Gestión de usuarios comerciales
+- Estadísticas globales
+- Configuración del sistema
+- Log de actividad

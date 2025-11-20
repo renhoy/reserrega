@@ -192,7 +192,7 @@ ${message.message}`;
             {messages.map((message) => (
               <TableRow
                 key={message.id}
-                className="hover:bg-lime-50 transition-colors"
+                className="hover:bg-pink-50 transition-colors"
               >
                 <TableCell className="font-medium text-gray-900">
                   {message.first_name} {message.last_name}
@@ -244,7 +244,7 @@ ${message.message}`;
                             variant="outline"
                             size="icon"
                             onClick={(e) => handleViewMessage(message, e)}
-                            className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                            className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                           >
                             <Eye className="h-4 w-4" />
                           </Button>
@@ -260,7 +260,7 @@ ${message.message}`;
                             variant="outline"
                             size="icon"
                             onClick={(e) => handleCopyMessage(message, e)}
-                            className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                            className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                           >
                             <Copy className="h-4 w-4" />
                           </Button>

@@ -137,7 +137,7 @@ export function Sidebar({ user, className }: SidebarProps) {
                     variant={isActive ? 'secondary' : 'ghost'}
                     className={cn(
                       'w-full justify-start',
-                      isActive && 'bg-lime-100 text-lime-900 hover:bg-lime-200 dark:bg-lime-900 dark:text-lime-100'
+                      isActive && 'bg-pink-100 text-pink-900 hover:bg-pink-200 dark:bg-pink-900 dark:text-pink-100'
                     )}
                     asChild
                   >

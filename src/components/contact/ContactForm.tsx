@@ -217,7 +217,7 @@ export function ContactForm({ legalNotice }: ContactFormProps) {
                   href="/legal"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lime-600 underline hover:text-lime-700"
+                  className="text-pink-600 underline hover:text-pink-700"
                 >
                   política de privacidad
                 </a>{" "}
@@ -229,7 +229,7 @@ export function ContactForm({ legalNotice }: ContactFormProps) {
             {/* Botón enviar */}
             <Button
               type="submit"
-              className="w-full bg-lime-500 hover:bg-lime-600"
+              className="w-full bg-pink-500 hover:bg-pink-600"
               disabled={loading}
             >
               {loading ? "Enviando..." : "Enviar Mensaje"}

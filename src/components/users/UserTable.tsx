@@ -348,8 +348,8 @@ export default function UserTable({
             }}
             className={
               statusFilter === "all" && search === ""
-                ? "bg-lime-500 hover:bg-lime-600"
-                : "border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             }
           >
             Todos ({users.length})
@@ -361,8 +361,8 @@ export default function UserTable({
             disabled={!statusCounts["active"]}
             className={
               statusFilter === "active"
-                ? "bg-lime-500 hover:bg-lime-600"
-                : "border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             }
           >
             Activos{statusCounts["active"] ? ` (${statusCounts["active"]})` : ""}
@@ -374,8 +374,8 @@ export default function UserTable({
             disabled={!statusCounts["inactive"]}
             className={
               statusFilter === "inactive"
-                ? "bg-lime-500 hover:bg-lime-600"
-                : "border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                ? "bg-pink-500 hover:bg-pink-600"
+                : "border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
             }
           >
             Inactivos{statusCounts["inactive"] ? ` (${statusCounts["inactive"]})` : ""}
@@ -420,7 +420,7 @@ export default function UserTable({
               filteredUsers.map((user) => (
                 <TableRow
                   key={user.id}
-                  className="bg-white border-t hover:bg-lime-100/100"
+                  className="bg-white border-t hover:bg-pink-100/100"
                 >
                   {/* Columna Email */}
                   <TableCell className="p-4">
@@ -447,7 +447,7 @@ export default function UserTable({
                                 size="sm"
                                 onClick={() => handleInviteUser(user)}
                                 disabled={isLoading}
-                                className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white ml-2"
+                                className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white ml-2"
                               >
                                 <Plus className="h-3 w-3 mr-1" />
                                 <Mail className="h-3 w-3" />
@@ -577,7 +577,7 @@ export default function UserTable({
                                   size="icon"
                                   asChild
                                   data-tour="btn-editar-usuario"
-                                  className="border-lime-500 text-lime-600 hover:bg-lime-500 hover:text-white"
+                                  className="border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white"
                                 >
                                   <Link href={`/users/${user.id}/edit`}>
                                     <Pencil className="h-4 w-4" />
@@ -804,7 +804,7 @@ export default function UserTable({
       >
         <AlertDialogContent className="w-[80vw] max-w-[80vw] sm:w-[80vw] sm:max-w-[80vw] h-[80vh] max-h-[80vh] flex flex-col overflow-hidden">
           <AlertDialogHeader>
-            <AlertDialogTitle className="text-lime-600 flex items-center gap-2">
+            <AlertDialogTitle className="text-pink-600 flex items-center gap-2">
               <Mail className="h-5 w-5" />
               Invitar Usuario
             </AlertDialogTitle>
@@ -817,11 +817,11 @@ export default function UserTable({
               con un enlace para que configure su contraseña y acceda al sistema.
             </div>
 
-            <div className="bg-lime-50 border border-lime-200 rounded-md p-3">
-              <div className="text-sm font-medium text-lime-900 mb-2">
+            <div className="bg-pink-50 border border-pink-200 rounded-md p-3">
+              <div className="text-sm font-medium text-pink-900 mb-2">
                 Vista previa del mensaje:
               </div>
-              <div className="bg-white border border-lime-100 rounded p-3 text-sm text-gray-700 whitespace-pre-wrap break-words max-h-60 overflow-y-auto overflow-x-hidden">
+              <div className="bg-white border border-pink-100 rounded p-3 text-sm text-gray-700 whitespace-pre-wrap break-words max-h-60 overflow-y-auto overflow-x-hidden">
                 {invitationMessage}
               </div>
             </div>
@@ -838,7 +838,7 @@ export default function UserTable({
               </Button>
             </div>
 
-            <div className="bg-lime-50 border border-blue-200 rounded-md p-3">
+            <div className="bg-pink-50 border border-blue-200 rounded-md p-3">
               <div className="text-xs text-blue-800 break-words">
                 ℹ️ <strong>Nota:</strong> Al confirmar, se intentará abrir tu aplicación
                 de email predeterminada con el mensaje prellenado. Si no funciona,
@@ -855,7 +855,7 @@ export default function UserTable({
             <AlertDialogAction
               onClick={handleSendInvitation}
               disabled={isLoading}
-              className="bg-lime-600 hover:bg-lime-700"
+              className="bg-pink-600 hover:bg-pink-700"
             >
               {isLoading ? (
                 <>

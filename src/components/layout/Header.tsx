@@ -2,22 +2,17 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 import {
-  Building2,
-  CircleUser,
   Gift,
   HelpCircle,
   Home,
   Heart,
   UserPlus,
-  Settings,
   Users,
   Camera,
   Package,
   QrCode,
 } from "lucide-react";
-import LogoutButton from "@/components/auth/LogoutButton";
 import { UserMenu } from "@/components/layout/UserMenu";
 import { Button } from "@/components/ui/button";
 
@@ -55,13 +50,13 @@ export function Header({
   // Si no está autenticado, mostrar header público
   if (!isAuthenticated) {
     return (
-      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-lime-100">
+      <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-pink-100">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="w-8 h-8 bg-gradient-to-br from-lime-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md">
-                <Gift className="h-5 w-5 text-white" />
+              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md text-white font-black text-sm">
+                RR
               </div>
               <span className="text-xl font-bold text-gray-900">{appName}</span>
             </Link>
@@ -72,7 +67,7 @@ export function Header({
               {multiempresa && subscriptionsEnabled && (
                 <Link
                   href="/pricing"
-                  className="text-gray-700 hover:text-lime-600 transition-colors font-medium"
+                  className="text-gray-700 hover:text-pink-600 transition-colors font-medium"
                 >
                   Precios
                 </Link>
@@ -80,14 +75,14 @@ export function Header({
               {/* Solo mostrar Registro en modo multiempresa */}
               {multiempresa && (
                 <Link href="/register">
-                  <Button className="bg-gradient-to-r from-lime-500 to-emerald-500 hover:shadow-lg hover:shadow-lime-500/30 transition-all">
+                  <Button className="bg-gradient-to-r from-pink-500 to-purple-500 hover:shadow-lg hover:shadow-pink-500/30 transition-all">
                     Registro
                   </Button>
                 </Link>
               )}
               <Link
                 href="/login"
-                className="text-gray-700 hover:text-lime-600 transition-colors font-medium"
+                className="text-gray-700 hover:text-pink-600 transition-colors font-medium"
               >
                 Acceso
               </Link>
@@ -102,20 +97,30 @@ export function Header({
   const isSuperadmin = userRole === "superadmin";
   const isAdmin = userRole === "admin" || userRole === "superadmin";
 
-  // Navegación adaptada según rol
-  const navigation = [
-    // Admin/Superadmin
-    { name: "Panel", href: "/dashboard", icon: Home, show: isAdmin },
-    // Comerciales
-    { name: "Escanear", href: "/scan", icon: Camera, show: userRole === "comercial" },
-    // Usuarios normales
-    { name: "Wishlist", href: "/wishlist", icon: Heart, show: !isAdmin && userRole !== "comercial" },
-    { name: "Reservas", href: "/reservations", icon: Package, show: !isAdmin && userRole !== "comercial" },
-    { name: "Amigos", href: "/friends", icon: UserPlus, show: !isAdmin && userRole !== "comercial" },
-    { name: "QR", href: "/qr", icon: QrCode, show: !isAdmin && userRole !== "comercial" },
-    // Común para todos
-    { name: "Ayuda", href: "/help", icon: HelpCircle, show: true },
-  ].filter((item) => item.show);
+  // Navegación simplificada a 4 items: Panel, Item 1, Item 2, Ayuda
+  const navigation = isAdmin
+    ? [
+        // Admin/Superadmin: Panel, Usuarios, Empresas, Ayuda
+        { name: "Panel", href: "/dashboard", icon: Home },
+        { name: "Usuarios", href: "/users", icon: Users },
+        { name: "Empresas", href: "/companies", icon: Package },
+        { name: "Ayuda", href: "/help", icon: HelpCircle },
+      ]
+    : userRole === "comercial"
+    ? [
+        // Comercial: Escanear, Tienda, Reservas, Ayuda
+        { name: "Escanear", href: "/scan", icon: Camera },
+        { name: "Tienda", href: "/store", icon: Package },
+        { name: "Reservas", href: "/reservations", icon: QrCode },
+        { name: "Ayuda", href: "/help", icon: HelpCircle },
+      ]
+    : [
+        // Usuario: Wishlist, Amigos, Reservas, Ayuda
+        { name: "Wishlist", href: "/wishlist", icon: Heart },
+        { name: "Amigos", href: "/friends", icon: UserPlus },
+        { name: "Reservas", href: "/reservations", icon: Package },
+        { name: "Ayuda", href: "/help", icon: HelpCircle },
+      ];
 
   // Formatear rol para mostrar
   const getRoleLabel = (role?: string) => {
@@ -131,18 +136,18 @@ export function Header({
     }
   };
 
-  // Debug log
-  useEffect(() => {
-    console.log("[Header] userRole:", userRole);
-    console.log("[Header] userName:", userName);
-    console.log(
-      "[Header] navigation items:",
-      navigation.map((n) => n.name)
-    );
-  }, [userRole, userName, navigation]);
+  // Debug log - commented out to avoid hooks rules violation
+  // useEffect(() => {
+  //   console.log("[Header] userRole:", userRole);
+  //   console.log("[Header] userName:", userName);
+  //   console.log(
+  //     "[Header] navigation items:",
+  //     navigation.map((n) => n.name)
+  //   );
+  // }, [userRole, userName]);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-lime-100">
+    <header className="sticky top-0 z-50 bg-white shadow-sm border-b border-pink-100">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -150,8 +155,8 @@ export function Header({
             href={isAdmin ? "/dashboard" : userRole === "comercial" ? "/scan" : "/wishlist"}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <div className="w-8 h-8 bg-gradient-to-br from-lime-500 to-emerald-500 rounded-xl flex items-center justify-center shadow-md">
-              <Gift className="h-5 w-5 text-white" />
+            <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex items-center justify-center shadow-md text-white font-black text-sm">
+              RR
             </div>
             <span className="text-xl font-bold text-gray-900">{appName}</span>
             {testingMode && (
@@ -175,8 +180,8 @@ export function Header({
                   href={item.href}
                   className={`px-3 py-2 text-sm font-medium rounded-md transition-colors flex items-center gap-2 ${
                     isActive
-                      ? "bg-lime-50 text-lime-700"
-                      : "text-gray-700 hover:text-lime-600 hover:bg-lime-50"
+                      ? "bg-pink-50 text-pink-700"
+                      : "text-gray-700 hover:text-pink-600 hover:bg-pink-50"
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -195,7 +200,6 @@ export function Header({
             issuerType={issuerType}
             currentPlan={currentPlan}
             showSubscriptions={showSubscriptions}
-            showSettings={isSuperadmin}
           />
         </div>
       </div>

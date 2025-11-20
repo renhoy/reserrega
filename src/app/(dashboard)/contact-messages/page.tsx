@@ -40,7 +40,7 @@ export default async function ContactMessagesPage({ searchParams }: PageProps) {
   const stats = statsResult.success ? statsResult.data : { total: 0, nuevo: 0, leido: 0, respondido: 0 };
 
   return (
-    <div className="min-h-screen bg-lime-50">
+    <div className="min-h-screen bg-pink-50">
       <div className="container mx-auto px-4 py-6">
         {/* Header */}
         <ContactMessagesPageHeader />
@@ -61,7 +61,7 @@ export default async function ContactMessagesPage({ searchParams }: PageProps) {
             </span>
             <Link
               href="/contact-messages"
-              className="text-sm text-lime-600 hover:text-lime-700 underline"
+              className="text-sm text-pink-600 hover:text-pink-700 underline"
             >
               Ver todos
             </Link>

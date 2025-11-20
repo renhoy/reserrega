@@ -8,7 +8,7 @@
 
 'use client'
 
-import { use, useEffect, useState } from 'react'
+import { Suspense, use, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, Loader2 } from 'lucide-react'
 import { Button } from '@/shared/common/components/ui/button'
@@ -23,8 +23,8 @@ interface PageProps {
   params: Promise<{ friendId: string }>
 }
 
-export default function GiftCheckoutPage({ params }: PageProps) {
-  const { friendId } = use(params)
+// Componente que usa useSearchParams - debe estar envuelto en Suspense
+function GiftCheckoutContent({ friendId }: { friendId: string }) {
   const searchParams = useSearchParams()
   const router = useRouter()
   const wishlistItemId = searchParams.get('item')
@@ -126,5 +126,24 @@ export default function GiftCheckoutPage({ params }: PageProps) {
         </div>
       </div>
     </div>
+  )
+}
+
+// Página principal con Suspense boundary
+export default function GiftCheckoutPage({ params }: PageProps) {
+  const { friendId } = use(params)
+
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        </div>
+      }
+    >
+      <GiftCheckoutContent friendId={friendId} />
+    </Suspense>
   )
 }

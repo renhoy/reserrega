@@ -8,7 +8,7 @@
 
 'use client'
 
-import { use, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Loader2 } from 'lucide-react'
 import { Alert, AlertDescription } from '@/shared/common/components/ui/alert'
@@ -17,7 +17,8 @@ import { GiftConfirmation } from '@/features/gift-flow/components/GiftConfirmati
 import { supabase as createClient } from '@/lib/supabase/client'
 import type { GiftWithDetails } from '@/features/gift-flow/types/gift.types'
 
-export default function GiftConfirmationPage() {
+// Componente que usa useSearchParams - debe estar envuelto en Suspense
+function GiftConfirmationContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const orderNumber = searchParams.get('order')
@@ -90,5 +91,22 @@ export default function GiftConfirmationPage() {
     <div className="container mx-auto px-4 py-8">
       <GiftConfirmation gift={gift} orderNumber={orderNumber || undefined} />
     </div>
+  )
+}
+
+// Página principal con Suspense boundary
+export default function GiftConfirmationPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+          </div>
+        </div>
+      }
+    >
+      <GiftConfirmationContent />
+    </Suspense>
   )
 }

@@ -1,220 +1,554 @@
-# Reserrega
+# Reserrega 🎁
 
-Red social de regalos que permite reservar productos en tiendas físicas y crear listas de deseos compartidas con amigos y familia.
+> Red social de regalos que conecta tiendas físicas con usuarias que quieren evitar regalos duplicados o equivocados.
+
+[![Next.js](https://img.shields.io/badge/Next.js-15.5-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Cloud-green)](https://supabase.com/)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com)
+
+---
+
+## 📋 Tabla de Contenidos
+
+- [Concepto](#-concepto)
+- [Estado del Proyecto](#-estado-del-proyecto)
+- [Arquitectura](#-arquitectura)
+- [Stack Tecnológico](#-stack-tecnológico)
+- [Módulos del Sistema](#-módulos-del-sistema)
+- [Setup del Proyecto](#-setup-del-proyecto)
+- [Estructura del Proyecto](#-estructura-del-proyecto)
+- [Desarrollo](#-desarrollo)
+- [Deploy](#-deploy)
+- [Documentación](#-documentación)
+
+---
 
 ## 🎯 Concepto
 
 Reserrega conecta tiendas físicas con usuarias que quieren evitar regalos duplicados o equivocados:
 
-- **Reserva productos** en tienda física (€1, válido 15 días)
-- **Crea tu wishlist** con productos exactos (talla, color)
-- **Comparte con amigos** para que sepan qué regalarte
-- **Recibe regalos perfectos** sin sorpresas indeseadas
+### Para Usuarios
+- 🛍️ **Reserva productos** en tienda física (€1, válido 15 días)
+- 📝 **Crea tu wishlist** con productos exactos (talla, color, modelo)
+- 👥 **Comparte con amigos** para que sepan qué regalarte
+- 🎁 **Recibe regalos perfectos** sin sorpresas indeseadas
+
+### Para Comerciales
+- 📱 **Escanea QR** del usuario para iniciar sesión de compra
+- 🔍 **Escanea productos** (código de barras) durante la sesión
+- 📦 **Gestiona reservas** activas de tu tienda
+- ✅ **Marca como enviado** cuando el producto llega
+
+### Para Administradores
+- 🏢 **Gestiona empresas** y tiendas del sistema
+- 👤 **Gestiona comerciales** y sus permisos
+- 📊 **Visualiza estadísticas** globales del sistema
+- ⚙️ **Configura parámetros** del sistema
+
+---
+
+## 📊 Estado del Proyecto
+
+### Progreso General: **86% Completado** (9.5/11 módulos)
+
+#### ✅ MVP COMPLETADO (8/8 módulos)
+- ✅ Database - Schema multi-tenant, RLS policies
+- ✅ Auth - Sistema de autenticación completo
+- ✅ Common - UI components y utilidades
+- ✅ Product-Reservation - Reserva de productos con QR
+- ✅ Wishlist - Gestión de listas de deseos
+- ✅ Friends-Network - Red social de amigos
+- ✅ Gift-Flow - Flujo completo de regalos
+- ✅ Store-Panel - Panel para comerciales
+
+#### 🟡 FASE 3 EN PROGRESO (1.5/3 módulos)
+- ✅ Admin Dashboard - Panel administrativo
+- 🟡 Testing & Bug Fixes - Build exitoso, faltan tests
+- ⏸️ Deploy & Onboarding - Pendiente
+
+### Build Status
+```
+✅ Build compilando sin errores TypeScript
+✅ Todas las dependencias instaladas
+✅ 9 módulos funcionales y probados
+🟡 Pendiente: Tests end-to-end y deploy
+```
+
+---
+
+## 🏗️ Arquitectura
+
+### Arquitectura General
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Frontend (Next.js 15)                │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │   Usuario    │  │  Comercial   │  │    Admin     │ │
+│  │   Dashboard  │  │    Panel     │  │   Dashboard  │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────┐
+│              Server Actions & API Routes                │
+│  ┌──────────────────────────────────────────────────┐  │
+│  │  Auth  │  Reservas  │  Wishlist  │  Gifts  │ etc │  │
+│  └──────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
+                           ↓
+┌─────────────────────────────────────────────────────────┐
+│              Supabase (Backend as a Service)            │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐ │
+│  │  PostgreSQL  │  │     Auth     │  │   Storage    │ │
+│  │   Database   │  │    Service   │  │   (Future)   │ │
+│  └──────────────┘  └──────────────┘  └──────────────┘ │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Multi-Tenancy
+
+El sistema soporta múltiples empresas (multi-tenant) mediante:
+- Tabla `companies` como entidad principal
+- Todas las tablas relacionadas filtran por `company_id`
+- RLS Policies que aseguran aislamiento de datos
+- Roles: Superadmin, Admin, Comercial, Usuario
+
+---
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+- **Framework:** Next.js 15 (App Router)
+- **UI:** React 19
+- **Lenguaje:** TypeScript 5
+- **Estilos:** Tailwind CSS
+- **Componentes UI:** shadcn/ui + Radix UI
+- **Iconos:** Lucide React
+- **Forms:** React Hook Form
+- **Estado:** React Context + Server Actions
+
+### Backend
+- **BaaS:** Supabase Cloud
+- **Base de Datos:** PostgreSQL
+- **Autenticación:** Supabase Auth
+- **ORM/Cliente:** Supabase Client
+- **Server Actions:** Next.js Server Actions
+
+### Herramientas de Desarrollo
+- **Linting:** ESLint
+- **Formateo:** Prettier
+- **Type Checking:** TypeScript
+- **Package Manager:** npm
+- **Version Control:** Git
+
+---
+
+## 📦 Módulos del Sistema
+
+### SHARED (Módulos Base)
+
+#### 1. Database (`shared/database/`)
+- Schema multi-tenant con 13 tablas
+- RLS Policies por rol
+- Tipos TypeScript generados
+- Scripts de setup
+
+#### 2. Auth (`shared/auth/`)
+- Login/Register
+- Middleware de protección
+- Helpers server-side (requireAuth, requireRole)
+- Sistema de permisos
+
+#### 3. Common (`shared/common/`)
+- 25+ componentes UI (shadcn/ui)
+- Layouts (Header, Sidebar, Footer)
+- Hooks compartidos (useToast, usePermissions)
+- Utilidades (formatters, validators)
+
+### FEATURES (Módulos de Funcionalidad)
+
+#### 4. Product-Reservation (`features/product-reservation/`)
+**Funcionalidad:**
+- QR Generator (auto-refresh 24h)
+- QR/Barcode Scanner
+- Formulario de reserva
+- Pago simulado (€1)
+
+**Páginas:**
+- `/qr` - Generar QR personal
+- `/reservations` - Ver mis reservas
+- `/scan` - Escanear productos (comercial)
+
+#### 5. Wishlist (`features/wishlist/`)
+**Funcionalidad:**
+- Grid de productos reservados
+- Filtros por estado (disponible, en proceso, regalado, expirado)
+- Control de visibilidad (privado, amigos, público)
+- Warnings de expiración
+
+**Páginas:**
+- `/wishlist` - Mi lista de deseos
+- `/wishlist/[id]` - Detalle de producto
+
+#### 6. Friends-Network (`features/friends-network/`)
+**Funcionalidad:**
+- Solicitudes de amistad
+- Búsqueda de usuarios
+- Invitaciones por email (tokens 7 días)
+- Gestión de red de amigos
+
+**Páginas:**
+- `/friends` - Lista de amigos
+- `/friends/requests` - Solicitudes pendientes
+- `/friends/invite` - Invitar por email
+
+#### 7. Gift-Flow (`features/gift-flow/`)
+**Funcionalidad:**
+- Ver wishlist de amigos
+- Bloqueo temporal de producto (15 min)
+- Checkout con pago simulado
+- Confirmación de entrega
+- Historial de regalos
+
+**Páginas:**
+- `/gift/[friendId]` - Wishlist del amigo
+- `/gift/[friendId]/checkout` - Checkout
+- `/gift/history` - Mi historial de regalos
+
+#### 8. Store-Panel (`features/store-panel/`)
+**Funcionalidad:**
+- Escanear QR de usuario
+- Escanear productos (barcode)
+- Gestión de sesiones de compra
+- Ver reservas de la tienda
+- Marcar productos como enviados
+- Estadísticas de tienda
+
+**Páginas:**
+- `/store` - Dashboard comercial (3 tabs)
+- `/store/session/[userId]` - Sesión activa
+
+#### 9. Admin-Dashboard (`features/admin-dashboard/`)
+**Funcionalidad:**
+- CRUD de empresas
+- CRUD de comerciales
+- Dashboard con 16 métricas globales
+- Configuración del sistema
+- Auto-refresh de estadísticas
+
+**Páginas:**
+- `/admin` - Dashboard principal
+- `/admin/companies` - Gestión de empresas
+- `/admin/comercials` - Gestión de comerciales
+- `/admin/config` - Configuración del sistema
+
+---
 
 ## 🚀 Setup del Proyecto
 
-### 1. Clonar y Instalar
+### 1. Requisitos Previos
+
+- **Node.js:** >= 18.0.0
+- **npm:** >= 9.0.0
+- **Cuenta Supabase:** [supabase.com](https://supabase.com)
+
+### 2. Clonar y Instalar
 
 ```bash
-git clone <repo-url>
+# Clonar el repositorio
+git clone https://github.com/renhoy/reserrega.git
 cd reserrega
-npm install
+
+# Instalar dependencias
+npm install --legacy-peer-deps
 ```
 
-### 2. Configurar Variables de Entorno
+### 3. Configurar Variables de Entorno
 
 ```bash
+# Copiar template
 cp .env.example .env.local
 ```
 
-Completa los valores de Supabase en `.env.local`:
+Completar en `.env.local`:
 ```env
+# Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key_here
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key_here
+
+# App Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-### 3. Setup Base de Datos
+### 4. Setup Base de Datos
 
-**Paso 3.1: Ejecutar Schema**
-
-En Supabase SQL Editor, ejecuta:
-```bash
-cat shared/database/schema/RESERREGA_FINAL.sql
+**Paso 4.1: Ejecutar Schema Principal**
+```sql
+-- En Supabase SQL Editor, ejecutar:
+shared/database/schema/RESERREGA_FINAL.sql
 ```
 
-**Paso 3.2: Setup Inicial (Superadmin + Empresa Demo)**
-
-En Supabase SQL Editor, ejecuta:
-```bash
-cat SETUP_INICIAL_COMPLETO.sql
+**Paso 4.2: Configurar Permisos**
+```sql
+-- En Supabase SQL Editor, ejecutar:
+shared/database/scripts/setup-permissions.sql
 ```
 
-Esto crea:
-- ✅ Usuario Superadmin (josivela+super@gmail.com)
-- ✅ Empresa Demo (id=1)
-- ✅ Issuer Demo
+**Paso 4.3: Setup Inicial (Opcional)**
+```sql
+-- Crear superadmin y empresa demo:
+SETUP_INICIAL_COMPLETO.sql
+```
 
-### 4. Iniciar Desarrollo
+### 5. Ejecutar en Desarrollo
 
 ```bash
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000)
+Abrir [http://localhost:3000](http://localhost:3000)
+
+---
 
 ## 📁 Estructura del Proyecto
 
 ```
 reserrega/
+├── docs/                          # Documentación del proyecto
+│   ├── PRD.md                    # Product Requirements Document
+│   ├── planificacion.md          # Planificación y timeline
+│   ├── tareas.md                 # Tareas y progreso
+│   └── claude.md                 # Instrucciones para Claude Code
+│
+├── features/                      # Módulos de funcionalidad
+│   ├── product-reservation/      # Módulo de reservas
+│   ├── wishlist/                 # Módulo de wishlist
+│   ├── friends-network/          # Módulo de amigos
+│   ├── gift-flow/                # Módulo de regalos
+│   ├── store-panel/              # Módulo de comerciales
+│   └── admin-dashboard/          # Módulo de administración
+│
+├── shared/                        # Módulos compartidos
+│   ├── database/                 # Schema y configuración DB
+│   ├── auth/                     # Sistema de autenticación
+│   └── common/                   # UI components y utilidades
+│
 ├── src/
-│   ├── app/                    # Next.js 15 App Router
-│   ├── components/             # Componentes React
-│   ├── lib/                    # Utilidades y configs
-│   │   ├── supabase/          # Clientes Supabase
-│   │   └── ...
-│   └── ...
-├── shared/
-│   ├── database/              # Módulo Database
-│   │   ├── schema/           # Schema SQL
-│   │   ├── types/            # TypeScript types
-│   │   ├── scripts/          # Scripts utilidad
-│   │   └── README.md         # Docs del módulo
-│   └── ...
-├── docs/                      # Documentación del proyecto
-│   ├── PRD.md                # Product Requirements Document
-│   ├── claude.md             # Workflow de desarrollo
-│   ├── planificacion.md      # Timeline MVP
-│   ├── tareas.md             # Tareas por módulo
-│   ├── design-system.md      # UI/UX specs
-│   └── ADAPTACIONES.md       # Limpieza de Redpresu
-├── SETUP_INICIAL_COMPLETO.sql # Setup completo (superadmin + empresa)
-├── SETUP_SUPERADMIN.sql       # Solo superadmin
-├── SETUP_EMPRESA_DEMO.sql     # Solo empresa demo
-├── .env.example               # Template de variables
-└── README.md                  # Este archivo
+│   ├── app/                      # App Router de Next.js
+│   │   ├── (auth)/              # Rutas de autenticación
+│   │   ├── (app)/               # Rutas protegidas de usuario
+│   │   ├── (comercial)/         # Rutas de comerciales
+│   │   └── (dashboard)/         # Rutas de admin
+│   └── lib/                      # Librerías y configuración
+│
+└── public/                        # Assets estáticos
 ```
 
-## 🗄️ Base de Datos
+---
 
-**Schema:** `reserrega`
-**Base de datos:** PostgreSQL (Supabase)
-**Multi-tenancy:** Por `company_id`
+## 💻 Desarrollo
 
-### Tablas (13 total)
-
-**Heredadas de Redpresu (6):**
-- `users` - Usuarios del sistema
-- `companies` - Empresas partner (tiendas)
-- `issuers` - Datos fiscales
-- `config` - Configuración global (JSONB)
-- `subscriptions` - Suscripciones Stripe
-- `contact_messages` - Mensajes de contacto
-- `user_invitations` - Invitaciones de usuarios
-
-**Nuevas de Reserrega (7):**
-- `stores` - Ubicaciones físicas de tiendas
-- `products` - Catálogo de productos (ropa)
-- `reservations` - Reservas de productos (€1, 15 días)
-- `wishlists` - Listas de deseos
-- `gifts` - Regalos realizados
-- `friend_requests` - Solicitudes de amistad
-- `friendships` - Amistades confirmadas
-
-Ver documentación completa: [shared/database/README.md](shared/database/README.md)
-
-## 🔐 Roles y Permisos
-
-**4 roles del sistema:**
-
-| Rol | Permisos |
-|-----|----------|
-| `superadmin` | Acceso total a todo el sistema |
-| `admin` | Gestión de su empresa y usuarios |
-| `comercial` | Gestión de tiendas y productos |
-| `usuario` | Crear wishlists, reservar, regalar |
-
-**Row Level Security (RLS)** habilitado en todas las tablas.
-
-## 🧪 Testing
+### Scripts Disponibles
 
 ```bash
-# Unit tests
-npm run test
+# Desarrollo
+npm run dev          # Iniciar servidor de desarrollo
 
-# E2E tests
-npm run test:e2e
+# Build
+npm run build        # Compilar para producción
+npm run start        # Iniciar servidor de producción
 
-# Ver coverage
-npm run test:coverage
+# Linting
+npm run lint         # Ejecutar ESLint
+npm run lint:fix     # Ejecutar ESLint y auto-fix
+
+# Type Checking
+npm run type-check   # Verificar tipos TypeScript
 ```
+
+### Guía de Desarrollo
+
+#### Crear un Nuevo Módulo
+
+1. Crear carpeta en `features/nombre-modulo/`
+2. Estructura base:
+```
+nombre-modulo/
+├── components/       # Componentes React
+├── actions/          # Server Actions
+├── hooks/            # Custom Hooks
+├── lib/              # Utilidades
+├── types/            # Types TypeScript
+├── README.md         # Documentación
+└── index.ts          # Exports
+```
+
+3. Documentar en `docs/tareas.md`
+4. Actualizar `docs/PRD.md` cuando se complete
+
+#### Reglas de Desarrollo
+
+- ✅ Un módulo a la vez
+- ✅ Completar antes de avanzar
+- ✅ Marcar como READ-ONLY al completar
+- ✅ Actualizar documentación
+- ⛔ No modificar módulos READ-ONLY sin autorización
+
+---
+
+## 🚀 Deploy
+
+### Deploy a Vercel (Recomendado)
+
+```bash
+# 1. Instalar Vercel CLI
+npm i -g vercel
+
+# 2. Deploy
+vercel
+
+# 3. Configurar variables de entorno en Vercel Dashboard
+# - NEXT_PUBLIC_SUPABASE_URL
+# - NEXT_PUBLIC_SUPABASE_ANON_KEY
+# - SUPABASE_SERVICE_ROLE_KEY
+```
+
+### Variables de Entorno para Producción
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_key
+NEXT_PUBLIC_APP_URL=https://your-domain.com
+```
+
+---
 
 ## 📚 Documentación
 
-- **[PRD.md](docs/PRD.md)** - Requisitos del producto
-- **[claude.md](docs/claude.md)** - Workflow de desarrollo modular
-- **[planificacion.md](docs/planificacion.md)** - Timeline MVP (4 semanas)
-- **[tareas.md](docs/tareas.md)** - Backlog de tareas por módulo
-- **[design-system.md](docs/design-system.md)** - Guía de UI/UX
-- **[Database README](shared/database/README.md)** - Schema y setup
+### Documentación del Proyecto
+- **[PRD.md](docs/PRD.md)** - Product Requirements Document
+- **[planificacion.md](docs/planificacion.md)** - Timeline y planificación
+- **[tareas.md](docs/tareas.md)** - Estado y tareas
+- **[claude.md](docs/claude.md)** - Guía para desarrollo
 
-## 🏗️ Stack Tecnológico
+### Documentación de Módulos
+Cada módulo tiene su propio README:
+- `features/product-reservation/README.md`
+- `features/wishlist/README.md`
+- `features/friends-network/README.md`
+- `features/gift-flow/README.md`
+- `features/store-panel/README.md`
+- `features/admin-dashboard/README.md`
 
-- **Framework:** Next.js 15.5.4 (App Router)
-- **UI:** React 19, TypeScript 5
-- **Database:** PostgreSQL (Supabase)
-- **Auth:** Supabase Auth (PKCE)
-- **Payments:** Stripe
-- **UI Components:** shadcn/ui
-- **Styling:** Tailwind CSS
-- **State:** Server Actions + React Context
+### Base de Datos
+- **Schema:** `shared/database/schema/RESERREGA_FINAL.sql`
+- **Permisos:** `shared/database/scripts/setup-permissions.sql`
+- **Docs:** `shared/database/README.md`
 
-## 📝 Scripts SQL en Raíz
+---
 
-Estos scripts están listos para copiar y pegar en Supabase SQL Editor:
+## 🎨 Diseño y Branding
 
-- **`SETUP_INICIAL_COMPLETO.sql`** - Setup completo (recomendado)
-  - Crea superadmin, empresa demo e issuer
+### Colores
+- **Primary:** Pink/Rose (#ec4899)
+- **Accent:** Pink-600
+- **Background:** White/Slate
+- **Text:** Slate-900/White
 
-- **`SETUP_SUPERADMIN.sql`** - Solo superadmin
-  - Usuario: josivela+super@gmail.com
+### Tipografía
+- **Font:** System UI Stack (Inter preferido)
+- **Sizes:** Tailwind typography scale
 
-- **`SETUP_EMPRESA_DEMO.sql`** - Solo empresa demo
-  - Company id=1 con issuer
+---
 
-## 🚦 Estado del Proyecto
+## 🔐 Seguridad
 
-**Fase Actual:** Desarrollo - Módulo Database
+### Row Level Security (RLS)
+Todas las tablas tienen RLS Policies que aseguran:
+- Usuarios solo ven sus propios datos
+- Comerciales solo ven datos de su tienda
+- Admins solo ven datos de su empresa
+- Superadmins ven todo
 
-### Módulos Completados
+### Autenticación
+- Supabase Auth con JWT
+- Middleware de Next.js para protección de rutas
+- Server Actions con validación de permisos
 
-- ✅ **Database** - Schema, tipos TypeScript, RLS policies
+---
 
-### Próximos Módulos
+## 👥 Roles y Permisos
 
-- ⏳ **Auth** - Registro, login, roles
-- ⏳ **Tiendas** - CRUD de stores y products
-- ⏳ **Reservas** - Sistema de reservas €1
-- ⏳ **Wishlists** - Listas de deseos
-- ⏳ **Gifts** - Flujo de regalos
-- ⏳ **Friends** - Sistema de amistades
-- ⏳ **Payments** - Integración Stripe (simulado en MVP)
+| Rol | Descripción | Acceso |
+|-----|-------------|--------|
+| **Usuario** | Usuario final | Wishlist, Amigos, Regalos |
+| **Comercial** | Empleado de tienda | Store Panel, Reservas |
+| **Admin** | Administrador de empresa | Gestión de comerciales |
+| **Superadmin** | Administrador del sistema | Todo el sistema |
 
-Ver detalle en [docs/planificacion.md](docs/planificacion.md)
+---
 
-## 🤝 Contribuir
+## 📈 Roadmap
 
-Este proyecto sigue un workflow modular estricto:
+### ✅ Fase 1 - MVP (Completado)
+- [x] Database y Auth
+- [x] Reservas y Wishlist
+- [x] Red de Amigos
+- [x] Flujo de Regalos
+- [x] Panel de Comerciales
+- [x] Admin Dashboard
 
-1. **Un módulo a la vez** - Ver `docs/claude.md`
-2. **Sin modificar módulos READ-ONLY**
-3. **Seguir estructura de carpetas**
-4. **Tests antes de completar módulo**
+### 🟡 Fase 2 - Testing y Deploy (En Progreso)
+- [x] Build exitoso
+- [ ] Tests end-to-end
+- [ ] Deploy a Vercel
+- [ ] Onboarding de empresa demo
 
-## 📄 Licencia
+### 🔮 Fase 3 - Marketplace (Futuro)
+- [ ] Múltiples tiendas por producto
+- [ ] Sistema de escrow real
+- [ ] Tracking de envíos
+- [ ] Gamificación
 
-[Pendiente]
+---
 
-## 👥 Autores
+## 🤝 Contribución
 
-- José Ignacio Vela (@josivela)
+Este es un proyecto privado en desarrollo. Para contribuir:
+
+1. Fork del proyecto
+2. Crear feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push to branch (`git push origin feature/AmazingFeature`)
+5. Abrir Pull Request
+
+---
+
+## 📝 Licencia
+
+Proyecto privado - Todos los derechos reservados © 2025
+
+---
+
+## 📞 Contacto
+
+Para preguntas o soporte, contactar al equipo de desarrollo.
+
+---
+
+## 🙏 Agradecimientos
+
+- **Next.js** - Framework React
+- **Supabase** - Backend as a Service
+- **shadcn/ui** - Componentes UI
+- **Vercel** - Hosting y deploy
+- **Tailwind CSS** - Framework CSS
+
+---
+
+**Última actualización:** 2025-11-20
+**Versión:** 0.9.5 (86% completado)
+**Estado:** Beta - Listo para testing

@@ -23,6 +23,12 @@ const nextConfig: NextConfig = {
   },
 
   /**
+   * OUTPUT
+   * Enable standalone output for Docker deployments
+   */
+  output: 'standalone',
+
+  /**
    * EXTERNAL PACKAGES
    * Paquetes que deben ejecutarse solo en el servidor
    */

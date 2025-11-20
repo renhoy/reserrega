@@ -1,13 +1,13 @@
 {
   "name": "reserrega",
-  "version": "0.1.0",
+  "version": "0.9.5",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3434",
-    "dev:turbo": "next dev -p 3434 --turbopack",
-    "build": "next build",
-    "start": "next start -p 3434",
-    "lint": "eslint"
+    "dev": "next dev -p 3000 --turbopack",
+    "build": "next build --turbopack",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@anthropic-ai/claude-agent-sdk": "^0.1.22",

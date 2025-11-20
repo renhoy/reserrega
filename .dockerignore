@@ -1,0 +1,91 @@
+# =====================================================
+# RESERREGA - Docker Ignore
+# =====================================================
+# Files to exclude from Docker build context
+# =====================================================
+
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+
+# Testing
+coverage
+.nyc_output
+
+# Production
+/build
+
+# Misc
+.DS_Store
+*.pem
+
+# Environment variables
+.env*
+!.env.example
+!.env.production.example
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Vercel
+.vercel
+
+# Docs (exclude from production image)
+/docs/
+README.md
+CHANGELOG*.md
+DEPLOYMENT.md
+*.md
+
+# Temporary files
+/temp/
+/.dev/
+/.claude/
+
+# Scripts
+/scripts/
+fix_*.sh
+refactor_*.sh
+
+# Logs
+/logs/
+*.log
+
+# Testing
+__tests__
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Public files (exclude non-essential)
+public/pdfs/
+public/logos/
+
+# Migrations (include only numbered)
+migrations/EJECUTAR_*.sql
+migrations/UTIL_*.sql
+migrations/DIAGNOSTICO_*.sql
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml

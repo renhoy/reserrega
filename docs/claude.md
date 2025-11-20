@@ -1,45 +1,25 @@
 # Claude Code - Reserrega
 
-## MÓDULO ACTUAL: Admin Dashboard 🔴
+## MÓDULO ACTUAL: Testing & Bug Fixes 🔴
 
-**Objetivo:** Panel administrativo para superadmins - gestión de empresas, comerciales, estadísticas globales, configuración del sistema
+**Objetivo:** Validar flujos críticos, corregir bugs, asegurar estabilidad del sistema y preparar para producción
+
+**Estado:** 🟡 Parcialmente completado - Build exitoso, faltan tests de flujos
 
 ---
 
 ## ARCHIVOS PERMITIDOS (puedes modificar):
 
 ```
-features/admin-dashboard/
-├── components/
-│   ├── CompanyManager.tsx
-│   ├── ComercialManager.tsx
-│   ├── GlobalStats.tsx
-│   ├── SystemConfig.tsx
-│   └── ActivityLog.tsx
-├── actions/
-│   └── admin.actions.ts
-├── hooks/
-│   ├── use-companies.ts
-│   ├── use-comercials.ts
-│   └── use-global-stats.ts
-├── lib/
-│   └── admin-utils.ts
-├── types/
-│   └── admin.types.ts
-├── README.md
-└── index.ts
+docs/
+├── PRD.md                  # Documentar progreso
+├── tareas.md              # Actualizar estado de tareas
+└── claude.md              # Actualizar instrucciones
 
-src/app/
-├── (dashboard)/
-│   └── admin/
-│       ├── page.tsx
-│       ├── companies/
-│       │   └── page.tsx
-│       ├── comercials/
-│       │   └── page.tsx
-│       └── config/
-│           └── page.tsx
+Cualquier archivo para corrección de bugs críticos
 ```
+
+**IMPORTANTE:** Este módulo es de validación y corrección, no de desarrollo de nuevas funcionalidades.
 
 ---
 
@@ -124,13 +104,14 @@ src/app/
 2. Si NO está → **PARAR inmediatamente**
 3. Si está fuera del módulo activo → **ESCALAR**
 
-### ✅ Durante desarrollo:
+### ✅ Durante Testing & Bug Fixes:
 
-- Solo trabajar en archivos del módulo Admin Dashboard
+- Solo corregir bugs críticos y validar flujos
+- NO desarrollar nuevas funcionalidades
 - Una tarea a la vez (ver tareas.md)
 - Actualizar tareas.md cuando completes algo
-- Puedes LEER shared/*, features/* (completados) pero NO MODIFICAR
-- Si necesitas tocar otro módulo → PARAR y reportar
+- Puedes LEER cualquier archivo pero solo MODIFICAR para corrección de bugs
+- Documentar todos los bugs encontrados y corregidos
 
 ### 🚨 Si algo sale mal:
 

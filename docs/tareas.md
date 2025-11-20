@@ -102,14 +102,18 @@
 - Verificar responsive design
 
 **Criterio de aceptación:**
-- [ ] Sin errores de TypeScript
-- [ ] Sin errores en consola del navegador
+- [x] Sin errores de TypeScript - Build compilando exitosamente
+- [x] Corregir imports de useToast (use-toast → useToast)
+- [x] Crear DeleteConfirmDialog component
+- [x] Corregir imports de database (createClient → createServerComponentClient)
+- [x] Agregar react-hook-form dependency
+- [ ] Sin errores en consola del navegador (requiere testing manual)
 - [ ] Manejo correcto de errores (try/catch, toasts)
 - [ ] UI responsive en mobile y desktop
 - [ ] Loading states correctos
 - [ ] Empty states correctos
 
-**Estado:** ⏸️ PENDIENTE
+**Estado:** 🟡 PARCIALMENTE COMPLETADO (Build exitoso, faltan tests manuales)
 
 ---
 
